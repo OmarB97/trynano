@@ -1,4 +1,4 @@
-# nanotest-app
+# trynano
 
 A open-source site for beginners to try out Nano!
 
