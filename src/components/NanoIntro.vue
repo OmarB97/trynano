@@ -6,25 +6,35 @@
       transactions, zero fees and a high level of scalability, all while being very
       eco-friendly.
     </h5>
+    <!-- <div v-visible="!revealFaucetInfoClicked"> -->
     <ClickToReveal
       :revealText="'Click here to try it out yourself!'"
       :clickable="true"
       :shouldBoldText="true"
       :sizeFactor="1"
-      @revealClicked="$emit('revealFaucetInfoClicked')"
+      @revealClicked="handleRevealFaucetInfoClicked"
     ></ClickToReveal>
+    <!-- </div> -->
   </div>
 </template>
 
 <script>
+import { ref } from 'vue';
 import ClickToReveal from './common/ClickToReveal.vue';
 
 export default {
   name: 'NanoIntro',
   components: { ClickToReveal },
   emits: ['revealFaucetInfoClicked'],
-  setup() {
-    console.log('NanoIntro component setup');
+  setup(props, context) {
+    const revealFaucetInfoClicked = ref(false);
+
+    const handleRevealFaucetInfoClicked = () => {
+      revealFaucetInfoClicked.value = true;
+      context.emit('revealFaucetInfoClicked');
+    };
+
+    return { revealFaucetInfoClicked, handleRevealFaucetInfoClicked };
   },
 };
 </script>

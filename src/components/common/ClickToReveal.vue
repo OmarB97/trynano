@@ -6,6 +6,7 @@
     @mouseleave="hoverOnReveal = false"
     :class="{
       pointer: hoverOnReveal,
+      hidden: clickable && didClick,
       'hvr-icon-hang': hoverOnReveal,
       'greyed-out': !clickable,
     }"
@@ -31,6 +32,7 @@ export default {
   emits: ['revealClicked'],
   setup(props, context) {
     const hoverOnReveal = ref(false);
+    const didClick = ref(false);
 
     const textStyle = computed(() => {
       const styleObject = {
@@ -59,6 +61,7 @@ export default {
 
     const revealClicked = () => {
       console.log('reveal clicked!');
+      didClick.value = true;
       if (props.clickable) {
         context.emit('revealClicked');
       }
@@ -69,6 +72,7 @@ export default {
       chevronStyle,
       hoverOnReveal,
       revealClicked,
+      didClick,
     };
   },
 };
@@ -90,5 +94,13 @@ p {
 
 .greyed-out {
   opacity: 0.3;
+}
+
+/* Fade-Out Effect */
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.3s, opacity 0.3s linear, transform 0.3s ease;
+  transform: translatey(10px);
 }
 </style>

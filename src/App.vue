@@ -89,12 +89,7 @@ a {
   transition: all 0.4s ease-out;
 }
 
-.fade-in-down-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.fade-in-down-enter-from,
-.fade-in-down-leave-to {
+.fade-in-down-enter-from {
   transform: translatey(-20px);
   opacity: 0;
 }

@@ -2,8 +2,8 @@
   <div class="faucet-info">
     <p>
       First, you'll need to head over to
-      <a href="https://nano-faucet.org/">https://nano-faucet.org/</a> and grab yourself a
-      little bit of nano.
+      <a href="nano-faucet.org">nano-faucet.org</a> and grab yourself a little bit of
+      nano.
     </p>
     <p>
       We've gone ahead and generated a brand new nano wallet for you to use. Click the
@@ -11,11 +11,19 @@
       into the nano faucet input field to recieve a small amount of nano. Once the nano
       has been received, the status below will be updated.
     </p>
-    <p>
-      <b>Newly generated wallet address</b>: {{ firstWalletData.address }}
+    <p
+      style="display: inline-block"
+      @mouseover="hoverOnCopyAddress = true"
+      @mouseleave="hoverOnCopyAddress = false"
+      :class="{ pointer: hoverOnCopyAddress }"
+      v-clipboard:copy="firstWalletData.address"
+      v-clipboard:success="onAddressCopySuccess"
+    >
+      <b>Generated wallet address</b>:
+      <span>{{ firstWalletData.address }}</span>
       <img class="logo" src="../assets/copy.png" />
     </p>
-    <strong style="display: inline-block">
+    <strong style="display: block">
       <div style="display: inline-block">Status:&ensp;</div>
       <div
         style="display: inline-block"
@@ -25,13 +33,15 @@
       </div>
     </strong>
   </div>
-  <ClickToReveal
-    :revealText="'Proceed to Demo'"
-    :clickable="nanoRecieved"
-    :shouldBoldText="true"
-    :sizeFactor="0.95"
-    @revealClicked="$emit('revealDemoClicked')"
-  ></ClickToReveal>
+  <transition name="fade-out-down">
+    <ClickToReveal
+      :revealText="'Proceed to Demo'"
+      :clickable="nanoRecieved"
+      :shouldBoldText="true"
+      :sizeFactor="0.95"
+      @revealClicked="handleRevealDemoClicked"
+    ></ClickToReveal>
+  </transition>
 </template>
 
 <script>
@@ -45,9 +55,11 @@ export default {
   props: {
     firstWalletData: Object,
   },
-  setup(props) {
+  setup(props, context) {
     const nanoRecieved = ref(false);
     const depositStatus = ref('Not Received');
+    const revealDemoClicked = ref(false);
+    const hoverOnCopyAddress = ref(false);
 
     watch(props.firstWalletData.amount, (currAmount) => {
       if (currAmount > 0) {
@@ -55,7 +67,23 @@ export default {
       }
     });
 
-    return { nanoRecieved, depositStatus };
+    const handleRevealDemoClicked = () => {
+      revealDemoClicked.value = true;
+      context.emit('revealDemoClicked');
+    };
+
+    const onAddressCopySuccess = () => {
+      console.log('success');
+    };
+
+    return {
+      nanoRecieved,
+      depositStatus,
+      revealDemoClicked,
+      handleRevealDemoClicked,
+      hoverOnCopyAddress,
+      onAddressCopySuccess,
+    };
   },
 };
 </script>
@@ -63,6 +91,9 @@ export default {
 <style lang="css" scoped>
 .faucet-info {
   margin-bottom: 50px;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .waiting {
@@ -79,5 +110,18 @@ export default {
   max-width: 17px;
   max-height: 17px;
   margin-left: 4px;
+}
+
+.fade-out-down-leave-active {
+  transition: all 0.4s ease-out;
+}
+
+.fade-out-down-leave-to {
+  transform: translatey(20px);
+  opacity: 0;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>
