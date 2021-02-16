@@ -1,24 +1,12 @@
 # nanotest-app
 
-## Project setup
-```
-yarn install
-```
+A site for beginners to try out Nano!
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## Build the app
 
-### Compiles and minifies for production
-```
-yarn build
-```
+npm run build
 
-### Lints and fixes files
-```
-yarn lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Run the app
+
+npm run serve
