@@ -8,7 +8,7 @@ We show the user the transaction settlement time, the fees associated with that 
 
 We also allow the user to see the recent transaction history if they are curious and want to see it (e.g. maybe they want to get a rough idea of the average transaction time).
 
-Finally, we provide some basic instructions on how to set up their own private wallet and even how to send their nano to that wallet.
+Finally, we provide some basic instructions on how to set up their own private wallet (Natrium, Nault, etc.) and even how to send their nano to that wallet.
 
 ##
 
