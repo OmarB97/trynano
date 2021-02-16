@@ -10,6 +10,7 @@ We also allow the user to see the recent transaction history if they are curious
 
 Finally, we provide some basic instructions on how to set up their own private wallet and even how to send their nano to that wallet.
 
+##
 
 ## Run the app
 
@@ -19,5 +20,6 @@ npm run serve
 
 npm run build
 
+##
 
 If you have any feedback/suggestions, please create an issue. If you want to contribute, feel free to submit a pull request and I'll look over it!
