@@ -1,4 +1,8 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import installElementPlus from './plugins/element';
+import '../node_modules/hover.css';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+installElementPlus(app);
+app.mount('#app');
