@@ -1,5 +1,7 @@
 # trynano
 
+https://www.trynano.io
+
 A open-source site for beginners to try out Nano!
 
 Walks you through step-by-step starting with what Nano is, creating a new wallet, getting a little bit of nano in that wallet to play around with, and creating a second wallet to allow the user to send the nano back and forth between the two wallets to test it out for themselves! 
