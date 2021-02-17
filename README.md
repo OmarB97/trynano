@@ -10,7 +10,6 @@ We also allow the user to see the recent transaction history if they are curious
 
 Finally, we provide some basic instructions on how to set up their own private wallet (Natrium, Nault, etc.) and even how to send their nano to that wallet.
 
-##
 
 ## Clone the repo
 
