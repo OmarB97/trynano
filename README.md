@@ -20,7 +20,7 @@ Finally, we provide some basic instructions on how to set up their own private w
 git clone https://github.com:OmarB97/trynano.git
 ```
 
-## Install Dependencies
+## Install dependencies
 
 ```
 npm install 
