@@ -17,7 +17,7 @@ Finally, we provide some basic instructions on how to set up their own private w
 ## Clone the repo
 
 ```
-$ git clone https://github.com:OmarB97/trynano.git
+git clone https://github.com:OmarB97/trynano.git
 ```
 
 ## Install Dependencies
