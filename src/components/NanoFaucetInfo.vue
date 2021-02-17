@@ -2,8 +2,8 @@
   <div class="faucet-info">
     <p>
       First, you'll need to head over to
-      <a href="https://www.nano-faucet.org">nano-faucet.org</a> and grab yourself a little
-      bit of nano.
+      <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and grab
+      yourself a little bit of nano.
     </p>
     <p>
       We've gone ahead and generated a brand new nano wallet for you to use. Click the

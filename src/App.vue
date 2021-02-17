@@ -15,11 +15,15 @@
   </transition>
   <div id="footer">
     <div>
-      Created by <a href="https://www.linkedin.com/in/omarbaradei/">Omar Baradei</a>
+      Created by
+      <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank">Omar Baradei</a>
     </div>
     <div>
-      Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from
-      <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+      Icons made by
+      <a href="https://www.freepik.com" title="Freepik" target="_blank">Freepik</a> from
+      <a href="https://www.flaticon.com/" title="Flaticon" target="_blank"
+        >www.flaticon.com</a
+      >
     </div>
   </div>
 </template>
