@@ -12,13 +12,29 @@ Finally, we provide some basic instructions on how to set up their own private w
 
 ##
 
+## Clone the repo
+
+```
+$ git clone https://github.com:OmarB97/trynano.git
+```
+
+## Install Dependencies
+
+```
+npm install 
+```
+
 ## Run the app
 
+```
 npm run serve
+```
 
 ## Build the app
 
+```
 npm run build
+```
 
 ##
 
