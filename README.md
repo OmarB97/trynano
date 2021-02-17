@@ -1,6 +1,7 @@
 # trynano
 
-www.trynano.io
+[trynano.io](https://www.trynano.io)
+
 
 A open-source site for beginners to try out Nano!
 
