@@ -17,7 +17,7 @@
       placement="right"
       :manual="true"
       :offset="15"
-      v-model="shopyCopyTooltip"
+      v-model="showCopyTooltip"
     >
       <div
         style="display: inline-block; margin: 16px 0px"
@@ -69,7 +69,7 @@ export default {
     const depositStatus = ref('Not Received');
     const revealDemoClicked = ref(false);
     const hoverOnCopyAddress = ref(false);
-    const shopyCopyTooltip = ref(false);
+    const showCopyTooltip = ref(false);
 
     watch(props.firstWalletData.amount, (currAmount) => {
       if (currAmount > 0) {
@@ -83,9 +83,9 @@ export default {
     };
 
     const onAddressCopySuccess = () => {
-      shopyCopyTooltip.value = true;
+      showCopyTooltip.value = true;
       setTimeout(() => {
-        shopyCopyTooltip.value = false;
+        showCopyTooltip.value = false;
       }, 1500);
       console.log('success');
     };
@@ -97,7 +97,7 @@ export default {
       handleRevealDemoClicked,
       hoverOnCopyAddress,
       onAddressCopySuccess,
-      shopyCopyTooltip,
+      showCopyTooltip,
     };
   },
 };
