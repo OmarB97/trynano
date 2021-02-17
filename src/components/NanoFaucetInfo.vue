@@ -2,8 +2,8 @@
   <div class="faucet-info">
     <p>
       First, you'll need to head over to
-      <a href="nano-faucet.org">nano-faucet.org</a> and grab yourself a little bit of
-      nano.
+      <a href="https://www.nano-faucet.org">nano-faucet.org</a> and grab yourself a little
+      bit of nano.
     </p>
     <p>
       We've gone ahead and generated a brand new nano wallet for you to use. Click the
@@ -11,18 +11,27 @@
       into the nano faucet input field to recieve a small amount of nano. Once the nano
       has been received, the status below will be updated.
     </p>
-    <p
-      style="display: inline-block"
-      @mouseover="hoverOnCopyAddress = true"
-      @mouseleave="hoverOnCopyAddress = false"
-      :class="{ pointer: hoverOnCopyAddress }"
-      v-clipboard:copy="firstWalletData.address"
-      v-clipboard:success="onAddressCopySuccess"
+    <el-tooltip
+      effect="light"
+      content="Copied!"
+      placement="right"
+      :manual="true"
+      :offset="15"
+      v-model="addressCopied"
     >
-      <b>Generated wallet address</b>:
-      <span>{{ firstWalletData.address }}</span>
-      <img class="logo" src="../assets/copy.png" />
-    </p>
+      <div
+        style="display: inline-block; margin: 16px 0px"
+        @mouseover="hoverOnCopyAddress = true"
+        @mouseleave="hoverOnCopyAddress = false"
+        :class="{ pointer: hoverOnCopyAddress }"
+        v-clipboard:copy="firstWalletData.address"
+        v-clipboard:success="onAddressCopySuccess"
+      >
+        <b>Generated wallet address</b>:
+        <span>{{ firstWalletData.address }}</span>
+        <img class="logo" src="../assets/copy.png" />
+      </div>
+    </el-tooltip>
     <strong style="display: block">
       <div style="display: inline-block">Status:&ensp;</div>
       <div
@@ -60,6 +69,7 @@ export default {
     const depositStatus = ref('Not Received');
     const revealDemoClicked = ref(false);
     const hoverOnCopyAddress = ref(false);
+    const addressCopied = ref(false);
 
     watch(props.firstWalletData.amount, (currAmount) => {
       if (currAmount > 0) {
@@ -73,6 +83,10 @@ export default {
     };
 
     const onAddressCopySuccess = () => {
+      addressCopied.value = true;
+      setTimeout(() => {
+        addressCopied.value = false;
+      }, 1500);
       console.log('success');
     };
 
@@ -83,6 +97,7 @@ export default {
       handleRevealDemoClicked,
       hoverOnCopyAddress,
       onAddressCopySuccess,
+      addressCopied,
     };
   },
 };
@@ -109,7 +124,7 @@ export default {
   width: auto;
   max-width: 17px;
   max-height: 17px;
-  margin-left: 4px;
+  margin-left: 8px;
 }
 
 .fade-out-down-leave-active {
