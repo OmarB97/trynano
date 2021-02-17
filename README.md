@@ -1,7 +1,6 @@
 # trynano
 
-[trynano.io](https://www.trynano.io)
-
+<a href="https://www.trynano.io" target="_blank">trynano.io</a>
 
 A open-source site for beginners to try out Nano!
 
