@@ -12,7 +12,7 @@
       has been received, the status below will be updated.
     </p>
     <el-tooltip
-      effect="light"
+      effect="dark"
       content="Copied!"
       placement="right"
       :manual="true"

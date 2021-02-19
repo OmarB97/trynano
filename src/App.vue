@@ -13,17 +13,32 @@
       <NanoDemo></NanoDemo>
     </div>
   </transition>
-  <div id="footer">
-    <div>
-      Created by
-      <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank">Omar Baradei</a>
-    </div>
-    <div>
-      Icons made by
-      <a href="https://www.freepik.com" title="Freepik" target="_blank">Freepik</a> from
-      <a href="https://www.flaticon.com/" title="Flaticon" target="_blank"
-        >www.flaticon.com</a
-      >
+  <div id="footer2">
+    <div style="display: block">
+      <span class="footer-content">
+        Created by
+        <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank">Omar Baradei</a
+        >.
+      </span>
+      <span class="footer-content">
+        Link to
+        <a href="https://github.com/OmarB97/trynano" target="_blank">Github</a>.
+      </span>
+      <span class="footer-content">
+        Icons made by
+        <a href="https://www.freepik.com" title="Freepik" target="_blank">Freepik</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon" target="_blank"
+          >www.flaticon.com</a
+        >.
+      </span>
+      <span class="footer-content">
+        Tips are accepted at:
+        <a
+          href="https://nanocrawler.cc/explorer/account/nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq/history"
+          target="_blank"
+          >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
+        >.
+      </span>
     </div>
   </div>
 </template>
@@ -76,15 +91,38 @@ export default {
 #footer {
   font-size: small;
   bottom: 0;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 2px;
 }
 
-a {
-  color: #2c3e50;
+#footer2 {
+  font-size: 0.85em;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  padding: 1rem 1.5rem;
+  text-align: center; /* This line is not needed but centers your text */
+  color: #999;
+  background-color: #404040;
+}
+
+.footer-content > a {
+  color: #e6e6e6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.footer-content {
+  margin: 0 0.5rem;
 }
 
 /* Enter and leave animations can use different */
