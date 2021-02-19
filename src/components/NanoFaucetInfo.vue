@@ -9,7 +9,7 @@
       We've gone ahead and generated a brand new nano wallet for you to use. Click the
       wallet address below to automatically copy it to your clipboard and then paste it
       into the nano faucet input field to recieve a small amount of nano. Once the nano
-      has been received, the status below will be updated.
+      has been received, the status below will be updated and you can proceed to the demo.
     </p>
     <el-tooltip
       effect="dark"
