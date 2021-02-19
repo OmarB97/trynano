@@ -112,9 +112,15 @@ export default {
   background-color: #404040;
 }
 
+a {
+  text-decoration: none;
+  color: #141337;
+  font-weight: 600;
+}
+
 .footer-content > a {
   color: #e6e6e6;
-  text-decoration: none;
+  font-weight: 400;
 }
 
 a:hover {
