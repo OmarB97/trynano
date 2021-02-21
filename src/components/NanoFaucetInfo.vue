@@ -3,18 +3,18 @@
     <p class="maintext">
       First, head over to
       <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and grab
-      yourself some Nano.
+      yourself some free Nano.
     </p>
-    <p class="subtext">(If you've recieved a tip from someone, that works too!)</p>
     <p>
       In order to recieve Nano, you'll need to provide a wallet address. We've gone ahead
       and generated a brand new Nano wallet for you to use. Click the wallet address below
       to automatically copy it to your clipboard and then paste it into the Nano Faucet
       input field to recieve a small amount of Nano.
     </p>
-    <p>
-      If you received a tip from someone (using NanoTipBot), follow the instructions
-      according to the platform you received it on.
+    <p class="subtext">
+      (<u>Note</u>: If you've received a tip from someone using NanoTipBot and would like
+      to use that instead, follow the instructions according to the platform you received
+      it on and use the generated wallet address below.)
     </p>
     <p>
       Once the Nano has been received, the status below will be updated and you can
