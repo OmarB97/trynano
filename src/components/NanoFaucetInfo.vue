@@ -13,8 +13,9 @@
     </p>
     <p class="subtext">
       (<u>Note</u>: If you've received a tip from someone using NanoTipBot and would like
-      to use that instead, follow the instructions according to the platform you received
-      it on and use the generated wallet address below.)
+      to use that instead, follow the instructions
+      <a href="https://nanotipbot.com/">here</a> and use the generated wallet address
+      we've provided below.)
     </p>
     <p>
       Once the Nano has been received, the status below will be updated and you can

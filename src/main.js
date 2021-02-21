@@ -1,11 +1,11 @@
 import { createApp } from 'vue';
 import { VueClipboard } from '@soerenmartius/vue3-clipboard';
 import mitt from 'mitt';
-import App from './App.vue';
+import NanoApp from './NanoApp.vue';
 import installElementPlus from './plugins/element';
 import '../node_modules/hover.css';
 
-const app = createApp(App);
+const app = createApp(NanoApp);
 installElementPlus(app);
 
 const emitter = mitt();
