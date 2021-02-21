@@ -27,7 +27,7 @@
         </span>
         <span class="footer-content">
           Link to
-          <a href="https://github.com/OmarB97/trynano" target="_blank">Github</a>.
+          <a href="https://github.com/OmarB97/trynano" target="_blank">GitHub</a>.
         </span>
         <span class="footer-content">
           Icons made by
@@ -104,6 +104,9 @@ export default {
 html,
 body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #app {
@@ -119,10 +122,10 @@ body {
   margin-top: 60px;
 }
 
-html,
 .flex-wrapper {
   display: flex;
   min-height: 100vh;
+  width: 100%;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -134,6 +137,7 @@ html,
   text-align: center; /* This line is not needed but centers your text */
   color: #999;
   background-color: #404040;
+  box-sizing: border-box;
 }
 
 a {
