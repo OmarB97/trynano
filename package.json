@@ -12,6 +12,9 @@
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.32",
     "hover.css": "^2.3.2",
+    "mitt": "^2.1.0",
+    "nanocurrency-web": "^1.3.0",
+    "remove-trailing-zeros": "^1.0.3",
     "vue": "^3.0.0"
   },
   "devDependencies": {

@@ -1,15 +1,24 @@
 <template>
   <div class="faucet-info">
-    <p>
-      First, you'll need to head over to
+    <p class="maintext">
+      First, head over to
       <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and grab
-      yourself a little bit of nano.
+      yourself some Nano.
+    </p>
+    <p class="subtext">(If you've recieved a tip from someone, that works too!)</p>
+    <p>
+      In order to recieve Nano, you'll need to provide a wallet address. We've gone ahead
+      and generated a brand new Nano wallet for you to use. Click the wallet address below
+      to automatically copy it to your clipboard and then paste it into the Nano Faucet
+      input field to recieve a small amount of Nano.
     </p>
     <p>
-      We've gone ahead and generated a brand new nano wallet for you to use. Click the
-      wallet address below to automatically copy it to your clipboard and then paste it
-      into the nano faucet input field to recieve a small amount of nano. Once the nano
-      has been received, the status below will be updated and you can proceed to the demo.
+      If you received a tip from someone (using NanoTipBot), follow the instructions
+      according to the platform you received it on.
+    </p>
+    <p>
+      Once the Nano has been received, the status below will be updated and you can
+      proceed to the demo.
     </p>
     <el-tooltip
       effect="dark"
@@ -41,6 +50,12 @@
         {{ depositStatus }}
       </div>
     </strong>
+    <div v-show="receivedAmount > 0">
+      <div style="display: block">
+        <strong style="display: inline-block">Amount Received:&ensp;</strong>
+        <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
+      </div>
+    </div>
   </div>
   <transition name="fade-out-down">
     <ClickToReveal
@@ -54,7 +69,9 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, watch, getCurrentInstance } from 'vue';
+import { tools } from 'nanocurrency-web';
+import removeTrailingZeros from 'remove-trailing-zeros';
 import ClickToReveal from './common/ClickToReveal.vue';
 
 export default {
@@ -65,15 +82,33 @@ export default {
     firstWalletData: Object,
   },
   setup(props, context) {
+    const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+
     const nanoRecieved = ref(false);
     const depositStatus = ref('Not Received');
     const revealDemoClicked = ref(false);
     const hoverOnCopyAddress = ref(false);
     const showCopyTooltip = ref(false);
+    const receivedAmount = ref(0);
 
-    watch(props.firstWalletData.amount, (currAmount) => {
+    emitter.on('confirmation-received', (res) => {
+      console.log('emitter on confirmation-received');
+      console.log(res);
+      if (res.message.account === props.firstWalletData.address) {
+        console.log('wrong confirmation block');
+        return;
+      }
+      const rawAmount = res.message.amount;
+      const nanoAmount = tools.convert(rawAmount, 'RAW', 'NANO');
+      console.log(rawAmount);
+      console.log(nanoAmount);
+      receivedAmount.value = removeTrailingZeros(nanoAmount);
+    });
+
+    watch(receivedAmount, (currAmount) => {
       if (currAmount > 0) {
         depositStatus.value = 'Recieved!';
+        nanoRecieved.value = true;
       }
     });
 
@@ -98,6 +133,7 @@ export default {
       hoverOnCopyAddress,
       onAddressCopySuccess,
       showCopyTooltip,
+      receivedAmount,
     };
   },
 };
@@ -138,5 +174,18 @@ export default {
 
 .pointer {
   cursor: pointer;
+}
+
+.maintext {
+  padding: 0;
+  margin: 0;
+}
+
+.subtext {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: lighter;
 }
 </style>
