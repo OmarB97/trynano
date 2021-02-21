@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import { WS_SERVER } from './constants';
+import { WS_SERVER } from './constants'; // File with sensitive server API info not tracked on GitHub for security purposes
 
 let socketNano;
 
