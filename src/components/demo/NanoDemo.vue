@@ -33,6 +33,10 @@ export default {
     NanoTransactionResults,
     NanoTransactionStatusBar,
   },
+  props: {
+    firstWallet: Object,
+    secondWallet: Object,
+  },
   setup() {
     console.log('NanoDemo component setup');
   },
@@ -44,9 +48,4 @@ export default {
   padding: 10px 0;
   background-color: #f9fafc;
 }
-
-/* .nano-wallet {
-  display: block;
-  justify-content: center;
-} */
 </style>

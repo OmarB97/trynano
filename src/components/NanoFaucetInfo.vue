@@ -14,8 +14,8 @@
     <p class="subtext">
       (<u>Note</u>: If you've received a tip from someone using NanoTipBot and would like
       to use that instead, follow the instructions
-      <a href="https://nanotipbot.com/">here</a> and use the generated wallet address
-      we've provided below.)
+      <a href="https://nanotipbot.com/" target="_blank">here</a> and use the generated
+      wallet address we've provided below.)
     </p>
     <p>
       Once the Nano has been received, the status below will be updated and you can
@@ -34,11 +34,11 @@
         @mouseover="hoverOnCopyAddress = true"
         @mouseleave="hoverOnCopyAddress = false"
         :class="{ pointer: hoverOnCopyAddress }"
-        v-clipboard:copy="firstWalletData.address"
+        v-clipboard:copy="walletAccount.address"
         v-clipboard:success="onAddressCopySuccess"
       >
         <b>Generated wallet address</b>:
-        <span>{{ firstWalletData.address }}</span>
+        <span>{{ walletAccount.address }}</span>
         <img class="logo" src="../assets/copy.png" />
       </div>
     </el-tooltip>
@@ -70,9 +70,7 @@
 </template>
 
 <script>
-import { ref, watch, getCurrentInstance } from 'vue';
-import { tools } from 'nanocurrency-web';
-import removeTrailingZeros from 'remove-trailing-zeros';
+import { ref, computed, getCurrentInstance } from 'vue';
 import ClickToReveal from './common/ClickToReveal.vue';
 
 export default {
@@ -91,25 +89,17 @@ export default {
     const hoverOnCopyAddress = ref(false);
     const showCopyTooltip = ref(false);
     const receivedAmount = ref(0);
+    const walletAccount = computed(() => props.firstWalletData.accounts[0]);
 
-    emitter.on('confirmation-received', (res) => {
-      console.log('emitter on confirmation-received');
-      console.log(res);
-      if (res.message.account === props.firstWalletData.address) {
-        console.log('wrong confirmation block');
-        return;
-      }
-      const rawAmount = res.message.amount;
-      const nanoAmount = tools.convert(rawAmount, 'RAW', 'NANO');
-      console.log(rawAmount);
-      console.log(nanoAmount);
-      receivedAmount.value = removeTrailingZeros(nanoAmount);
-    });
-
-    watch(receivedAmount, (currAmount) => {
-      if (currAmount > 0) {
-        depositStatus.value = 'Recieved!';
-        nanoRecieved.value = true;
+    emitter.on('nano-received', (receiveData) => {
+      console.log('emitter on nano-received in NanoFaucetInfo');
+      console.log(receiveData);
+      if (receiveData.address === walletAccount.value.address) {
+        if (receiveData.balance > 0) {
+          depositStatus.value = 'Recieved!';
+          nanoRecieved.value = true;
+          receivedAmount.value = receiveData.amount;
+        }
       }
     });
 
@@ -135,6 +125,7 @@ export default {
       onAddressCopySuccess,
       showCopyTooltip,
       receivedAmount,
+      walletAccount,
     };
   },
 };

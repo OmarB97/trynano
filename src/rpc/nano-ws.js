@@ -1,6 +1,4 @@
 /* eslint-disable no-use-before-define */
-import { WS_SERVER } from './constants'; // File with sensitive server API info not tracked on GitHub for security purposes
-
 let socketNano;
 
 function sleepSimple(ms) {
@@ -17,7 +15,15 @@ function callWebsocket(trackedAccounts, emitter) {
     }
     const res = JSON.parse(event.data);
     if (res.topic !== null && res.topic === 'confirmation') {
-      emitter.emit('confirmation-received', res);
+      console.log(JSON.stringify(res.message));
+      const subType = res.message.block.subtype;
+      if (subType === 'send') {
+        emitter.emit('block-confirmation-send', res);
+      } else if (subType === 'receive') {
+        emitter.emit('block-confirmation-receive', res);
+      } else {
+        console.log(`block subType ${subType} not handled`);
+      }
     }
   };
 
@@ -61,7 +67,7 @@ function callWebsocket(trackedAccounts, emitter) {
   // Websocket for NANO with automatic reconnect
   async function socketSleep(sleep = 5000) {
     await sleepSimple(sleep);
-    socketNano = new WebSocket(WS_SERVER);
+    socketNano = new WebSocket(process.env.VUE_APP_WS_SERVER);
     socketNano.addEventListener('open', socketOpenListener);
     socketNano.addEventListener('error', socketErrorListener);
     socketNano.addEventListener('message', socketMessageListener);

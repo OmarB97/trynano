@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 <template>
   <div class="flex-wrapper">
     <div class="site-content">
@@ -12,7 +13,10 @@
       </transition>
       <transition name="fade-in-down">
         <div v-show="didRevealDemo">
-          <NanoDemo></NanoDemo>
+          <NanoDemo
+            :firstWallet="firstWalletData"
+            :secondWallet="secondWalletData"
+          ></NanoDemo>
         </div>
       </transition>
       <div class="push"></div>
@@ -23,12 +27,13 @@
 
 <script>
 import { ref, getCurrentInstance } from 'vue';
+import removeTrailingZeros from 'remove-trailing-zeros';
+import { tools } from 'nanocurrency-web';
 import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
 import NanoFooter from './components/NanoFooter.vue';
 import NanoDemo from './components/demo/NanoDemo.vue';
 import callWebsocket from './rpc/nano-ws';
-import generateNanoWallets from './utils/nano';
 
 export default {
   name: 'NanoApp',
@@ -39,25 +44,81 @@ export default {
     NanoFooter,
   },
   setup() {
-    const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+    const {
+      emitter,
+      nanoClient,
+    } = getCurrentInstance().appContext.config.globalProperties;
 
     const didRevealFaucetInfo = ref(false);
     const didRevealDemo = ref(false);
 
-    const [firstWallet, secondWallet] = generateNanoWallets();
-
-    const firstWalletData = ref(firstWallet);
-    const secondWalletData = ref(secondWallet);
+    const firstWalletData = ref(nanoClient.generateWallet());
+    const secondWalletData = ref(nanoClient.generateWallet());
 
     const handleRevealFaucetInfoClicked = () => {
       didRevealFaucetInfo.value = true;
       console.log(firstWalletData.value);
       console.log(secondWalletData.value);
       callWebsocket(
-        [firstWalletData.value.address, secondWalletData.value.address],
+        [
+          firstWalletData.value.accounts[0].address,
+          secondWalletData.value.accounts[0].address,
+        ],
         emitter
       );
     };
+
+    // Handle send confirmation block, receive most recent pending block
+    emitter.on('block-confirmation-send', (res) => {
+      console.log('emitter on block-confirmation-send in NanoApp');
+      console.log(
+        `NanoApp block-confirmation-send response: ${JSON.stringify(res.message)}`
+      );
+      const confirmationAddress = res.message.block.link_as_account;
+      let matchingRecieveAccount;
+
+      if (firstWalletData.value.accounts[0].address === confirmationAddress) {
+        // receive block for first wallet
+        [matchingRecieveAccount] = firstWalletData.value.accounts;
+      } else if (secondWalletData.value.accounts[0].address === confirmationAddress) {
+        // receive block for second wallet
+        [matchingRecieveAccount] = secondWalletData.value.accounts;
+      } else {
+        console.log('Confirmation block did not match address in either wallet');
+        return;
+      }
+      /*
+        Replace hardcoded 1 with a 'receiveAll' API call once
+        it has been implemented by the npm library
+      */
+      console.log(matchingRecieveAccount);
+      nanoClient.receive(matchingRecieveAccount, 1).then((accountAfterReceive) => {
+        if (accountAfterReceive.error && accountAfterReceive.error !== null) {
+          console.log(`error receiving nano block, ${accountAfterReceive.error}`);
+        }
+        console.log(accountAfterReceive);
+      });
+    });
+
+    // Handle receive confirmation block, emit received nano data
+    emitter.on('block-confirmation-receive', (res) => {
+      console.log('emitter on block-confirmation-receive in NanoApp');
+      console.log(
+        `NanoApp block-confirmation-receive response: ${JSON.stringify(res.message)}`
+      );
+      const address = res.message.account;
+      const nanoAmount = removeTrailingZeros(
+        tools.convert(res.message.amount, 'RAW', 'NANO')
+      );
+      const nanoBalance = removeTrailingZeros(
+        tools.convert(res.message.block.balance, 'RAW', 'NANO')
+      );
+      emitter.emit('nano-received', {
+        address,
+        amount: nanoAmount,
+        balance: nanoBalance,
+      });
+    });
 
     return {
       didRevealFaucetInfo,
