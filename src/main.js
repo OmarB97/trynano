@@ -14,7 +14,6 @@ app.config.globalProperties.emitter = emitter;
 
 const client = new NanoClient({
   url: process.env.VUE_APP_NANO_API_URL, // Or any other node url
-  //   url: 'https://api.nanobox.cc', // Or any other node url
   // Basic auth if the proxy requires this
   credentials: {
     username: process.env.VUE_APP_NANO_API_USERNAME,
