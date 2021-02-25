@@ -26,6 +26,17 @@ git clone https://github.com:OmarB97/trynano.git
 npm install 
 ```
 
+## Define your own env variables
+
+NOTE: Make sure you're in the root directory of the project:
+
+```
+touch .env
+```
+
+If not sure what to put here just reach out to me and I can provide you this info.
+
+
 ## Run the app
 
 ```
