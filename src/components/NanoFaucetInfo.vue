@@ -53,7 +53,7 @@
     </strong>
     <div v-show="receivedAmount > 0">
       <div style="display: block">
-        <strong style="display: inline-block">Amount Received:&ensp;</strong>
+        <strong style="display: inline-block">Amount:&ensp;</strong>
         <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
       </div>
     </div>
