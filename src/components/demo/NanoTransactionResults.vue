@@ -1,6 +1,7 @@
 <template>
   <div>Transaction Time: {{ transactionTime }}</div>
   <div>Transaction Fees: None</div>
+  <div>Energy Consumption: 0.000112 kWh</div>
 </template>
 
 <script>

@@ -17,10 +17,6 @@
       <a href="https://nanotipbot.com/" target="_blank">here</a> and use the generated
       wallet address we've provided below.)
     </p>
-    <p>
-      Once the Nano has been received, the status below will be updated and you can
-      proceed to the demo.
-    </p>
     <el-tooltip
       effect="dark"
       content="Copied!"
@@ -95,7 +91,7 @@ export default {
       console.log('emitter on nano-received in NanoFaucetInfo');
       console.log(receiveData);
       if (receiveData.address === walletAccount.value.address) {
-        if (receiveData.balance > 0) {
+        if (!nanoRecieved.value && receiveData.balance > 0) {
           depositStatus.value = 'Recieved!';
           nanoRecieved.value = true;
           receivedAmount.value = receiveData.amount;

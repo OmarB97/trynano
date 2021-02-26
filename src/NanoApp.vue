@@ -12,7 +12,7 @@
         </div>
       </transition>
       <transition name="fade-in-down">
-        <div v-show="didRevealDemo">
+        <div v-show="true">
           <NanoDemo
             :firstWallet="firstWalletData"
             :secondWallet="secondWalletData"
@@ -74,17 +74,43 @@ export default {
       console.log(
         `NanoApp block-confirmation-send response: ${JSON.stringify(res.message)}`
       );
-      const confirmationAddress = res.message.block.link_as_account;
-      let matchingRecieveAccount;
 
-      if (firstWalletData.value.accounts[0].address === confirmationAddress) {
+      const confirmationSenderAddress = res.message.account;
+      let shouldEmitSend;
+      if (firstWalletData.value.accounts[0].address === confirmationSenderAddress) {
+        // update first wallet balance
+        firstWalletData.value.accounts[0].balance.raw = res.message.block.balance;
+        shouldEmitSend = true;
+      } else if (
+        secondWalletData.value.accounts[0].address === confirmationSenderAddress
+      ) {
+        // receive block for second wallet
+        secondWalletData.value.accounts[0].balance.raw = res.message.block.balance;
+        shouldEmitSend = true;
+      } else {
+        shouldEmitSend = false;
+      }
+
+      if (shouldEmitSend) {
+        emitter.emit('nano-sent', {
+          address: confirmationSenderAddress,
+        });
+      }
+
+      const confirmationReceiverAddress = res.message.block.link_as_account;
+      let matchingRecieveAccount;
+      if (firstWalletData.value.accounts[0].address === confirmationReceiverAddress) {
         // receive block for first wallet
         [matchingRecieveAccount] = firstWalletData.value.accounts;
-      } else if (secondWalletData.value.accounts[0].address === confirmationAddress) {
+      } else if (
+        secondWalletData.value.accounts[0].address === confirmationReceiverAddress
+      ) {
         // receive block for second wallet
         [matchingRecieveAccount] = secondWalletData.value.accounts;
       } else {
-        console.log('Confirmation block did not match address in either wallet');
+        console.log(
+          'Receive Confirmation block receiver address did not match address in either wallet'
+        );
         return;
       }
       /*
@@ -106,7 +132,20 @@ export default {
       console.log(
         `NanoApp block-confirmation-receive response: ${JSON.stringify(res.message)}`
       );
-      const address = res.message.account;
+      const confirmationAddress = res.message.account;
+      if (firstWalletData.value.accounts[0].address === confirmationAddress) {
+        // update first wallet balance
+        firstWalletData.value.accounts[0].balance.raw = res.message.amount;
+      } else if (secondWalletData.value.accounts[0].address === confirmationAddress) {
+        // receive block for second wallet
+        secondWalletData.value.accounts[0].balance.raw = res.message.amount;
+      } else {
+        console.log(
+          'Receive Confirmation block receiver address did not match address in either wallet'
+        );
+        return;
+      }
+
       const nanoAmount = removeTrailingZeros(
         tools.convert(res.message.amount, 'RAW', 'NANO')
       );
@@ -114,7 +153,7 @@ export default {
         tools.convert(res.message.block.balance, 'RAW', 'NANO')
       );
       emitter.emit('nano-received', {
-        address,
+        address: confirmationAddress,
         amount: nanoAmount,
         balance: nanoBalance,
       });
