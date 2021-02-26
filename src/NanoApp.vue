@@ -16,7 +16,13 @@
           <NanoDemo
             :firstWallet="firstWalletData"
             :secondWallet="secondWalletData"
+            @revealClaimNanoClicked="didRevealClaimNano = true"
           ></NanoDemo>
+        </div>
+      </transition>
+      <transition name="fade-in-down">
+        <div class="claimNano" v-show="didRevealClaimNano">
+          <ClaimNano></ClaimNano>
         </div>
       </transition>
       <div class="push"></div>
@@ -33,6 +39,7 @@ import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
 import NanoFooter from './components/NanoFooter.vue';
 import NanoDemo from './components/demo/NanoDemo.vue';
+import ClaimNano from './components/ClaimNano.vue';
 import callWebsocket from './rpc/nano-ws';
 
 export default {
@@ -42,6 +49,7 @@ export default {
     NanoFaucetInfo,
     NanoDemo,
     NanoFooter,
+    ClaimNano,
   },
   setup() {
     const {
@@ -51,9 +59,11 @@ export default {
 
     const didRevealFaucetInfo = ref(false);
     const didRevealDemo = ref(false);
+    const didRevealClaimNano = ref(false);
 
     const firstWalletData = ref(nanoClient.generateWallet());
     const secondWalletData = ref(nanoClient.generateWallet());
+    const alreadyProcessedReceiveBlock = ref(false);
 
     const handleRevealFaucetInfoClicked = () => {
       didRevealFaucetInfo.value = true;
@@ -91,9 +101,11 @@ export default {
         shouldEmitSend = false;
       }
 
-      if (shouldEmitSend) {
+      if (shouldEmitSend && !alreadyProcessedReceiveBlock.value) {
         emitter.emit('nano-sent', {
           address: confirmationSenderAddress,
+          timestamp: res.time,
+          hash: res.message.hash,
         });
       }
 
@@ -118,12 +130,15 @@ export default {
         it has been implemented by the npm library
       */
       console.log(matchingRecieveAccount);
-      nanoClient.receive(matchingRecieveAccount, 1).then((accountAfterReceive) => {
-        if (accountAfterReceive.error && accountAfterReceive.error !== null) {
-          console.log(`error receiving nano block, ${accountAfterReceive.error}`);
-        }
-        console.log(accountAfterReceive);
-      });
+      if (!alreadyProcessedReceiveBlock.value) {
+        nanoClient.receive(matchingRecieveAccount, 1).then((accountAfterReceive) => {
+          if (accountAfterReceive.error && accountAfterReceive.error !== null) {
+            console.log(`error receiving nano block, ${accountAfterReceive.error}`);
+          }
+          console.log(accountAfterReceive);
+        });
+      }
+      alreadyProcessedReceiveBlock.value = !alreadyProcessedReceiveBlock.value;
     });
 
     // Handle receive confirmation block, emit received nano data
@@ -156,12 +171,14 @@ export default {
         address: confirmationAddress,
         amount: nanoAmount,
         balance: nanoBalance,
+        hash: res.message.hash,
       });
     });
 
     return {
       didRevealFaucetInfo,
       didRevealDemo,
+      didRevealClaimNano,
       firstWalletData,
       secondWalletData,
       handleRevealFaucetInfoClicked,
@@ -224,5 +241,9 @@ a:hover {
 .fade-in-down-enter-from {
   transform: translatey(-20px);
   opacity: 0;
+}
+
+.claimNano {
+  margin-bottom: 30px;
 }
 </style>

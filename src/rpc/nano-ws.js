@@ -15,6 +15,7 @@ function callWebsocket(trackedAccounts, emitter) {
     }
     const res = JSON.parse(event.data);
     if (res.topic !== null && res.topic === 'confirmation') {
+      console.log(JSON.stringify(res));
       console.log(JSON.stringify(res.message));
       const subType = res.message.block.subtype;
       if (subType === 'send') {

@@ -1,100 +1,134 @@
 <template>
-  <div>Nano Demo</div>
-  <el-row type="flex" class="row-bg" justify="center" align="middle">
-    <el-col :span="4">
-      <NanoWallet
-        class="wallet"
-        walletLetter="A"
-        :walletAddress="firstWalletAccount.address"
-        :walletBalance="firstWalletAccount.balance"
-      ></NanoWallet>
-      <el-button
-        type="primary"
-        class="nanoButton"
-        plain
-        @click="sendNano('B')"
-        :loading="sendingNanoA"
-        :disabled="disableNanoA"
-        ><div
-          v-show="
-            isInitialNanoA ||
-            lastWalletClicked === 'B' ||
-            (!disableNanoA && !sendingNanoA)
-          "
+  <div class="demo">
+    <p>
+      Try sending some nano back and forth between these two wallets to get a feel for
+      just how quick and easy it is to use Nano!
+    </p>
+    <el-row type="flex" class="row-bg" justify="center" align="middle">
+      <el-col :span="4">
+        <NanoWallet
+          class="wallet"
+          walletLetter="A"
+          :walletAddress="firstWalletAccount.address"
+          :walletBalance="firstWalletAccount.balance"
+        ></NanoWallet>
+        <el-button
+          type="primary"
+          class="nanoButton"
+          plain
+          @click="sendNano('B')"
+          :loading="sendingNanoA || waitingForReceiveNanoA"
+          :disabled="disableNanoA"
+          ><div
+            v-show="
+              !waitingForReceiveNanoA &&
+              (isInitialNanoA ||
+                lastWalletClicked === 'B' ||
+                (!disableNanoA && !sendingNanoA))
+            "
+          >
+            Send to Wallet B <span class="arrow">→</span>
+          </div>
+          <div v-show="disableNanoA && sendingNanoA">Sending...</div>
+          <div
+            v-show="
+              !isInitialNanoA &&
+              lastWalletClicked !== 'B' &&
+              disableNanoA &&
+              !sendingNanoA
+            "
+          >
+            Sent!
+          </div>
+          <div v-show="waitingForReceiveNanoA">
+            Confirming Received Nano...
+          </div></el-button
         >
-          Send to Wallet B <span class="arrow">→</span>
-        </div>
-        <div v-show="disableNanoA && sendingNanoA">Sending...</div>
-        <div
-          v-show="
-            !isInitialNanoA && lastWalletClicked !== 'B' && disableNanoA && !sendingNanoA
-          "
+      </el-col>
+      <el-col :span="16" class="progress-bar">
+        <NanoTransactionStatusBar></NanoTransactionStatusBar>
+      </el-col>
+      <el-col :span="4">
+        <NanoWallet
+          class="wallet"
+          walletLetter="B"
+          :walletAddress="secondWalletAccount.address"
+          :walletBalance="secondWalletAccount.balance"
+        ></NanoWallet>
+        <el-button
+          type="primary"
+          class="nanoButton"
+          plain
+          @click="sendNano('A')"
+          :loading="sendingNanoB"
+          :disabled="disableNanoB"
+          ><div
+            v-show="
+              !waitingForReceiveNanoB &&
+              (isInitialNanoB ||
+                lastWalletClicked === 'A' ||
+                (!disableNanoB && !sendingNanoB))
+            "
+          >
+            <span class="arrow">←</span> Send to Wallet A
+          </div>
+          <div v-show="disableNanoB && sendingNanoB">Sending...</div>
+          <div
+            v-show="
+              !isInitialNanoB &&
+              lastWalletClicked !== 'A' &&
+              disableNanoB &&
+              !sendingNanoB
+            "
+          >
+            Sent!
+          </div>
+          <div v-show="waitingForReceiveNanoB">
+            Confirming Received Nano...
+          </div></el-button
         >
-          Sent!
-        </div></el-button
-      >
-    </el-col>
-    <el-col :span="16" class="progress-bar">
-      <NanoTransactionStatusBar></NanoTransactionStatusBar>
-    </el-col>
-    <el-col :span="4">
-      <NanoWallet
-        class="wallet"
-        walletLetter="B"
-        :walletAddress="secondWalletAccount.address"
-        :walletBalance="secondWalletAccount.balance"
-      ></NanoWallet>
-      <el-button
-        type="primary"
-        class="nanoButton"
-        plain
-        @click="sendNano('A')"
-        :loading="sendingNanoB"
-        :disabled="disableNanoB"
-        ><div
-          v-show="
-            isInitialNanoB ||
-            lastWalletClicked === 'A' ||
-            (!disableNanoB && !sendingNanoB)
-          "
-        >
-          <span class="arrow">←</span> Send to Wallet A
-        </div>
-        <div v-show="disableNanoB && sendingNanoB">Sending...</div>
-        <div
-          v-show="
-            !isInitialNanoB && lastWalletClicked !== 'A' && disableNanoB && !sendingNanoB
-          "
-        >
-          Sent!
-        </div></el-button
-      >
-    </el-col>
-  </el-row>
-  <NanoTransactionResults></NanoTransactionResults>
-  <NanoTransactionHistory></NanoTransactionHistory>
+      </el-col>
+    </el-row>
+    <NanoTransactionResults
+      class="results"
+      :showTransactionResults="showTransactionResults"
+      :transactionTime="transactionTime"
+      :confirmationSendHash="confirmationSendHash"
+      :confirmationReceiveHash="confirmationReceiveHash"
+    ></NanoTransactionResults>
+    <transition name="fade-out-down">
+      <ClickToReveal
+        :revealText="`I'm ready to claim my Nano!`"
+        :clickable="confirmationSendHash !== null && confirmationReceiveHash !== null"
+        :shouldBoldText="true"
+        :sizeFactor="0.95"
+        @revealClicked="handleClaimNanoClicked"
+      ></ClickToReveal>
+    </transition>
+  </div>
 </template>
 
 <script>
 import { computed, ref, getCurrentInstance } from 'vue';
 import NanoWallet from './NanoWallet.vue';
-import NanoTransactionHistory from './NanoTransactionHistory.vue';
 import NanoTransactionResults from './NanoTransactionResults.vue';
 import NanoTransactionStatusBar from './NanoTransactionStatusBar.vue';
+import ClickToReveal from '../common/ClickToReveal.vue';
 
 export default {
   name: 'NanoDemo',
   components: {
     NanoWallet,
-    NanoTransactionHistory,
     NanoTransactionResults,
     NanoTransactionStatusBar,
+    ClickToReveal,
   },
+  emits: ['revealClaimNanoClicked'],
   props: {
     firstWallet: Object,
     secondWallet: Object,
   },
-  setup(props) {
+  setup(props, context) {
     console.log('NanoDemo component setup');
     const {
       emitter,
@@ -107,6 +141,14 @@ export default {
     const lastWalletClicked = ref('');
     const sendingNanoA = ref(false);
     const sendingNanoB = ref(false);
+    const waitingForReceiveNanoA = ref(false);
+    const waitingForReceiveNanoB = ref(false);
+
+    const showTransactionResults = ref(false);
+    const transactionStartTimeMs = ref(0);
+    const transactionTime = ref('N/A');
+    const confirmationSendHash = ref(null);
+    const confirmationReceiveHash = ref(null);
 
     const disableNanoA = computed(() => {
       return firstWalletAccount.value.balance.raw === '0' || sendingNanoA.value;
@@ -116,6 +158,11 @@ export default {
     });
 
     const sendNano = (receivingWalletLetter) => {
+      emitter.emit('transaction-started');
+      transactionStartTimeMs.value = Date.now();
+      showTransactionResults.value = false;
+      confirmationSendHash.value = null;
+      confirmationReceiveHash.value = null;
       if (receivingWalletLetter === 'B') {
         // send from Wallet A to Wallet B
         isInitialNanoA.value = false;
@@ -158,16 +205,60 @@ export default {
     };
 
     emitter.on('nano-sent', (sendData) => {
+      let wasSent;
+      transactionTime.value = `${(
+        (sendData.timestamp - transactionStartTimeMs.value) /
+        1000.0
+      ).toString()} seconds`;
+      console.log(`settlement time: ${transactionTime.value}`);
       if (sendData.address === firstWalletAccount.value.address) {
         console.log('#matched wallet A send');
         sendingNanoA.value = false;
+        waitingForReceiveNanoB.value = true;
+        wasSent = true;
       } else if (sendData.address === secondWalletAccount.value.address) {
         console.log('#matched wallet B send');
         sendingNanoB.value = false;
+        waitingForReceiveNanoA.value = true;
+        wasSent = true;
       } else {
-        console.log("error, address from nano-sent emit doesn't any wallet address");
+        console.log(
+          "error, address from nano-sent emit doesn't match any wallet address"
+        );
+        wasSent = false;
+      }
+      if (wasSent) {
+        emitter.emit('transaction-finished');
+        confirmationSendHash.value = sendData.hash;
+        showTransactionResults.value = true;
       }
     });
+
+    emitter.on('nano-received', (receiveData) => {
+      console.log('emitter on nano-received in NanoDemo');
+      console.log(receiveData);
+      let wasReceived;
+      if (receiveData.address === firstWalletAccount.value.address) {
+        waitingForReceiveNanoA.value = false;
+        wasReceived = true;
+      } else if (receiveData.address === secondWalletAccount.value.address) {
+        waitingForReceiveNanoB.value = false;
+        wasReceived = true;
+      } else {
+        console.log(
+          "error, address from nano-received emit doesn't match any wallet address"
+        );
+        wasReceived = false;
+      }
+      if (wasReceived) {
+        confirmationReceiveHash.value = receiveData.hash;
+      }
+    });
+
+    const handleClaimNanoClicked = () => {
+      context.emit('revealClaimNanoClicked');
+    };
+
     return {
       firstWalletAccount,
       secondWalletAccount,
@@ -177,14 +268,25 @@ export default {
       sendingNanoB,
       disableNanoA,
       disableNanoB,
+      waitingForReceiveNanoA,
+      waitingForReceiveNanoB,
       lastWalletClicked,
       sendNano,
+      showTransactionResults,
+      transactionTime,
+      confirmationSendHash,
+      confirmationReceiveHash,
+      handleClaimNanoClicked,
     };
   },
 };
 </script>
 
 <style scoped>
+.demo {
+  margin-bottom: 30px;
+}
+
 .row-bg {
   margin: auto;
   padding: 1%;
@@ -200,5 +302,18 @@ export default {
 
 .arrow {
   font-size: 18px;
+}
+
+.results {
+  margin: 10px auto 50px auto;
+}
+
+.fade-out-down-leave-active {
+  transition: all 0.4s ease-out;
+}
+
+.fade-out-down-leave-to {
+  transform: translatey(20px);
+  opacity: 0;
 }
 </style>

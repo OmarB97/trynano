@@ -6,7 +6,6 @@
       transactions, zero fees and a high level of scalability, all while being very
       eco-friendly.
     </h5>
-    <!-- <div v-visible="!revealFaucetInfoClicked"> -->
     <ClickToReveal
       :revealText="'Click here to try it out yourself!'"
       :clickable="true"
@@ -14,7 +13,6 @@
       :sizeFactor="1"
       @revealClicked="handleRevealFaucetInfoClicked"
     ></ClickToReveal>
-    <!-- </div> -->
   </div>
 </template>
 

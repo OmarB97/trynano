@@ -81,7 +81,6 @@ export default {
 
     const nanoRecieved = ref(false);
     const depositStatus = ref('Not Received');
-    const revealDemoClicked = ref(false);
     const hoverOnCopyAddress = ref(false);
     const showCopyTooltip = ref(false);
     const receivedAmount = ref(0);
@@ -100,7 +99,6 @@ export default {
     });
 
     const handleRevealDemoClicked = () => {
-      revealDemoClicked.value = true;
       context.emit('revealDemoClicked');
     };
 
@@ -115,7 +113,6 @@ export default {
     return {
       nanoRecieved,
       depositStatus,
-      revealDemoClicked,
       handleRevealDemoClicked,
       hoverOnCopyAddress,
       onAddressCopySuccess,
