@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <footer class="footer" id="footer2">
     <div style="display: block">
@@ -26,12 +27,109 @@
           >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
         >.
       </span>
+      <span class="footer-content">
+        Give feedback
+        <a class="feedback-link" @click="feedbackDialogVisible = true">here</a>.
+      </span>
+      <el-dialog title="Give Feedback" v-model="feedbackDialogVisible" width="40%">
+        <el-form class="form" label-width="120px">
+          <el-form-item label="Name">
+            <el-input v-model="name" name="name"></el-input>
+          </el-form-item>
+          <el-form-item label="Email">
+            <el-input v-model="email" name="email"></el-input>
+          </el-form-item>
+          <el-form-item label="Feedback Type">
+            <el-radio-group v-model="feedbackType" name="type">
+              <el-radio label="Bug"></el-radio>
+              <el-radio label="Feature Request"></el-radio>
+              <el-radio label="Other"></el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="Message">
+            <el-input type="textarea" v-model="message" name="message"></el-input>
+          </el-form-item>
+        </el-form>
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="feedbackDialogVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="onSubmitFeedbackForm">Confirm</el-button>
+          </span>
+        </template>
+      </el-dialog>
     </div>
   </footer>
 </template>
 
 <script>
-export default {};
+import { ref } from 'vue';
+import emailjs from 'emailjs-com';
+import { ElMessage } from 'element-plus';
+
+export default {
+  name: 'NanoFooter',
+  setup() {
+    const feedbackDialogVisible = ref(false);
+
+    const name = ref('');
+    const email = ref('');
+    const feedbackType = ref('Bug');
+    const message = ref('');
+
+    const onSubmitFeedbackForm = () => {
+      console.log(name.value);
+      console.log(email.value);
+      console.log(feedbackType.value);
+      console.log(message.value);
+      console.log('feedback form submit click!');
+      feedbackDialogVisible.value = false;
+      try {
+        emailjs
+          .sendForm(
+            process.env.VUE_APP_EMAILJS_SERVICE_KEY,
+            process.env.VUE_APP_EMAILJS_TEMPLATE_KEY,
+            '.form',
+            process.env.VUE_APP_EMAILJS_USER_KEY
+          )
+          .then((response) => {
+            console.log(response);
+            if (response && response.status === 200) {
+              ElMessage({
+                message: 'Feedback successfully sent!',
+                type: 'success',
+              });
+            } else {
+              ElMessage({
+                message: `Error submitting feedback${
+                  response.error !== null ? `: ${response.error}` : ''
+                }`,
+                type: 'error',
+              });
+            }
+          });
+      } catch (error) {
+        ElMessage({
+          message: `Error submitting feedback: ${error}`,
+          type: 'error',
+        });
+      }
+      // Reset form field
+      name.value = '';
+      email.value = '';
+      feedbackType.value = 'Bug';
+      message.value = '';
+    };
+
+    return {
+      feedbackDialogVisible,
+      onSubmitFeedbackForm,
+      name,
+      email,
+      feedbackType,
+      message,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -47,5 +145,9 @@ export default {};
 
 .footer-content {
   margin: 0 0.5rem;
+}
+
+.feedback-link:hover {
+  cursor: pointer;
 }
 </style>

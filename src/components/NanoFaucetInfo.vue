@@ -17,42 +17,39 @@
       <a href="https://nanotipbot.com/" target="_blank">here</a> and use the generated
       wallet address we've provided below.)
     </p>
-    <el-tooltip
-      effect="dark"
-      content="Copied!"
-      placement="right"
-      :manual="true"
-      :offset="15"
-      v-model="showCopyTooltip"
-    >
-      <div
-        style="display: inline-block; margin: 16px 0px"
-        @mouseover="hoverOnCopyAddress = true"
-        @mouseleave="hoverOnCopyAddress = false"
-        :class="{ pointer: hoverOnCopyAddress }"
-        v-clipboard:copy="walletAccount.address"
-        v-clipboard:success="onAddressCopySuccess"
-      >
-        <b>Generated wallet address</b>:
-        <span>{{ walletAccount.address }}</span>
-        <img class="logo" src="../assets/copy.png" />
+
+    <el-card shadow="always" :body-style="{ width: '80%', margin: '0px auto 10px auto' }">
+      <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
+        <div
+          style="display: inline-block; margin: 16px 0px"
+          @mouseenter="copyPrompt = 'Copy Address'"
+          @mouseover="hoverOnCopyAddress = true"
+          @mouseleave="hoverOnCopyAddress = false"
+          :class="{ pointer: hoverOnCopyAddress }"
+          v-clipboard:copy="walletAccount.address"
+          v-clipboard:success="onAddressCopySuccess"
+        >
+          <b>Generated wallet address</b>:
+          <span>{{ walletAccount.address }}</span>
+          <img class="logo" src="../assets/copy.png" />
+        </div>
+      </el-tooltip>
+      <strong style="display: block">
+        <div style="display: inline-block">Status:&ensp;</div>
+        <div
+          style="display: inline-block"
+          :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
+        >
+          {{ depositStatus }}
+        </div>
+      </strong>
+      <div v-show="receivedAmount > 0">
+        <div style="display: block">
+          <strong style="display: inline-block">Amount:&ensp;</strong>
+          <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
+        </div>
       </div>
-    </el-tooltip>
-    <strong style="display: block">
-      <div style="display: inline-block">Status:&ensp;</div>
-      <div
-        style="display: inline-block"
-        :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
-      >
-        {{ depositStatus }}
-      </div>
-    </strong>
-    <div v-show="receivedAmount > 0">
-      <div style="display: block">
-        <strong style="display: inline-block">Amount:&ensp;</strong>
-        <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
-      </div>
-    </div>
+    </el-card>
   </div>
   <transition name="fade-out-down">
     <ClickToReveal
@@ -82,7 +79,7 @@ export default {
     const nanoRecieved = ref(false);
     const depositStatus = ref('Not Received');
     const hoverOnCopyAddress = ref(false);
-    const showCopyTooltip = ref(false);
+    const copyPrompt = ref('Copy Address');
     const receivedAmount = ref(0);
     const walletAccount = computed(() => props.firstWalletData.accounts[0]);
 
@@ -103,11 +100,7 @@ export default {
     };
 
     const onAddressCopySuccess = () => {
-      showCopyTooltip.value = true;
-      setTimeout(() => {
-        showCopyTooltip.value = false;
-      }, 1500);
-      console.log('success');
+      copyPrompt.value = 'Copied!';
     };
 
     return {
@@ -116,7 +109,7 @@ export default {
       handleRevealDemoClicked,
       hoverOnCopyAddress,
       onAddressCopySuccess,
-      showCopyTooltip,
+      copyPrompt,
       receivedAmount,
       walletAccount,
     };
