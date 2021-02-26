@@ -34,7 +34,16 @@ NOTE: Make sure you're in the root directory of the project:
 touch .env
 ```
 
-If not sure what to put here just reach out to me and I can provide you this info.
+Open the file and define the following env variables:
+
+```
+VUE_APP_NANO_API_URL=<YOUR_NANO_NODE_API_URL>
+VUE_APP_NANO_API_USERNAME=<YOUR_NANO_NODE_API_USERNAME>
+VUE_APP_NANO_API_PASSWORD=<YOUR_NANO_NODE_API_PASSWORD>
+VUE_APP_WS_SERVER=<YOUR_NANO_NODE_WEBSOCKET_URL>
+```
+
+If not sure what to put here just reach out to me and I can help provide you this info.
 
 
 ## Run the app
