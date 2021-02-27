@@ -22,7 +22,10 @@
       </transition>
       <transition name="fade-in-down">
         <div class="claimNano" v-show="didRevealClaimNano">
-          <ClaimNano></ClaimNano>
+          <ClaimNano
+            :firstWallet="firstWalletData"
+            :secondWallet="secondWalletData"
+          ></ClaimNano>
         </div>
       </transition>
       <div class="push"></div>

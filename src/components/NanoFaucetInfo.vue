@@ -19,7 +19,7 @@
     </p>
 
     <el-card shadow="always" :body-style="{ width: '80%', margin: '0px auto 10px auto' }">
-      <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
+      <el-tooltip effect="light" :content="copyPrompt" placement="right" :offset="15">
         <div
           style="display: inline-block; margin: 16px 0px"
           @mouseenter="copyPrompt = 'Copy Address'"

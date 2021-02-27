@@ -297,7 +297,6 @@ export default {
 .nanoButton {
   margin-top: 5px;
   font-weight: bold;
-  /* background-color: #ecf5ff; */
 }
 
 .arrow {
