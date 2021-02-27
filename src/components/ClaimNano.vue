@@ -125,7 +125,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sendNanoForm {
   width: auto;
   display: inline-flex;
