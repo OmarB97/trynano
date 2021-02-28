@@ -179,7 +179,6 @@ export default {
                 message: 'Error sending Nano from Wallet A to Wallet B',
                 type: 'error',
               });
-              return;
             }
           });
       } else if (receivingWalletLetter === 'A') {
@@ -201,7 +200,6 @@ export default {
                 message: 'Error sending Nano from Wallet B to Wallet A',
                 type: 'error',
               });
-              return;
             }
           });
       }

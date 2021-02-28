@@ -23,4 +23,7 @@ const client = new NanoClient({
 
 app.config.globalProperties.nanoClient = client;
 
+// silence all Vue warns
+app.config.warnHandler = () => null;
+
 app.use(VueClipboard).mount('#app');
