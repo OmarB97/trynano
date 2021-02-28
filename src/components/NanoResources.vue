@@ -1,6 +1,6 @@
 <template>
   <div class="resources">
-    <h3 class="headline">Thanks for using TryNano!</h3>
+    <h3 class="headline">&#127881; Thanks for using TryNano! &#127881;</h3>
     <div>
       For a comprehensive list of resources related to Nano including the core team,
       social media channels, where to buy Nano, and more, please visit
