@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/21279036/109429629-84da3f80-79b1-11eb-8b73-83f456d67301.png" width="50%" height="50%">
+  <a href="https://www.trynano.io">
+    <img src="https://user-images.githubusercontent.com/21279036/109429629-84da3f80-79b1-11eb-8b73-83f456d67301.png" width="50%" height="50%">
+  </a>
 </p>
 
 <p align="center">
@@ -10,9 +12,7 @@ A open-source site for beginners to try out Nano!
 
 Walks you through step-by-step starting with what Nano is, creating a new wallet, getting a little bit of nano in that wallet to play around with, and creating a second wallet to allow the user to send the nano back and forth between the two wallets to test it out for themselves! 
 
-We show the user the transaction settlement time, the fees associated with that transaction (always 0!), and energy usage for the transaction. 
-
-We also allow the user to see the recent transaction history if they are curious and want to see it (e.g. maybe they want to get a rough idea of the average transaction time).
+We show the user the transaction settlement time, the fees associated with that transaction (always 0!), estimated energy usage for the transaction, and links to the send + receive confirmation blocks on NanoCrawler.
 
 Finally, we provide some basic instructions on how to set up their own private wallet (Natrium, Nault, etc.) and even how to send their nano to that wallet.
 
