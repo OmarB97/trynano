@@ -91,6 +91,10 @@
     </el-row>
     <NanoTransactionResults
       class="results"
+      :didInitiateFirstTransaction="lastWalletClicked !== ''"
+      :transactionInProgress="
+        sendingNanoA || sendingNanoB || waitingForReceiveNanoA || waitingForReceiveNanoB
+      "
       :showTransactionResults="showTransactionResults"
       :transactionTime="transactionTime"
       :confirmationSendHash="confirmationSendHash"
@@ -282,7 +286,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .demo {
   margin-bottom: 30px;
 }

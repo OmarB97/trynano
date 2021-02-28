@@ -1,39 +1,45 @@
 <template>
   <div class="faucet-info">
     <p class="maintext">
-      First, head over to
-      <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and grab
-      yourself some free Nano.
-    </p>
-    <p>
-      In order to recieve Nano, you'll need to provide a wallet address. We've gone ahead
-      and generated a brand new Nano wallet for you to use. Click the wallet address below
-      to automatically copy it to your clipboard and then paste it into the Nano Faucet
-      input field to recieve a small amount of Nano.
+      Go to
+      <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and paste
+      the generated wallet address below.
     </p>
     <p class="subtext">
       (<u>Note</u>: If you've received a tip from someone using NanoTipBot and would like
-      to use that instead, follow the instructions
-      <a href="https://nanotipbot.com/" target="_blank">here</a> and use the generated
-      wallet address we've provided below.)
+      to use that instead, use the !withdraw command outlined
+      <a href="https://nanotipbot.com/" target="_blank">here</a> instead.)
     </p>
 
     <el-card shadow="always" :body-style="{ width: '80%', margin: '0px auto 10px auto' }">
-      <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
-        <div
-          style="display: inline-block; margin: 16px 0px"
-          @mouseenter="copyPrompt = 'Copy Address'"
-          @mouseover="hoverOnCopyAddress = true"
-          @mouseleave="hoverOnCopyAddress = false"
-          :class="{ pointer: hoverOnCopyAddress }"
-          v-clipboard:copy="walletAccount.address"
-          v-clipboard:success="onAddressCopySuccess"
-        >
-          <b>Generated wallet address</b>:
-          <span>{{ walletAccount.address }}</span>
-          <img class="logo" src="../assets/copy.png" />
-        </div>
-      </el-tooltip>
+      <div>
+        <el-popover placement="left" :width="350" trigger="click">
+          <template #reference>
+            <i class="el-icon-question wallet-tooltip pointer"></i>
+          </template>
+          <div style="word-break: keep-all">
+            A <strong><u>wallet address</u></strong> is a unique identifier that serves as
+            a virtual location where cryptocurrency can be sent/received, similar to
+            having an email address!
+          </div>
+        </el-popover>
+        <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
+          <div
+            style="display: inline-block; margin: 16px 0px"
+            @mouseenter="copyPrompt = 'Copy Address'"
+            @mouseover="hoverOnCopyAddress = true"
+            @mouseleave="hoverOnCopyAddress = false"
+            :class="{ pointer: hoverOnCopyAddress }"
+            v-clipboard:copy="walletAccount.address"
+            v-clipboard:success="onAddressCopySuccess"
+          >
+            <b>Generated wallet address</b>:
+            <span>{{ walletAccount.address }}</span>
+            <img class="logo" src="../assets/copy.png" />
+          </div>
+        </el-tooltip>
+      </div>
+
       <strong style="display: block">
         <div style="display: inline-block">Status:&ensp;</div>
         <div
@@ -88,7 +94,7 @@ export default {
       console.log(receiveData);
       if (receiveData.address === walletAccount.value.address) {
         if (!nanoRecieved.value && receiveData.balance > 0) {
-          depositStatus.value = 'Recieved!';
+          depositStatus.value = 'Received!';
           nanoRecieved.value = true;
           receivedAmount.value = receiveData.amount;
         }
@@ -117,7 +123,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .faucet-info {
   margin-bottom: 50px;
   max-width: 60%;
@@ -161,9 +167,13 @@ export default {
 
 .subtext {
   padding: 0;
-  margin-top: 0;
+  margin-top: 25px;
   margin-bottom: 30px;
   font-size: 14px;
   font-weight: lighter;
+}
+
+.wallet-tooltip {
+  margin-right: 5px;
 }
 </style>

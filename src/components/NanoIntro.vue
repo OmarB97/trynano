@@ -1,10 +1,14 @@
 <template>
   <div class="intro">
     <img class="logo" src="../assets/nano_logo-removebg.png" />
+    <h3>
+      TryNano demonstrates how fast and simple Nano transactions are by giving you two
+      wallets to send Nano back and forth between each other.
+    </h3>
     <h5>
-      Nano (NANO) is a peer-to-peer digital currency designed to provide fast
-      transactions, zero fees and a high level of scalability, all while being very
-      eco-friendly.
+      <strong>What is Nano?</strong> Nano (NANO) is a peer-to-peer digital currency
+      designed to provide instant transactions, zero fees, and scalability, all while
+      being eco-friendly.
     </h5>
     <ClickToReveal
       :revealText="'Click here to try it out yourself!'"
@@ -50,8 +54,13 @@ export default {
   padding-bottom: 25px;
 }
 
+h3 {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
 h5 {
   font-size: 0.95em;
-  font-weight: 500;
+  font-weight: 400;
 }
 </style>

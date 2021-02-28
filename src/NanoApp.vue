@@ -12,7 +12,7 @@
         </div>
       </transition>
       <transition name="fade-in-down">
-        <div v-show="didRevealDemo">
+        <div v-show="true">
           <NanoDemo
             :firstWallet="firstWalletData"
             :secondWallet="secondWalletData"

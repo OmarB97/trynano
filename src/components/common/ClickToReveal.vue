@@ -103,4 +103,13 @@ p {
   transition: visibility 0s 0.3s, opacity 0.3s linear, transform 0.3s ease;
   transform: translatey(10px);
 }
+
+.weightGrow:hover {
+  text-shadow: -1px -1px 0 #2dd785, 1px -1px 0 #2dd785, -1px 1px 0 #2dd785,
+    1px 1px 0 #2dd785;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
 </style>

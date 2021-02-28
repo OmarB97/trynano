@@ -1,15 +1,16 @@
 <template>
   <p>
-    In order to claim your Nano, you'll need to set up a private wallet to store it in.
+    To claim back your Nano, you'll need to set up a <strong>private wallet</strong> to
+    store it in.
   </p>
   <p>
     The most popular wallets in the Nano community are
     <a href="https://natrium.io/" target="_blank">Natrium</a> (Android/iOS) and
     <a href="https://nault.cc/accounts" target="_blank">Nault</a> (Web/Desktop).
   </p>
-  <p>
-    For a more complete list of options, please visit
-    <a href="https://nanowallets.guide/" target="_blank">this guide</a>.
+  <p style="font-size: 90%; opacity: 85%; margin-top: -10px">
+    (For a more complete list of options, please visit
+    <a href="https://nanowallets.guide/" target="_blank">this guide</a>.)
   </p>
   <p style="margin-top: 30px">
     Once you've finished setting up your wallet, enter your new Nano wallet address below

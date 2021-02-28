@@ -32,11 +32,18 @@
         <a class="feedback-link" @click="feedbackDialogVisible = true">here</a>.
       </span>
       <el-dialog title="Give Feedback" v-model="feedbackDialogVisible" width="40%">
-        <el-form class="form" label-width="120px">
-          <el-form-item label="Name">
+        <el-form
+          :model="ruleForm"
+          class="form"
+          ref="form"
+          :rules="rules"
+          status-icon
+          label-width="120px"
+        >
+          <el-form-item label="Name" prop="name">
             <el-input v-model="name" name="name"></el-input>
           </el-form-item>
-          <el-form-item label="Email">
+          <el-form-item label="Email" prop="email">
             <el-input v-model="email" name="email"></el-input>
           </el-form-item>
           <el-form-item label="Feedback Type">
@@ -46,14 +53,25 @@
               <el-radio label="Other"></el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="Message">
-            <el-input type="textarea" v-model="message" name="message"></el-input>
+          <el-form-item label="Message" prop="message">
+            <el-input
+              type="textarea"
+              v-model="message"
+              name="message"
+              maxlength="500"
+              show-word-limit
+            ></el-input>
           </el-form-item>
         </el-form>
         <template #footer>
           <span class="dialog-footer">
             <el-button @click="feedbackDialogVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="onSubmitFeedbackForm">Confirm</el-button>
+            <el-button
+              :disabled="name === '' || email === '' || message === ''"
+              type="primary"
+              @click="onSubmitFeedbackForm"
+              >Confirm</el-button
+            >
           </span>
         </template>
       </el-dialog>
@@ -71,58 +89,87 @@ export default {
   setup() {
     const feedbackDialogVisible = ref(false);
 
+    const form = ref(null);
+
     const name = ref('');
     const email = ref('');
     const feedbackType = ref('Bug');
     const message = ref('');
 
+    const ruleForm = ref({
+      name,
+      email,
+      feedbackType,
+      message,
+    });
+
+    const rules = ref({
+      name: [{ required: true, message: 'Please input your name', trigger: 'blur' }],
+      email: [
+        { required: true, message: 'Please input your email', trigger: 'blur' },
+        { type: 'email', message: 'Invalid email address', trigger: 'blur' },
+      ],
+      message: [
+        { required: true, message: 'Please input message', trigger: 'blur' },
+        { min: 10, message: 'Please enter more than 10 characters', trigger: 'blur' },
+      ],
+    });
+
     const onSubmitFeedbackForm = () => {
-      console.log(name.value);
-      console.log(email.value);
-      console.log(feedbackType.value);
-      console.log(message.value);
-      console.log('feedback form submit click!');
       feedbackDialogVisible.value = false;
       try {
-        emailjs
-          .sendForm(
-            process.env.VUE_APP_EMAILJS_SERVICE_KEY,
-            process.env.VUE_APP_EMAILJS_TEMPLATE_KEY,
-            '.form',
-            process.env.VUE_APP_EMAILJS_USER_KEY
-          )
-          .then((response) => {
-            console.log(response);
-            if (response && response.status === 200) {
-              ElMessage({
-                message: 'Feedback successfully sent!',
-                type: 'success',
-              });
-            } else {
-              ElMessage({
-                message: `Error submitting feedback${
-                  response.error !== null ? `: ${response.error}` : ''
-                }`,
-                type: 'error',
-              });
-            }
-          });
+        form.value.validate((isValid) => {
+          if (!isValid) {
+            ElMessage({
+              message: `Error submitting feedback, form was invalid`,
+              type: 'error',
+            });
+            return;
+          }
+          emailjs
+            .sendForm(
+              process.env.VUE_APP_EMAILJS_SERVICE_KEY,
+              process.env.VUE_APP_EMAILJS_TEMPLATE_KEY,
+              '.form',
+              process.env.VUE_APP_EMAILJS_USER_KEY
+            )
+            .then((response) => {
+              console.log(response);
+              if (response && response.status === 200) {
+                ElMessage({
+                  message: 'Feedback successfully sent!',
+                  type: 'success',
+                });
+
+                // Reset form field
+                name.value = '';
+                email.value = '';
+                feedbackType.value = 'Bug';
+                message.value = '';
+              } else {
+                ElMessage({
+                  message: `Error submitting feedback${
+                    response.error !== null ? `: ${response.error}` : ''
+                  }`,
+                  type: 'error',
+                });
+              }
+            });
+        });
       } catch (error) {
         ElMessage({
           message: `Error submitting feedback: ${error}`,
           type: 'error',
         });
       }
-      // Reset form field
-      name.value = '';
-      email.value = '';
-      feedbackType.value = 'Bug';
-      message.value = '';
     };
 
     return {
       feedbackDialogVisible,
       onSubmitFeedbackForm,
+      form,
+      ruleForm,
+      rules,
       name,
       email,
       feedbackType,
@@ -132,7 +179,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #footer2 {
   width: 100%;
   padding: 1rem 1.5rem;
