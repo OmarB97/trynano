@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/21279036/109429629-84da3f80-79b1-11eb-8b73-83f456d67301.png" width="50%" height="50%">
+  <a href="https://www.trynano.io">
+    <img src="https://user-images.githubusercontent.com/21279036/109429629-84da3f80-79b1-11eb-8b73-83f456d67301.png" width="50%" height="50%">
+  </a>
 </p>
 
 <p align="center">
