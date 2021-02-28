@@ -10,71 +10,57 @@
       to use that instead, use the !withdraw command outlined
       <a href="https://nanotipbot.com/" target="_blank">here</a> instead.)
     </p>
-
-    <el-card shadow="always" :body-style="{ width: '80%', margin: '0px auto 10px auto' }">
-      <div>
-        <el-popover placement="left" :width="350" trigger="click">
-          <template #reference>
-            <i class="el-icon-question wallet-tooltip pointer"></i>
-          </template>
-          <div style="word-break: keep-all">
-            A <strong><u>wallet address</u></strong> is a unique identifier that serves as
-            a virtual location where cryptocurrency can be sent/received, similar to
-            having an email address!
-          </div>
-        </el-popover>
-        <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
-          <div
-            style="display: inline-block; margin: 16px 0px"
-            @mouseenter="copyPrompt = 'Copy Address'"
-            @mouseover="hoverOnCopyAddress = true"
-            @mouseleave="hoverOnCopyAddress = false"
-            :class="{ pointer: hoverOnCopyAddress }"
-            v-clipboard:copy="walletAccount.address"
-            v-clipboard:success="onAddressCopySuccess"
-          >
-            <b>Generated wallet address</b>:
-            <span>{{ walletAccount.address }}</span>
-            <img class="logo" src="../assets/copy.png" />
-          </div>
-        </el-tooltip>
-      </div>
-
-      <strong style="display: block">
-        <div style="display: inline-block">Status:&ensp;</div>
+    <div>
+      <el-popover placement="left" :width="350" trigger="click">
+        <template #reference>
+          <i class="el-icon-question wallet-tooltip pointer"></i>
+        </template>
+        <div style="word-break: keep-all">
+          A <strong><u>wallet address</u></strong> is a unique identifier that serves as a
+          virtual location where cryptocurrency can be sent/received, similar to having an
+          email address!
+        </div>
+      </el-popover>
+      <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
         <div
-          style="display: inline-block"
-          :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
+          style="display: inline-block; margin: 16px 0px"
+          @mouseenter="copyPrompt = 'Copy Address'"
+          @mouseover="hoverOnCopyAddress = true"
+          @mouseleave="hoverOnCopyAddress = false"
+          :class="{ pointer: hoverOnCopyAddress }"
+          v-clipboard:copy="walletAccount.address"
+          v-clipboard:success="onAddressCopySuccess"
         >
-          {{ depositStatus }}
+          <b>Generated wallet address</b>:
+          <span>{{ walletAccount.address }}</span>
+          <img class="logo" src="../assets/copy.png" />
         </div>
-      </strong>
-      <div v-show="receivedAmount > 0">
-        <div style="display: block">
-          <strong style="display: inline-block">Amount:&ensp;</strong>
-          <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
-        </div>
+      </el-tooltip>
+    </div>
+
+    <strong style="display: block">
+      <div style="display: inline-block">Status:&ensp;</div>
+      <div
+        style="display: inline-block"
+        :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
+      >
+        {{ depositStatus }}
       </div>
-    </el-card>
+    </strong>
+    <div v-show="receivedAmount > 0">
+      <div style="display: block">
+        <strong style="display: inline-block">Amount:&ensp;</strong>
+        <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
+      </div>
+    </div>
   </div>
-  <transition name="fade-out-down">
-    <ClickToReveal
-      :revealText="'Proceed to Demo'"
-      :clickable="nanoRecieved"
-      :shouldBoldText="true"
-      :sizeFactor="0.95"
-      @revealClicked="handleRevealDemoClicked"
-    ></ClickToReveal>
-  </transition>
 </template>
 
 <script>
 import { ref, computed, getCurrentInstance } from 'vue';
-import ClickToReveal from './common/ClickToReveal.vue';
 
 export default {
   name: 'NanoFaucetInfo',
-  components: { ClickToReveal },
   emits: ['revealDemoClicked'],
   props: {
     firstWalletData: Object,
@@ -97,6 +83,7 @@ export default {
           depositStatus.value = 'Received!';
           nanoRecieved.value = true;
           receivedAmount.value = receiveData.amount;
+          emitter.emit('step-completed', 'first');
         }
       }
     });
@@ -126,7 +113,7 @@ export default {
 <style>
 .faucet-info {
   margin-bottom: 50px;
-  max-width: 60%;
+  max-width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -163,6 +150,7 @@ export default {
 .maintext {
   padding: 0;
   margin: 0;
+  font-weight: 700;
 }
 
 .subtext {
@@ -175,5 +163,10 @@ export default {
 
 .wallet-tooltip {
   margin-right: 5px;
+}
+
+.status-card {
+  width: 85%;
+  margin: auto;
 }
 </style>

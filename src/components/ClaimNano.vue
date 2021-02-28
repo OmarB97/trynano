@@ -40,7 +40,9 @@
         @click="onSendNano"
         :loading="sendingNano"
       >
-        <div v-show="!sendingNano && !nanoSuccessfullySent">Send</div>
+        <div v-show="!sendingNano && !nanoSuccessfullySent">
+          Send <i class="el-icon-s-promotion"></i>
+        </div>
         <div v-show="sendingNano && !nanoSuccessfullySent">Sending...</div>
         <div v-show="!sendingNano && nanoSuccessfullySent">Sent!</div>
       </el-button>
@@ -59,7 +61,10 @@ export default {
   },
   setup(props) {
     console.log('ClaimNano component setup');
-    const { nanoClient } = getCurrentInstance().appContext.config.globalProperties;
+    const {
+      emitter,
+      nanoClient,
+    } = getCurrentInstance().appContext.config.globalProperties;
 
     const sendingWalletAccount = computed(() => {
       if (props.firstWallet.accounts[0].balance.raw !== '0') {
@@ -108,6 +113,7 @@ export default {
             return;
           }
           nanoSuccessfullySent.value = true;
+          emitter.emit('step-completed', 'third');
           console.log(accountAfterSend);
         });
     };

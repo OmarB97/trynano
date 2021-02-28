@@ -5,27 +5,82 @@
       <NanoIntro @revealFaucetInfoClicked="handleRevealFaucetInfoClicked"></NanoIntro>
       <transition name="fade-in-down">
         <div v-show="didRevealFaucetInfo">
-          <NanoFaucetInfo
-            :firstWalletData="firstWalletData"
-            @revealDemoClicked="didRevealDemo = true"
-          ></NanoFaucetInfo>
-        </div>
-      </transition>
-      <transition name="fade-in-down">
-        <div v-show="didRevealDemo">
-          <NanoDemo
-            :firstWallet="firstWalletData"
-            :secondWallet="secondWalletData"
-            @revealClaimNanoClicked="didRevealClaimNano = true"
-          ></NanoDemo>
-        </div>
-      </transition>
-      <transition name="fade-in-down">
-        <div class="claimNano" v-show="didRevealClaimNano">
-          <ClaimNano
-            :firstWallet="firstWalletData"
-            :secondWallet="secondWalletData"
-          ></ClaimNano>
+          <el-steps
+            class="steps"
+            :active="currentStep"
+            align-center
+            finish-status="success"
+          >
+            <el-step
+              title="Step 1"
+              description="Grab Some Nano"
+              icon="el-icon-coin"
+            ></el-step>
+            <el-step
+              title="Step 2"
+              description="Try It Out"
+              icon="el-icon-set-up"
+            ></el-step>
+            <el-step
+              title="Step 3"
+              description="Set Up Your Wallet"
+              icon="el-icon-wallet"
+            ></el-step>
+            <el-step title="Step 4" description="Done!" icon="el-icon-finished"></el-step>
+          </el-steps>
+          <div class="step-section">
+            <div class="steppers">
+              <el-button
+                :style="{ visibility: currentStep > 0 ? 'visible' : 'hidden' }"
+                round
+                type="primary"
+                plain
+                icon="el-icon-back"
+                @click="decreaseStep"
+                >Previous Step</el-button
+              >
+              <el-button
+                :style="{ visibility: currentStep < 4 ? 'visible' : 'hidden' }"
+                round
+                type="primary"
+                plain
+                @click="increaseStep"
+                :disabled="!isCurrentStepComplete"
+                >Next Step <i class="el-icon-right"></i
+              ></el-button>
+            </div>
+            <el-card shadow="always" :body-style="{ backgroundColor: '#F4FAFF' }">
+              <transition :name="transitionDirection">
+                <div v-show="currentStep === 0">
+                  <NanoFaucetInfo :firstWalletData="firstWalletData"></NanoFaucetInfo>
+                </div>
+              </transition>
+              <transition :name="transitionDirection">
+                <div v-show="currentStep === 1">
+                  <NanoDemo
+                    :firstWallet="firstWalletData"
+                    :secondWallet="secondWalletData"
+                  ></NanoDemo>
+                </div>
+              </transition>
+              <transition :name="transitionDirection">
+                <div v-show="currentStep === 2">
+                  <ClaimNano
+                    :firstWallet="firstWalletData"
+                    :secondWallet="secondWalletData"
+                  ></ClaimNano>
+                </div>
+              </transition>
+              <transition :name="transitionDirection">
+                <div v-show="currentStep === 4">
+                  <NanoResources
+                    :firstWallet="firstWalletData"
+                    :secondWallet="secondWalletData"
+                  ></NanoResources>
+                </div>
+              </transition>
+            </el-card>
+          </div>
         </div>
       </transition>
       <div class="push"></div>
@@ -35,7 +90,7 @@
 </template>
 
 <script>
-import { ref, getCurrentInstance } from 'vue';
+import { ref, computed, getCurrentInstance } from 'vue';
 import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
 import NanoIntro from './components/NanoIntro.vue';
@@ -44,6 +99,7 @@ import NanoFooter from './components/NanoFooter.vue';
 import NanoDemo from './components/demo/NanoDemo.vue';
 import ClaimNano from './components/ClaimNano.vue';
 import callWebsocket from './rpc/nano-ws';
+import NanoResources from './components/NanoResources.vue';
 
 export default {
   name: 'NanoApp',
@@ -53,12 +109,67 @@ export default {
     NanoDemo,
     NanoFooter,
     ClaimNano,
+    NanoResources,
   },
   setup() {
     const {
       emitter,
       nanoClient,
     } = getCurrentInstance().appContext.config.globalProperties;
+
+    const currentStep = ref(0);
+    const transitionDirection = ref('fade-in-down');
+
+    const stepCompleteState = ref({
+      isFirstStepComplete: false,
+      isSecondStepComplete: false,
+      isThirdStepComplete: false,
+    });
+
+    const isCurrentStepComplete = computed(() => {
+      switch (currentStep.value) {
+        case 0:
+          return stepCompleteState.value.isFirstStepComplete;
+        case 1:
+          return stepCompleteState.value.isSecondStepComplete;
+        case 2:
+          return stepCompleteState.value.isThirdStepComplete;
+        case 4:
+        default:
+          return true;
+      }
+    });
+
+    emitter.on('step-completed', (step) => {
+      switch (step) {
+        case 'first':
+          stepCompleteState.value.isFirstStepComplete = true;
+          break;
+        case 'second':
+          stepCompleteState.value.isSecondStepComplete = true;
+          break;
+        case 'third':
+          stepCompleteState.value.isThirdStepComplete = true;
+          break;
+        default:
+      }
+    });
+
+    const decreaseStep = () => {
+      if (currentStep.value === 4) {
+        currentStep.value -= 1;
+      }
+      currentStep.value -= 1;
+      transitionDirection.value = 'fade-in-left';
+    };
+
+    const increaseStep = () => {
+      if (currentStep.value === 2) {
+        currentStep.value += 1;
+      }
+      currentStep.value += 1;
+      transitionDirection.value = 'fade-in-right';
+    };
 
     const didRevealFaucetInfo = ref(false);
     const didRevealDemo = ref(false);
@@ -179,6 +290,12 @@ export default {
     });
 
     return {
+      currentStep,
+      decreaseStep,
+      increaseStep,
+      stepCompleteState,
+      isCurrentStepComplete,
+      transitionDirection,
       didRevealFaucetInfo,
       didRevealDemo,
       didRevealClaimNano,
@@ -246,7 +363,40 @@ a:hover {
   opacity: 0;
 }
 
-.claimNano {
-  margin-bottom: 30px;
+.fade-in-right-enter-active {
+  transition: all 0.4s ease-out;
+}
+
+.fade-in-right-enter-from {
+  transform: translatex(20px);
+  opacity: 0;
+}
+
+.fade-in-left-enter-active {
+  transition: all 0.4s ease-out;
+}
+
+.fade-in-left-enter-from {
+  transform: translatex(-20px);
+  opacity: 0;
+}
+
+.steps {
+  text-align: initial;
+  width: 60%;
+  margin: -60px auto 50px auto;
+}
+
+.step-section {
+  width: 80%;
+  margin: auto auto 50px auto;
+}
+
+.steppers {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 </style>

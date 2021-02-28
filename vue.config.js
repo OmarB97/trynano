@@ -5,7 +5,7 @@ module.exports = {
             .plugin('html')
             .tap(args => {
                 // eslint-disable-next-line no-param-reassign
-                args[0].title = "Try Nano";
+                args[0].title = "TryNano";
                 return args;
             })
     },

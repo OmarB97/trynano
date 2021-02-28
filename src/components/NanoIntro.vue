@@ -1,6 +1,6 @@
 <template>
   <div class="intro">
-    <img class="logo" src="../assets/nano_logo-removebg.png" />
+    <img class="logo" src="../assets/trynano_full.png" />
     <h3>
       TryNano demonstrates how fast and simple Nano transactions are by giving you two
       wallets to send Nano back and forth between each other.

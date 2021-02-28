@@ -100,15 +100,6 @@
       :confirmationSendHash="confirmationSendHash"
       :confirmationReceiveHash="confirmationReceiveHash"
     ></NanoTransactionResults>
-    <transition name="fade-out-down">
-      <ClickToReveal
-        :revealText="`I'm ready to claim my Nano!`"
-        :clickable="confirmationSendHash !== null && confirmationReceiveHash !== null"
-        :shouldBoldText="true"
-        :sizeFactor="0.95"
-        @revealClicked="handleClaimNanoClicked"
-      ></ClickToReveal>
-    </transition>
   </div>
 </template>
 
@@ -117,7 +108,6 @@ import { computed, ref, getCurrentInstance } from 'vue';
 import NanoWallet from './NanoWallet.vue';
 import NanoTransactionResults from './NanoTransactionResults.vue';
 import NanoTransactionStatusBar from './NanoTransactionStatusBar.vue';
-import ClickToReveal from '../common/ClickToReveal.vue';
 
 export default {
   name: 'NanoDemo',
@@ -125,7 +115,6 @@ export default {
     NanoWallet,
     NanoTransactionResults,
     NanoTransactionStatusBar,
-    ClickToReveal,
   },
   emits: ['revealClaimNanoClicked'],
   props: {
@@ -153,6 +142,7 @@ export default {
     const transactionTime = ref('N/A');
     const confirmationSendHash = ref(null);
     const confirmationReceiveHash = ref(null);
+    const hasCompletedAtLeastOneTransaction = ref(false);
 
     const disableNanoA = computed(() => {
       return firstWalletAccount.value.balance.raw === '0' || sendingNanoA.value;
@@ -256,6 +246,10 @@ export default {
       }
       if (wasReceived) {
         confirmationReceiveHash.value = receiveData.hash;
+        if (!hasCompletedAtLeastOneTransaction.value) {
+          hasCompletedAtLeastOneTransaction.value = true;
+          emitter.emit('step-completed', 'second');
+        }
       }
     });
 
