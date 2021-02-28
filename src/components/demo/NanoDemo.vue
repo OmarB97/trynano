@@ -46,7 +46,7 @@
         >
       </el-col>
       <el-col :span="16" class="progress-bar">
-        <NanoTransactionStatusBar></NanoTransactionStatusBar>
+        <NanoTransactionStatusBar :status="transactionStatus"></NanoTransactionStatusBar>
       </el-col>
       <el-col :span="4">
         <NanoWallet
@@ -105,6 +105,7 @@
 
 <script>
 import { computed, ref, getCurrentInstance } from 'vue';
+import { ElMessage } from 'element-plus';
 import NanoWallet from './NanoWallet.vue';
 import NanoTransactionResults from './NanoTransactionResults.vue';
 import NanoTransactionStatusBar from './NanoTransactionStatusBar.vue';
@@ -144,6 +145,8 @@ export default {
     const confirmationReceiveHash = ref(null);
     const hasCompletedAtLeastOneTransaction = ref(false);
 
+    const transactionStatus = ref(null);
+
     const disableNanoA = computed(() => {
       return firstWalletAccount.value.balance.raw === '0' || sendingNanoA.value;
     });
@@ -157,6 +160,7 @@ export default {
       showTransactionResults.value = false;
       confirmationSendHash.value = null;
       confirmationReceiveHash.value = null;
+      transactionStatus.value = null;
       if (receivingWalletLetter === 'B') {
         // send from Wallet A to Wallet B
         isInitialNanoA.value = false;
@@ -171,7 +175,12 @@ export default {
           .then((accountAfterSend) => {
             if (accountAfterSend.error && accountAfterSend.error != null) {
               console.log(`error sending nano from wallet A, ${accountAfterSend.error}`);
+              transactionStatus.value = 'exception';
               sendingNanoA.value = false;
+              ElMessage({
+                message: 'Error sending Nano from Wallet A to Wallet B',
+                type: 'error',
+              });
               return;
             }
             console.log(accountAfterSend);
@@ -190,7 +199,12 @@ export default {
           .then((accountAfterSend) => {
             if (accountAfterSend.error && accountAfterSend.error != null) {
               console.log(`error sending nano from wallet B, ${accountAfterSend.error}`);
+              transactionStatus.value = 'exception';
               sendingNanoB.value = false;
+              ElMessage({
+                message: 'Error sending Nano from Wallet B to Wallet A',
+                type: 'error',
+              });
               return;
             }
             console.log(accountAfterSend);
@@ -225,6 +239,7 @@ export default {
         emitter.emit('transaction-finished');
         confirmationSendHash.value = sendData.hash;
         showTransactionResults.value = true;
+        transactionStatus.value = 'success';
       }
     });
 
@@ -238,6 +253,10 @@ export default {
       } else if (receiveData.address === secondWalletAccount.value.address) {
         waitingForReceiveNanoB.value = false;
         wasReceived = true;
+        if (!hasCompletedAtLeastOneTransaction.value) {
+          hasCompletedAtLeastOneTransaction.value = true;
+          emitter.emit('step-completed', 'second');
+        }
       } else {
         console.log(
           "error, address from nano-received emit doesn't match any wallet address"
@@ -246,10 +265,6 @@ export default {
       }
       if (wasReceived) {
         confirmationReceiveHash.value = receiveData.hash;
-        if (!hasCompletedAtLeastOneTransaction.value) {
-          hasCompletedAtLeastOneTransaction.value = true;
-          emitter.emit('step-completed', 'second');
-        }
       }
     });
 
@@ -275,6 +290,7 @@ export default {
       confirmationSendHash,
       confirmationReceiveHash,
       handleClaimNanoClicked,
+      transactionStatus,
     };
   },
 };

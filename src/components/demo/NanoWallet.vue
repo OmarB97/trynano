@@ -21,7 +21,7 @@ export default {
   props: {
     walletLetter: String,
     walletAddress: String,
-    walletBalance: String,
+    walletBalance: Object,
   },
   setup(props) {
     console.log('NanoWallet component setup');

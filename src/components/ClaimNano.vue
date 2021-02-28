@@ -51,6 +51,7 @@
 </template>
 <script>
 import { ref, computed, getCurrentInstance } from 'vue';
+import { ElMessage } from 'element-plus';
 import { tools } from 'nanocurrency-web';
 
 export default {
@@ -110,6 +111,10 @@ export default {
             console.log(
               `error sending nano to address provided, ${accountAfterSend.error}`
             );
+            ElMessage({
+              message: 'Error sending Nano to address provided',
+              type: 'error',
+            });
             return;
           }
           nanoSuccessfullySent.value = true;
