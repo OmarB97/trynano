@@ -1,4 +1,5 @@
-# trynano
+![trynano_full](https://user-images.githubusercontent.com/21279036/109429629-84da3f80-79b1-11eb-8b73-83f456d67301.png)
+
 
 [trynano.io](https://www.trynano.io)
 
