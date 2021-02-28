@@ -227,9 +227,6 @@ export default {
         // receive block for second wallet
         [matchingRecieveAccount] = secondWalletData.value.accounts;
       } else {
-        console.log(
-          'Receive Confirmation block receiver address did not match address in either wallet'
-        );
         return;
       }
       /*
@@ -237,11 +234,7 @@ export default {
         it has been implemented by the npm library
       */
       if (!alreadyProcessedReceiveBlock.value) {
-        nanoClient.receive(matchingRecieveAccount, 1).then((accountAfterReceive) => {
-          if (accountAfterReceive.error && accountAfterReceive.error !== null) {
-            console.log(`error receiving nano block, ${accountAfterReceive.error}`);
-          }
-        });
+        nanoClient.receive(matchingRecieveAccount, 1);
       }
       alreadyProcessedReceiveBlock.value = !alreadyProcessedReceiveBlock.value;
     });
@@ -256,9 +249,6 @@ export default {
         // receive block for second wallet
         secondWalletData.value.accounts[0].balance.raw = res.message.amount;
       } else {
-        console.log(
-          'Receive Confirmation block receiver address did not match address in either wallet'
-        );
         return;
       }
 

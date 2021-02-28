@@ -220,9 +220,6 @@ export default {
         waitingForReceiveNanoA.value = true;
         wasSent = true;
       } else {
-        console.log(
-          "error, address from nano-sent emit doesn't match any wallet address"
-        );
         wasSent = false;
       }
       if (wasSent) {
@@ -246,9 +243,6 @@ export default {
           emitter.emit('step-completed', 'second');
         }
       } else {
-        console.log(
-          "error, address from nano-received emit doesn't match any wallet address"
-        );
         wasReceived = false;
       }
       if (wasReceived) {
