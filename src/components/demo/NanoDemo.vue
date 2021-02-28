@@ -123,7 +123,6 @@ export default {
     secondWallet: Object,
   },
   setup(props, context) {
-    console.log('NanoDemo component setup');
     const {
       emitter,
       nanoClient,
@@ -174,7 +173,6 @@ export default {
           )
           .then((accountAfterSend) => {
             if (accountAfterSend.error && accountAfterSend.error != null) {
-              console.log(`error sending nano from wallet A, ${accountAfterSend.error}`);
               transactionStatus.value = 'exception';
               sendingNanoA.value = false;
               ElMessage({
@@ -183,7 +181,6 @@ export default {
               });
               return;
             }
-            console.log(accountAfterSend);
           });
       } else if (receivingWalletLetter === 'A') {
         // send from Wallet B to Wallet A
@@ -198,7 +195,6 @@ export default {
           )
           .then((accountAfterSend) => {
             if (accountAfterSend.error && accountAfterSend.error != null) {
-              console.log(`error sending nano from wallet B, ${accountAfterSend.error}`);
               transactionStatus.value = 'exception';
               sendingNanoB.value = false;
               ElMessage({
@@ -207,7 +203,6 @@ export default {
               });
               return;
             }
-            console.log(accountAfterSend);
           });
       }
     };
@@ -218,14 +213,11 @@ export default {
         (sendData.timestamp - transactionStartTimeMs.value) /
         1000.0
       ).toString()} seconds`;
-      console.log(`settlement time: ${transactionTime.value}`);
       if (sendData.address === firstWalletAccount.value.address) {
-        console.log('#matched wallet A send');
         sendingNanoA.value = false;
         waitingForReceiveNanoB.value = true;
         wasSent = true;
       } else if (sendData.address === secondWalletAccount.value.address) {
-        console.log('#matched wallet B send');
         sendingNanoB.value = false;
         waitingForReceiveNanoA.value = true;
         wasSent = true;
@@ -244,8 +236,6 @@ export default {
     });
 
     emitter.on('nano-received', (receiveData) => {
-      console.log('emitter on nano-received in NanoDemo');
-      console.log(receiveData);
       let wasReceived;
       if (receiveData.address === firstWalletAccount.value.address) {
         waitingForReceiveNanoA.value = false;

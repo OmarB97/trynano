@@ -64,9 +64,6 @@ export default {
     confirmationSendHash: String,
     confirmationReceiveHash: String,
   },
-  setup() {
-    console.log('NanoTransactionResults component setup');
-  },
 };
 </script>
 

@@ -24,7 +24,6 @@ export default {
     walletBalance: Object,
   },
   setup(props) {
-    console.log('NanoWallet component setup');
     const shortenedNanoAddress = ref(
       props.walletAddress.slice(0, 5) + props.walletAddress.slice(-7)
     );

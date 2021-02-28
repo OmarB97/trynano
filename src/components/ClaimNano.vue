@@ -61,7 +61,6 @@ export default {
     secondWallet: Object,
   },
   setup(props) {
-    console.log('ClaimNano component setup');
     const {
       emitter,
       nanoClient,
@@ -97,7 +96,6 @@ export default {
       isValidNanoAddress.value = tools.validateAddress(address);
     };
     const onSendNano = () => {
-      console.log('sending nano');
       sendingNano.value = true;
       nanoClient
         .send(
@@ -108,9 +106,6 @@ export default {
         .then((accountAfterSend) => {
           sendingNano.value = false;
           if (accountAfterSend.error && accountAfterSend.error != null) {
-            console.log(
-              `error sending nano to address provided, ${accountAfterSend.error}`
-            );
             ElMessage({
               message: 'Error sending Nano to address provided',
               type: 'error',
@@ -119,7 +114,6 @@ export default {
           }
           nanoSuccessfullySent.value = true;
           emitter.emit('step-completed', 'third');
-          console.log(accountAfterSend);
         });
     };
     return {

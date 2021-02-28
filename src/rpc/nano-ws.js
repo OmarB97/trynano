@@ -9,27 +9,21 @@ function callWebsocket(trackedAccounts, emitter) {
   let nanoWebsocketOffline = false;
 
   const socketMessageListener = (event) => {
-    console.log(event);
     if (event === null || event.data === null) {
       return;
     }
     const res = JSON.parse(event.data);
     if (res.topic !== null && res.topic === 'confirmation') {
-      console.log(JSON.stringify(res));
-      console.log(JSON.stringify(res.message));
       const subType = res.message.block.subtype;
       if (subType === 'send') {
         emitter.emit('block-confirmation-send', res);
       } else if (subType === 'receive') {
         emitter.emit('block-confirmation-receive', res);
-      } else {
-        console.log(`block subType ${subType} not handled`);
       }
     }
   };
 
   const socketOpenListener = () => {
-    console.log('NANO socket opened');
     nanoWebsocketOffline = false;
     // Subscribe to block confirmations on both accounts
     const msg = {

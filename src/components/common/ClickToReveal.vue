@@ -60,7 +60,6 @@ export default {
     });
 
     const revealClicked = () => {
-      console.log('reveal clicked!');
       didClick.value = true;
       if (props.clickable) {
         context.emit('revealClicked');

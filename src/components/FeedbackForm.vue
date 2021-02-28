@@ -112,7 +112,6 @@ export default {
               process.env.VUE_APP_EMAILJS_USER_KEY
             )
             .then((response) => {
-              console.log(response);
               if (response && response.status === 200) {
                 ElMessage({
                   message: 'Feedback successfully sent!',

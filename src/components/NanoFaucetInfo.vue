@@ -76,8 +76,6 @@ export default {
     const walletAccount = computed(() => props.firstWalletData.accounts[0]);
 
     emitter.on('nano-received', (receiveData) => {
-      console.log('emitter on nano-received in NanoFaucetInfo');
-      console.log(receiveData);
       if (receiveData.address === walletAccount.value.address) {
         if (!nanoRecieved.value && receiveData.balance > 0) {
           depositStatus.value = 'Received!';

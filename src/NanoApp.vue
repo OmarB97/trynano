@@ -181,8 +181,6 @@ export default {
 
     const handleRevealFaucetInfoClicked = () => {
       didRevealFaucetInfo.value = true;
-      console.log(firstWalletData.value);
-      console.log(secondWalletData.value);
       callWebsocket(
         [
           firstWalletData.value.accounts[0].address,
@@ -194,11 +192,6 @@ export default {
 
     // Handle send confirmation block, receive most recent pending block
     emitter.on('block-confirmation-send', (res) => {
-      console.log('emitter on block-confirmation-send in NanoApp');
-      console.log(
-        `NanoApp block-confirmation-send response: ${JSON.stringify(res.message)}`
-      );
-
       const confirmationSenderAddress = res.message.account;
       let shouldEmitSend;
       if (firstWalletData.value.accounts[0].address === confirmationSenderAddress) {
@@ -243,13 +236,11 @@ export default {
         Replace hardcoded 1 with a 'receiveAll' API call once
         it has been implemented by the npm library
       */
-      console.log(matchingRecieveAccount);
       if (!alreadyProcessedReceiveBlock.value) {
         nanoClient.receive(matchingRecieveAccount, 1).then((accountAfterReceive) => {
           if (accountAfterReceive.error && accountAfterReceive.error !== null) {
             console.log(`error receiving nano block, ${accountAfterReceive.error}`);
           }
-          console.log(accountAfterReceive);
         });
       }
       alreadyProcessedReceiveBlock.value = !alreadyProcessedReceiveBlock.value;
@@ -257,10 +248,6 @@ export default {
 
     // Handle receive confirmation block, emit received nano data
     emitter.on('block-confirmation-receive', (res) => {
-      console.log('emitter on block-confirmation-receive in NanoApp');
-      console.log(
-        `NanoApp block-confirmation-receive response: ${JSON.stringify(res.message)}`
-      );
       const confirmationAddress = res.message.account;
       if (firstWalletData.value.accounts[0].address === confirmationAddress) {
         // update first wallet balance

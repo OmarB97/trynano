@@ -20,8 +20,6 @@ export default {
     const currentPercent = ref(0);
     const didStartTransaction = ref(false);
 
-    console.log('NanoTransactionStatusBar component setup');
-
     emitter.on('transaction-started', () => {
       didStartTransaction.value = true;
       currentPercent.value = 0;
