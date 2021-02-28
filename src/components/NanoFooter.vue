@@ -104,13 +104,13 @@ export default {
     });
 
     const rules = ref({
-      name: [{ required: true, message: 'Please input your name', trigger: 'blur' }],
+      name: [{ required: true, message: 'Please enter a name', trigger: 'blur' }],
       email: [
-        { required: true, message: 'Please input your email', trigger: 'blur' },
+        { required: true, message: 'Please enter an email', trigger: 'blur' },
         { type: 'email', message: 'Invalid email address', trigger: 'blur' },
       ],
       message: [
-        { required: true, message: 'Please input message', trigger: 'blur' },
+        { required: true, message: 'Please enter a message', trigger: 'blur' },
         { min: 10, message: 'Please enter more than 10 characters', trigger: 'blur' },
       ],
     });
