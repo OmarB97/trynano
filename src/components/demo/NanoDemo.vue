@@ -60,7 +60,7 @@
           class="nanoButton"
           plain
           @click="sendNano('A')"
-          :loading="sendingNanoB"
+          :loading="sendingNanoB || waitingForReceiveNanoB"
           :disabled="disableNanoB"
           ><div
             v-show="
