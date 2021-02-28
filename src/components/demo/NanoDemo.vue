@@ -207,9 +207,8 @@ export default {
 
     emitter.on('nano-sent', (sendData) => {
       let wasSent;
-      transactionTime.value = `${(
-        (sendData.timestamp - transactionStartTimeMs.value) /
-        1000.0
+      transactionTime.value = `${Math.abs(
+        (sendData.timestamp - transactionStartTimeMs.value) / 1000.0
       ).toString()} seconds`;
       if (sendData.address === firstWalletAccount.value.address) {
         sendingNanoA.value = false;
