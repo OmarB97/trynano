@@ -117,12 +117,11 @@ export default {
     NanoTransactionResults,
     NanoTransactionStatusBar,
   },
-  emits: ['revealClaimNanoClicked'],
   props: {
     firstWallet: Object,
     secondWallet: Object,
   },
-  setup(props, context) {
+  setup(props) {
     const {
       emitter,
       nanoClient,
@@ -249,10 +248,6 @@ export default {
       }
     });
 
-    const handleClaimNanoClicked = () => {
-      context.emit('revealClaimNanoClicked');
-    };
-
     return {
       firstWalletAccount,
       secondWalletAccount,
@@ -270,7 +265,6 @@ export default {
       transactionTime,
       confirmationSendHash,
       confirmationReceiveHash,
-      handleClaimNanoClicked,
       transactionStatus,
     };
   },

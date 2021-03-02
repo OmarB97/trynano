@@ -2,9 +2,9 @@
 <template>
   <div class="flex-wrapper">
     <div class="site-content">
-      <NanoIntro @revealFaucetInfoClicked="handleRevealFaucetInfoClicked"></NanoIntro>
+      <NanoIntro @revealStepsClicked="handleRevealStepsClicked"></NanoIntro>
       <transition name="fade-in-down">
-        <div v-show="didRevealFaucetInfo">
+        <div v-show="didRevealSteps">
           <el-steps
             class="steps"
             :active="currentStep"
@@ -171,16 +171,14 @@ export default {
       transitionDirection.value = 'fade-in-right';
     };
 
-    const didRevealFaucetInfo = ref(false);
-    const didRevealDemo = ref(false);
-    const didRevealClaimNano = ref(false);
+    const didRevealSteps = ref(false);
 
     const firstWalletData = ref(nanoClient.generateWallet());
     const secondWalletData = ref(nanoClient.generateWallet());
     const alreadyProcessedReceiveBlock = ref(false);
 
-    const handleRevealFaucetInfoClicked = () => {
-      didRevealFaucetInfo.value = true;
+    const handleRevealStepsClicked = () => {
+      didRevealSteps.value = true;
       callWebsocket(
         [
           firstWalletData.value.accounts[0].address,
@@ -273,12 +271,10 @@ export default {
       stepCompleteState,
       isCurrentStepComplete,
       transitionDirection,
-      didRevealFaucetInfo,
-      didRevealDemo,
-      didRevealClaimNano,
+      didRevealSteps,
       firstWalletData,
       secondWalletData,
-      handleRevealFaucetInfoClicked,
+      handleRevealStepsClicked,
     };
   },
 };

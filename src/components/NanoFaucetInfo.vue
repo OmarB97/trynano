@@ -8,7 +8,7 @@
     <p class="subtext">
       (<u>Note</u>: If you've received a tip from someone using NanoTipBot and would like
       to use that instead, use the !withdraw command outlined
-      <a href="https://nanotipbot.com/" target="_blank">here</a> instead.)
+      <a href="https://nanotipbot.com/" target="_blank">here</a>.)
     </p>
     <div>
       <el-popover placement="left" :width="350" trigger="click">
@@ -61,11 +61,10 @@ import { ref, computed, getCurrentInstance } from 'vue';
 
 export default {
   name: 'NanoFaucetInfo',
-  emits: ['revealDemoClicked'],
   props: {
     firstWalletData: Object,
   },
-  setup(props, context) {
+  setup(props) {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
 
     const nanoRecieved = ref(false);
@@ -86,10 +85,6 @@ export default {
       }
     });
 
-    const handleRevealDemoClicked = () => {
-      context.emit('revealDemoClicked');
-    };
-
     const onAddressCopySuccess = () => {
       copyPrompt.value = 'Copied!';
     };
@@ -97,7 +92,6 @@ export default {
     return {
       nanoRecieved,
       depositStatus,
-      handleRevealDemoClicked,
       hoverOnCopyAddress,
       onAddressCopySuccess,
       copyPrompt,

@@ -15,7 +15,7 @@
       :clickable="true"
       :shouldBoldText="true"
       :sizeFactor="1"
-      @revealClicked="handleRevealFaucetInfoClicked"
+      @revealClicked="handleRevealStepsClicked"
     ></ClickToReveal>
   </div>
 </template>
@@ -27,16 +27,16 @@ import ClickToReveal from './common/ClickToReveal.vue';
 export default {
   name: 'NanoIntro',
   components: { ClickToReveal },
-  emits: ['revealFaucetInfoClicked'],
+  emits: ['revealStepsClicked'],
   setup(props, context) {
-    const revealFaucetInfoClicked = ref(false);
+    const revealStepsClicked = ref(false);
 
-    const handleRevealFaucetInfoClicked = () => {
-      revealFaucetInfoClicked.value = true;
-      context.emit('revealFaucetInfoClicked');
+    const handleRevealStepsClicked = () => {
+      revealStepsClicked.value = true;
+      context.emit('revealStepsClicked');
     };
 
-    return { revealFaucetInfoClicked, handleRevealFaucetInfoClicked };
+    return { revealStepsClicked, handleRevealStepsClicked };
   },
 };
 </script>
