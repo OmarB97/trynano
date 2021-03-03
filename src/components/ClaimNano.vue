@@ -6,7 +6,7 @@
   <p>
     The most popular wallets in the Nano community are
     <a href="https://natrium.io/" target="_blank">Natrium</a> (Android/iOS) and
-    <a href="https://nault.cc/accounts" target="_blank">Nault</a> (Web/Desktop).
+    <a href="https://nault.cc" target="_blank">Nault</a> (Web/Desktop).
   </p>
   <p style="font-size: 90%; opacity: 85%; margin-top: -10px">
     (For a more complete list of options, please visit
