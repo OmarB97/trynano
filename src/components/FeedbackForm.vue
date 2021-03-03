@@ -15,10 +15,10 @@
         <el-input v-model="email" name="email"></el-input>
       </el-form-item>
       <el-form-item label="Feedback Type">
-        <el-radio-group v-model="feedbackType" name="type">
-          <el-radio label="Bug"></el-radio>
-          <el-radio label="Feature Request"></el-radio>
-          <el-radio label="Other"></el-radio>
+        <el-radio-group v-model="feedbackType" name="feedback_type">
+          <el-radio label="Bug" name="feedback_type"></el-radio>
+          <el-radio label="Feature Request" name="feedback_type"></el-radio>
+          <el-radio label="Other" name="feedback_type"></el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="Message" prop="message">
