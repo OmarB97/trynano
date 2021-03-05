@@ -10,6 +10,10 @@
       If you liked this experience, please consider donating to me at
       <a
         class="nano-address"
+        :class="{
+          'nano-address-phone': $mq === 'phone',
+          'nano-address-tablet': $mq === 'tablet',
+        }"
         href="https://nanocrawler.cc/explorer/account/nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq/history"
         target="_blank"
         >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
@@ -34,6 +38,11 @@ export default {};
 .nano-address {
   font-weight: 600;
   color: #000;
+}
+
+.nano-address-phone,
+.nano-address-tablet {
+  overflow-wrap: break-word;
 }
 
 .donation {
