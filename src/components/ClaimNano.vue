@@ -16,7 +16,11 @@
     Once you've finished setting up your wallet, enter your new Nano wallet address below
     and click send. That's it!
   </p>
-  <el-form :inline="true" class="sendNanoForm">
+  <el-form
+    :inline="true"
+    class="sendNanoForm"
+    @submit.prevent="maybeTriggerSendButtonClick"
+  >
     <el-form-item>
       <el-input
         class="nanoAddressInput"
@@ -34,9 +38,10 @@
     </el-form-item>
     <el-form-item>
       <el-button
+        ref="sendButton"
         type="success"
         plain
-        :disabled="!isValidNanoAddress || sendingNano || nanoSuccessfullySent"
+        :disabled="!canSendNano"
         @click="onSendNano"
         :loading="sendingNano"
       >
@@ -66,6 +71,13 @@ export default {
       nanoClient,
     } = getCurrentInstance().appContext.config.globalProperties;
 
+    const sendButton = ref(null);
+    const receivingNanoAddress = ref('');
+    const isValidNanoAddress = ref(false);
+    const validNanoAddressLabel = ref(null);
+    const sendingNano = ref(false);
+    const nanoSuccessfullySent = ref(false);
+
     const sendingWalletAccount = computed(() => {
       if (props.firstWallet.accounts[0].balance.raw !== '0') {
         return props.firstWallet.accounts[0];
@@ -73,11 +85,14 @@ export default {
       return props.secondWallet.accounts[0];
     });
 
-    const receivingNanoAddress = ref('');
-    const isValidNanoAddress = ref(false);
-    const validNanoAddressLabel = ref(null);
-    const sendingNano = ref(false);
-    const nanoSuccessfullySent = ref(false);
+    const canSendNano = computed(() => {
+      return (
+        isValidNanoAddress.value &&
+        sendingWalletAccount.value.balance.raw !== '0' &&
+        !sendingNano.value &&
+        !nanoSuccessfullySent.value
+      );
+    });
 
     const showNanoAddressValidityLabel = () => {
       if (isValidNanoAddress.value) {
@@ -93,8 +108,12 @@ export default {
     };
 
     const validateNanoAddress = (address) => {
+      if (validNanoAddressLabel.value.style.display !== 'none') {
+        validNanoAddressLabel.value.style.display = 'none';
+      }
       isValidNanoAddress.value = tools.validateAddress(address);
     };
+
     const onSendNano = () => {
       sendingNano.value = true;
       nanoClient
@@ -116,6 +135,20 @@ export default {
           emitter.emit('step-completed', 'third');
         });
     };
+
+    const maybeTriggerSendButtonClick = () => {
+      if (nanoSuccessfullySent.value) {
+        return;
+      }
+      if (canSendNano.value) {
+        if (sendButton.value != null) {
+          sendButton.value.handleClick();
+        }
+      } else {
+        showNanoAddressValidityLabel();
+      }
+    };
+
     return {
       receivingNanoAddress,
       onSendNano,
@@ -126,6 +159,9 @@ export default {
       sendingNano,
       nanoSuccessfullySent,
       sendingWalletAccount,
+      sendButton,
+      maybeTriggerSendButtonClick,
+      canSendNano,
     };
   },
 };
