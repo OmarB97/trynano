@@ -223,6 +223,6 @@ export default {
   font-size: 95%;
   font-weight: 500;
   text-align: left;
-  margin: -8px auto 0px 16px;
+  margin: 1px auto 0px 16px;
 }
 </style>
