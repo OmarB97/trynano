@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="Give Feedback" v-model="isDialogVisible" width="40%">
+  <el-dialog title="Give Feedback" v-model="isDialogVisible" :width="dialogWidth">
     <el-form
       :model="ruleForm"
       class="form"
@@ -53,6 +53,20 @@ export default {
   name: '',
   props: {
     feedbackDialogVisible: Boolean,
+  },
+  computed: {
+    dialogWidth() {
+      switch (this.$mq) {
+        case 'phone':
+          return '95%';
+        case 'tablet':
+          return '80%';
+        case 'other':
+          return '40%';
+        default:
+          return '40%';
+      }
+    },
   },
   setup(props) {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;

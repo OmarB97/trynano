@@ -16,8 +16,17 @@
     Once you've finished setting up your wallet, enter your new Nano wallet address below
     and click send. That's it!
   </p>
-  <el-row class="send-nano-row" type="flex" justify="center">
-    <el-col :span="12">
+  <el-row
+    class="send-nano-row"
+    :class="{
+      'send-nano-row-phone': $mq === 'phone',
+      'send-nano-row-tablet': $mq === 'tablet',
+      'send-nano-row-other': $mq === 'other',
+    }"
+    type="flex"
+    justify="center"
+  >
+    <el-col :span="nanoAddressSpan">
       <el-input
         class="nano-address-input"
         placeholder="Enter your Nano address..."
@@ -63,10 +72,22 @@ export default {
     secondWallet: Object,
   },
   computed: {
+    nanoAddressSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 16;
+        case 'tablet':
+          return 12;
+        case 'other':
+          return 12;
+        default:
+          return 12;
+      }
+    },
     sendButtonSpan() {
       switch (this.$mq) {
         case 'phone':
-          return 12;
+          return 8;
         case 'tablet':
           return 6;
         case 'other':
@@ -180,8 +201,16 @@ export default {
 
 <style scoped>
 .send-nano-row {
-  width: 90%;
   margin: auto;
+}
+
+.send-nano-row-other,
+.send-nano-row-tablet {
+  width: 90%;
+}
+
+.send-nano-row-phone {
+  width: 95%;
 }
 
 .nano-address-input {
