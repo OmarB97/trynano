@@ -6,7 +6,13 @@
       <transition name="fade-in-down">
         <div v-show="didRevealSteps">
           <el-steps
+            :space="500"
             class="steps"
+            :class="{
+              'steps-width-phone': $mq === 'phone',
+              'steps-width-tablet': $mq === 'tablet',
+              'steps-width-other': $mq === 'other',
+            }"
             :active="currentStep"
             align-center
             finish-status="success"
@@ -28,7 +34,14 @@
             ></el-step>
             <el-step title="Step 4" description="Done!" icon="el-icon-finished"></el-step>
           </el-steps>
-          <div class="step-section">
+          <div
+            class="step-section"
+            :class="{
+              'step-section-width-phone': $mq === 'phone',
+              'step-section-width-tablet': $mq === 'tablet',
+              'step-section-width-other': $mq === 'other',
+            }"
+          >
             <div class="steppers">
               <el-button
                 :style="{ visibility: currentStep > 0 ? 'visible' : 'hidden' }"
@@ -286,6 +299,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  max-width: 100%;
   height: 100%;
 }
 
@@ -300,6 +314,7 @@ body {
 
 .site-content {
   margin-top: 60px;
+  padding: 0 20px;
 }
 
 .flex-wrapper {
@@ -356,13 +371,35 @@ a:hover {
 
 .steps {
   text-align: initial;
-  width: 60%;
   margin: -60px auto 50px auto;
 }
 
-.step-section {
+.steps-width-phone {
+  width: 100%;
+}
+
+.steps-width-tablet {
   width: 80%;
+}
+
+.steps-width-other {
+  width: 60%;
+}
+
+.step-section {
   margin: auto auto 50px auto;
+}
+
+.step-section-width-phone {
+  width: 100%;
+}
+
+.step-section-width-tablet {
+  width: 90%;
+}
+
+.step-section-width-other {
+  width: 80%;
 }
 
 .steppers {

@@ -1,5 +1,12 @@
 <template>
-  <div class="faucet-info">
+  <div
+    class="faucet-info"
+    :class="{
+      'faucet-card-width-phone': $mq === 'phone',
+      'faucet-card-width-tablet': $mq === 'tablet',
+      'faucet-card-width-other': $mq === 'other',
+    }"
+  >
     <p class="maintext">
       Go to
       <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and paste
@@ -11,7 +18,12 @@
       <a href="https://nanotipbot.com/" target="_blank">here</a>.)
     </p>
     <div>
-      <el-popover placement="left" :width="350" trigger="click">
+      <el-popover
+        class="popover"
+        :placement="$mq === 'other' ? 'left' : 'top'"
+        :width="350"
+        trigger="click"
+      >
         <template #reference>
           <i class="el-icon-question wallet-tooltip pointer"></i>
         </template>
@@ -21,13 +33,18 @@
           email address!
         </div>
       </el-popover>
-      <el-tooltip effect="dark" :content="copyPrompt" placement="right" :offset="15">
+      <el-tooltip
+        effect="dark"
+        :content="copyPrompt"
+        :placement="$mq === 'other' ? 'right' : 'bottom-end'"
+        :offset="15"
+      >
         <div
           style="display: inline-block; margin: 16px 0px"
           @mouseenter="copyPrompt = 'Copy Address'"
           @mouseover="hoverOnCopyAddress = true"
           @mouseleave="hoverOnCopyAddress = false"
-          :class="{ pointer: hoverOnCopyAddress }"
+          :class="{ pointer: hoverOnCopyAddress, 'wallet-info-smaller': $mq !== 'other' }"
           v-clipboard:copy="walletAccount.address"
           v-clipboard:success="onAddressCopySuccess"
         >
@@ -105,9 +122,20 @@ export default {
 <style>
 .faucet-info {
   margin-bottom: 50px;
-  max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.faucet-card-width-phone {
+  width: 100%;
+}
+
+.faucet-card-width-tablet {
+  width: 100%;
+}
+
+.faucet-card-width-other {
+  width: 80%;
 }
 
 .waiting {
@@ -154,11 +182,11 @@ export default {
 }
 
 .wallet-tooltip {
-  margin-right: 5px;
+  margin: auto 5px auto 0;
 }
 
-.status-card {
-  width: 85%;
-  margin: auto;
+.wallet-info-smaller {
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 </style>

@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { VueClipboard } from '@soerenmartius/vue3-clipboard';
 import mitt from 'mitt';
 import { NanoClient } from '@nanobox/nano-client';
+import VueMq from "vue3-mq";
 import NanoApp from './NanoApp.vue';
 import installElementPlus from './plugins/element';
 import '../node_modules/hover.css';
@@ -23,7 +24,16 @@ const client = new NanoClient({
 
 app.config.globalProperties.nanoClient = client;
 
+// Set breakpoints for various devices
+const vueMqConfig = {
+    breakpoints: {
+    phone: 450,
+    tablet: 1250,
+    other: Infinity,
+  },
+}
+
 // silence all Vue warns
 app.config.warnHandler = () => null;
 
-app.use(VueClipboard).mount('#app');
+app.use(VueClipboard).use(VueMq, vueMqConfig).mount('#app');
