@@ -58,7 +58,6 @@
                 type="primary"
                 plain
                 @click="increaseStep"
-                :disabled="!isCurrentStepComplete"
                 >Next Step <i class="el-icon-right"></i
               ></el-button>
             </div>

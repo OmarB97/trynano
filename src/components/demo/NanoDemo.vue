@@ -5,7 +5,7 @@
       just how quick and easy it is to use Nano!
     </p>
     <el-row type="flex" class="row-bg" justify="center" align="middle">
-      <el-col :span="4">
+      <el-col :span="walletSpan">
         <NanoWallet
           class="wallet"
           walletLetter="A"
@@ -14,12 +14,13 @@
         ></NanoWallet>
         <el-button
           type="primary"
-          class="nanoButton"
+          :size="buttonSize"
           plain
           @click="sendNano('B')"
           :loading="sendingNanoA || waitingForReceiveNanoA"
           :disabled="disableNanoA"
           ><div
+            class="nano-button"
             v-show="
               !waitingForReceiveNanoA &&
               (isInitialNanoA ||
@@ -45,10 +46,10 @@
           </div></el-button
         >
       </el-col>
-      <el-col :span="16" class="progress-bar">
+      <el-col :span="barSpan">
         <NanoTransactionStatusBar :status="transactionStatus"></NanoTransactionStatusBar>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="walletSpan">
         <NanoWallet
           class="wallet"
           walletLetter="B"
@@ -57,12 +58,13 @@
         ></NanoWallet>
         <el-button
           type="primary"
-          class="nanoButton"
           plain
+          :size="buttonSize"
           @click="sendNano('A')"
           :loading="sendingNanoB || waitingForReceiveNanoB"
           :disabled="disableNanoB"
           ><div
+            class="nano-button"
             v-show="
               !waitingForReceiveNanoB &&
               (isInitialNanoB ||
@@ -70,7 +72,8 @@
                 (!disableNanoB && !sendingNanoB))
             "
           >
-            <span class="arrow">←</span> Send to Wallet A
+            <span class="arrow">←</span>
+            Send to Wallet A
           </div>
           <div v-show="disableNanoB && sendingNanoB">Sending...</div>
           <div
@@ -120,6 +123,44 @@ export default {
   props: {
     firstWallet: Object,
     secondWallet: Object,
+  },
+  computed: {
+    buttonSize() {
+      switch (this.$mq) {
+        case 'phone':
+          return 'small';
+        case 'tablet':
+          return 'medium';
+        case 'other':
+          return 'default';
+        default:
+          return 'default';
+      }
+    },
+    walletSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 8;
+        case 'tablet':
+          return 6;
+        case 'other':
+          return 4;
+        default:
+          return 4;
+      }
+    },
+    barSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 8;
+        case 'tablet':
+          return 12;
+        case 'other':
+          return 16;
+        default:
+          return 16;
+      }
+    },
   },
   setup(props) {
     const {
@@ -279,13 +320,20 @@ export default {
 .row-bg {
   margin: auto;
   padding: 1%;
-  background-color: #f9fafc;
   width: 95%;
 }
 
-.nanoButton {
-  margin-top: 5px;
+.nano-buttons {
+  width: 100%;
+  display: flex;
+  margin: 5px auto;
+  justify-content: space-between;
+}
+
+.nano-button {
   font-weight: bold;
+  display: inline-block;
+  white-space: normal;
 }
 
 .arrow {

@@ -3,7 +3,7 @@
   <img class="logo" src="../../assets/wallet.png" />
   <div style="display: block">
     <strong style="display: inline-block">Address:&ensp;</strong>
-    <div style="display: inline-block">{{ shortenedNanoAddress }}</div>
+    <div class="address" style="display: inline-block">{{ shortenedNanoAddress }}</div>
   </div>
   <div style="display: block">
     <strong style="display: inline-block">Balance:&ensp;</strong>
@@ -45,5 +45,10 @@ export default {
   width: auto;
   max-width: 50px;
   max-height: 50px;
+}
+
+.address {
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 </style>

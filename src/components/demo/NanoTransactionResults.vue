@@ -1,5 +1,12 @@
 <template>
-  <div class="demo">
+  <div
+    class="demo"
+    :class="{
+      'demo-phone': $mq === 'phone',
+      'demo-tablet': $mq === 'tablet',
+      'demo-other': $mq === 'other',
+    }"
+  >
     <el-card shadow="always" :body-style="{ width: '80%', margin: '0px auto 10px auto' }">
       <div class="card-content">
         <h3 class="card-title">Transaction Results</h3>
@@ -70,9 +77,21 @@ export default {
 <style lang="css" scoped>
 .demo {
   margin: 20px auto;
-  max-width: 40%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.demo-phone {
+  max-width: 95%;
+}
+
+.demo-tablet {
+  min-width: 300px;
+  max-width: 60%;
+}
+
+.demo-other {
+  max-width: 50%;
 }
 
 .card-content {

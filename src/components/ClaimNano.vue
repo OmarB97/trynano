@@ -16,27 +16,24 @@
     Once you've finished setting up your wallet, enter your new Nano wallet address below
     and click send. That's it!
   </p>
-  <el-form
-    :inline="true"
-    class="sendNanoForm"
-    @submit.prevent="maybeTriggerSendButtonClick"
-  >
-    <el-form-item>
+  <el-row class="send-nano-row" type="flex" justify="center">
+    <el-col :span="12">
       <el-input
-        class="nanoAddressInput"
+        class="nano-address-input"
         placeholder="Enter your Nano address..."
         v-model="receivingNanoAddress"
         clearable
         @input="validateNanoAddress"
         @focus="validNanoAddressLabel.style.display = 'none'"
         @blur="showNanoAddressValidityLabel"
+        @keyup.enter.prevent="maybeTriggerSendButtonClick"
       >
       </el-input>
       <div ref="validNanoAddressLabel" class="validNanoAddressLabel">
         {{ isValidNanoAddress ? 'Valid Nano Address' : 'Invalid Nano Address' }}
       </div>
-    </el-form-item>
-    <el-form-item>
+    </el-col>
+    <el-col :span="sendButtonSpan">
       <el-button
         ref="sendButton"
         type="success"
@@ -50,9 +47,9 @@
         </div>
         <div v-show="sendingNano && !nanoSuccessfullySent">Sending...</div>
         <div v-show="!sendingNano && nanoSuccessfullySent">Sent!</div>
-      </el-button>
-    </el-form-item>
-  </el-form>
+      </el-button></el-col
+    >
+  </el-row>
 </template>
 <script>
 import { ref, computed, getCurrentInstance } from 'vue';
@@ -64,6 +61,20 @@ export default {
   props: {
     firstWallet: Object,
     secondWallet: Object,
+  },
+  computed: {
+    sendButtonSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 12;
+        case 'tablet':
+          return 6;
+        case 'other':
+          return 3;
+        default:
+          return 3;
+      }
+    },
   },
   setup(props) {
     const {
@@ -168,15 +179,14 @@ export default {
 </script>
 
 <style scoped>
-.sendNanoForm {
-  width: auto;
-  display: inline-flex;
-  justify-content: center;
+.send-nano-row {
+  width: 90%;
+  margin: auto;
 }
 
-.nanoAddressInput {
+.nano-address-input {
   display: inline-flex;
-  min-width: 500px;
+  width: 100%;
 }
 
 .validNanoAddressLabel {

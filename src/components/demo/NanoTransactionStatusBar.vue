@@ -4,6 +4,8 @@
     :percentage="currentPercent"
     :status="status"
     :show-text="didStartTransaction"
+    :text-inside="$mq === 'phone'"
+    :stroke-width="$mq === 'phone' ? 16 : 6"
   ></el-progress>
 </template>
 
