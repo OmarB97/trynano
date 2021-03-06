@@ -128,7 +128,7 @@ export default {
     buttonSize() {
       switch (this.$mq) {
         case 'phone':
-          return 'small';
+          return 'mini';
         case 'tablet':
           return 'medium';
         case 'other':
