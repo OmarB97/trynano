@@ -11,7 +11,7 @@
       <div class="card-content">
         <h3 class="card-title">Transaction Results</h3>
         <div class="no-transaction-placeholder" v-show="!didInitiateFirstTransaction">
-          Send Nano between the two wallets start a transaction!
+          Send Nano between the two wallets to start a transaction!
         </div>
         <div v-show="showTransactionResults">
           <div style="display: block">
