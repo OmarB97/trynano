@@ -30,7 +30,7 @@
           >
             Send to Wallet B <span class="arrow">→</span>
           </div>
-          <div v-show="disableNanoA && sendingNanoA">Sending...</div>
+          <div class="nano-button" v-show="disableNanoA && sendingNanoA">Sending...</div>
           <div
             v-show="
               !isInitialNanoA &&
@@ -41,7 +41,7 @@
           >
             Sent!
           </div>
-          <div v-show="waitingForReceiveNanoA">
+          <div class="nano-button" v-show="waitingForReceiveNanoA">
             Confirming Received Nano...
           </div></el-button
         >
@@ -75,7 +75,7 @@
             <span class="arrow">←</span>
             Send to Wallet A
           </div>
-          <div v-show="disableNanoB && sendingNanoB">Sending...</div>
+          <div class="nano-button" v-show="disableNanoB && sendingNanoB">Sending...</div>
           <div
             v-show="
               !isInitialNanoB &&
@@ -86,7 +86,7 @@
           >
             Sent!
           </div>
-          <div v-show="waitingForReceiveNanoB">
+          <div class="nano-button" v-show="waitingForReceiveNanoB">
             Confirming Received Nano...
           </div></el-button
         >
