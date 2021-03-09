@@ -64,10 +64,10 @@
         {{ depositStatus }}
       </div>
     </strong>
-    <div v-show="receivedAmount > 0">
+    <div v-show="walletBalance > 0">
       <div style="display: block">
-        <strong style="display: inline-block">Amount:&ensp;</strong>
-        <div style="display: inline-block">{{ receivedAmount }} Ñ</div>
+        <strong style="display: inline-block">Balance:&ensp;</strong>
+        <div style="display: inline-block">{{ walletBalance }} Ñ</div>
       </div>
     </div>
   </div>
@@ -88,15 +88,15 @@ export default {
     const depositStatus = ref('Not Received');
     const hoverOnCopyAddress = ref(false);
     const copyPrompt = ref('Copy Address');
-    const receivedAmount = ref(0);
-    const walletAccount = computed(() => props.firstWalletData.accounts[0]);
+    const walletBalance = ref(0);
+    const walletAccount = computed(() => props.firstWalletData);
 
     emitter.on('nano-received', (receiveData) => {
       if (receiveData.address === walletAccount.value.address) {
         if (!nanoRecieved.value && receiveData.balance > 0) {
           depositStatus.value = 'Received!';
           nanoRecieved.value = true;
-          receivedAmount.value = receiveData.amount;
+          walletBalance.value = receiveData.balance;
           emitter.emit('step-completed', 'first');
         }
       }
@@ -112,7 +112,7 @@ export default {
       hoverOnCopyAddress,
       onAddressCopySuccess,
       copyPrompt,
-      receivedAmount,
+      walletBalance,
       walletAccount,
     };
   },

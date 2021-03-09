@@ -73,6 +73,8 @@
                   <NanoDemo
                     :firstWallet="firstWalletData"
                     :secondWallet="secondWalletData"
+                    :recaptchaLoaded="recaptchaLoaded"
+                    :executeRecaptcha="executeRecaptcha"
                   ></NanoDemo>
                 </div>
               </transition>
@@ -81,6 +83,8 @@
                   <ClaimNano
                     :firstWallet="firstWalletData"
                     :secondWallet="secondWalletData"
+                    :recaptchaLoaded="recaptchaLoaded"
+                    :executeRecaptcha="executeRecaptcha"
                   ></ClaimNano>
                 </div>
               </transition>
@@ -106,13 +110,18 @@
 import { ref, computed, getCurrentInstance } from 'vue';
 import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
+import { useReCaptcha } from 'vue-recaptcha-v3';
+import { ElMessage } from 'element-plus';
+import recaptcha from './util/recaptcha';
 import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
 import NanoFooter from './components/NanoFooter.vue';
 import NanoDemo from './components/demo/NanoDemo.vue';
 import ClaimNano from './components/ClaimNano.vue';
-import callWebsocket from './rpc/nano-ws';
+import callWebsocket from './ws/nano-ws';
 import NanoResources from './components/NanoResources.vue';
+import serverAPI from './util/server_api';
+import sampleWalletData from './util/sample_wallet_data';
 
 export default {
   name: 'NanoApp',
@@ -125,10 +134,11 @@ export default {
     NanoResources,
   },
   setup() {
-    const {
-      emitter,
-      nanoClient,
-    } = getCurrentInstance().appContext.config.globalProperties;
+    const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+    const { recaptchaLoaded, executeRecaptcha } = useReCaptcha();
+    const { getRecaptchaToken } = recaptcha();
+    const { generateWallets, receiveNano } = serverAPI();
+    const { firstSampleWallet, secondSampleWallet } = sampleWalletData();
 
     const currentStep = ref(0);
     const transitionDirection = ref('fade-in-down');
@@ -185,58 +195,76 @@ export default {
     };
 
     const didRevealSteps = ref(false);
-
-    const firstWalletData = ref(nanoClient.generateWallet());
-    const secondWalletData = ref(nanoClient.generateWallet());
+    const firstWalletData = ref(firstSampleWallet.value);
+    const secondWalletData = ref(secondSampleWallet.value);
     const alreadyProcessedReceiveBlock = ref(false);
 
-    const handleRevealStepsClicked = () => {
+    const handleRevealStepsClicked = async () => {
       didRevealSteps.value = true;
+
+      const token = await getRecaptchaToken(
+        recaptchaLoaded,
+        executeRecaptcha,
+        'generateWallets'
+      );
+      const res = await generateWallets(token);
+      console.log(res);
+      if (res.error) {
+        ElMessage({
+          message: 'Error generating wallets',
+          type: 'error',
+        });
+        return;
+      }
+      [firstWalletData.value, secondWalletData.value] = res.wallets;
       callWebsocket(
-        [
-          firstWalletData.value.accounts[0].address,
-          secondWalletData.value.accounts[0].address,
-        ],
+        [firstWalletData.value.address, secondWalletData.value.address],
         emitter
       );
     };
 
     // Handle send confirmation block, receive most recent pending block
-    emitter.on('block-confirmation-send', (res) => {
+    emitter.on('block-confirmation-send', async (res) => {
+      console.log(res);
       const confirmationSenderAddress = res.message.account;
+      const confirmationReceiverAddress = res.message.block.link_as_account;
       let shouldEmitSend;
-      if (firstWalletData.value.accounts[0].address === confirmationSenderAddress) {
+      if (firstWalletData.value.address === confirmationSenderAddress) {
         // update first wallet balance
-        firstWalletData.value.accounts[0].balance.raw = res.message.block.balance;
+        firstWalletData.value.balance.raw = res.message.block.balance;
         shouldEmitSend = true;
-      } else if (
-        secondWalletData.value.accounts[0].address === confirmationSenderAddress
-      ) {
+      } else if (secondWalletData.value.address === confirmationSenderAddress) {
         // receive block for second wallet
-        secondWalletData.value.accounts[0].balance.raw = res.message.block.balance;
+        secondWalletData.value.balance.raw = res.message.block.balance;
         shouldEmitSend = true;
       } else {
         shouldEmitSend = false;
       }
+      console.log(`shouldEmitSend: ${shouldEmitSend}`);
 
-      if (shouldEmitSend && !alreadyProcessedReceiveBlock.value) {
-        emitter.emit('nano-sent', {
+      const isInternalSend =
+        (confirmationSenderAddress === firstWalletData.value.address ||
+          confirmationSenderAddress === secondWalletData.value.address) &&
+        (confirmationReceiverAddress === firstWalletData.value.address ||
+          confirmationReceiverAddress === secondWalletData.value.address);
+
+      const emitType = isInternalSend ? 'internal-nano-send' : 'external-nano-send';
+
+      if (shouldEmitSend && isInternalSend && !alreadyProcessedReceiveBlock.value) {
+        emitter.emit(emitType, {
           address: confirmationSenderAddress,
           timestamp: res.time,
           hash: res.message.hash,
         });
       }
 
-      const confirmationReceiverAddress = res.message.block.link_as_account;
       let matchingRecieveAccount;
-      if (firstWalletData.value.accounts[0].address === confirmationReceiverAddress) {
+      if (firstWalletData.value.address === confirmationReceiverAddress) {
         // receive block for first wallet
-        [matchingRecieveAccount] = firstWalletData.value.accounts;
-      } else if (
-        secondWalletData.value.accounts[0].address === confirmationReceiverAddress
-      ) {
+        matchingRecieveAccount = firstWalletData.value.address;
+      } else if (secondWalletData.value.address === confirmationReceiverAddress) {
         // receive block for second wallet
-        [matchingRecieveAccount] = secondWalletData.value.accounts;
+        matchingRecieveAccount = secondWalletData.value.address;
       } else {
         return;
       }
@@ -245,7 +273,20 @@ export default {
         it has been implemented by the npm library
       */
       if (!alreadyProcessedReceiveBlock.value) {
-        nanoClient.receive(matchingRecieveAccount, 1);
+        // matchingRecieveAccount
+        const token = await getRecaptchaToken(
+          recaptchaLoaded,
+          executeRecaptcha,
+          'receiveNano'
+        );
+        const receiveRes = await receiveNano(token, matchingRecieveAccount);
+        if (receiveRes.error) {
+          ElMessage({
+            message: `Error receiving nano for wallet ${matchingRecieveAccount}`,
+            type: 'error',
+          });
+          return;
+        }
       }
       alreadyProcessedReceiveBlock.value = !alreadyProcessedReceiveBlock.value;
     });
@@ -253,12 +294,12 @@ export default {
     // Handle receive confirmation block, emit received nano data
     emitter.on('block-confirmation-receive', (res) => {
       const confirmationAddress = res.message.account;
-      if (firstWalletData.value.accounts[0].address === confirmationAddress) {
+      if (firstWalletData.value.address === confirmationAddress) {
         // update first wallet balance
-        firstWalletData.value.accounts[0].balance.raw = res.message.amount;
-      } else if (secondWalletData.value.accounts[0].address === confirmationAddress) {
+        firstWalletData.value.balance.raw = res.message.amount;
+      } else if (secondWalletData.value.address === confirmationAddress) {
         // receive block for second wallet
-        secondWalletData.value.accounts[0].balance.raw = res.message.amount;
+        secondWalletData.value.balance.raw = res.message.amount;
       } else {
         return;
       }
@@ -288,6 +329,8 @@ export default {
       firstWalletData,
       secondWalletData,
       handleRevealStepsClicked,
+      recaptchaLoaded,
+      executeRecaptcha,
     };
   },
 };

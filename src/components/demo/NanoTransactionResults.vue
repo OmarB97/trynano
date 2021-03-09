@@ -15,9 +15,7 @@
         </div>
         <div v-show="showTransactionResults">
           <div style="display: block">
-            <strong style="display: inline-block"
-              >Transaction Settlement Time:&ensp;</strong
-            >
+            <strong style="display: inline-block">Transaction Time:&ensp;</strong>
             <div style="display: inline-block">{{ transactionTime }}</div>
           </div>
           <div style="display: block">

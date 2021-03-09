@@ -1986,6 +1986,13 @@
   "resolved" "https://registry.npmjs.org/aws4/-/aws4-1.11.0.tgz"
   "version" "1.11.0"
 
+"axios@^0.21.1", "axios@>= 0.20.0":
+  "integrity" "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA=="
+  "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
+  "version" "0.21.1"
+  dependencies:
+    "follow-redirects" "^1.10.0"
+
 "babel-eslint@^10.1.0":
   "integrity" "sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg=="
   "resolved" "https://registry.npmjs.org/babel-eslint/-/babel-eslint-10.1.0.tgz"
@@ -4309,7 +4316,7 @@
     "inherits" "^2.0.3"
     "readable-stream" "^2.3.6"
 
-"follow-redirects@^1.0.0":
+"follow-redirects@^1.0.0", "follow-redirects@^1.10.0":
   "integrity" "sha512-DUgl6+HDzB0iEptNQEXLx/KhTmDb8tZUHSeLqpnjpknR70H0nC2t9N73BK6fN4hOvJ84pKlIQVQ4k5FFlBedKA=="
   "resolved" "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.3.tgz"
   "version" "1.13.3"
@@ -7394,6 +7401,11 @@
   dependencies:
     "picomatch" "^2.2.1"
 
+"recaptcha-v3@^1.8.0":
+  "integrity" "sha512-ugtg4JHDZiYJwv3ZjWBBZntsTCVpRk2BD8AhVVpSw9jv71SSx+SS9H342VaE0D2XV78DpRdDuiMO9ZIgl4zI3A=="
+  "resolved" "https://registry.npmjs.org/recaptcha-v3/-/recaptcha-v3-1.8.0.tgz"
+  "version" "1.8.0"
+
 "regenerate-unicode-properties@^8.2.0":
   "integrity" "sha512-F9DjY1vKLo/tPePDycuH3dn9H1OTPIkVD9Kz4LODu+F2C75mgjAJ7x/gwy6ZcSNRAAkhNlJSOHRe8k3p+K9WhA=="
   "resolved" "https://registry.npmjs.org/regenerate-unicode-properties/-/regenerate-unicode-properties-8.2.0.tgz"
@@ -8860,6 +8872,11 @@
   "resolved" "https://registry.npmjs.org/vm-browserify/-/vm-browserify-1.1.2.tgz"
   "version" "1.1.2"
 
+"vue-axios@^3.2.4":
+  "integrity" "sha512-8Dgws6dwt+1LoKEU4HDzIPfaRgWHl0xLDLW6kxrAk/z3GAJ2thkajcXC4qZgmqj0cZRx/Z/dzooKi5HWtUQwxA=="
+  "resolved" "https://registry.npmjs.org/vue-axios/-/vue-axios-3.2.4.tgz"
+  "version" "3.2.4"
+
 "vue-cli-plugin-element-plus@~0.0.13":
   "integrity" "sha512-ctG5mynJIyGLFBhS2JpzXmBWT3JRXwzMm5AoANUmBlbZHTruct1xQF2OKM/mfJv6tSfqCcEfgH8rGCAY5ca83Q=="
   "resolved" "https://registry.npmjs.org/vue-cli-plugin-element-plus/-/vue-cli-plugin-element-plus-0.0.13.tgz"
@@ -8902,6 +8919,13 @@
     "vue-hot-reload-api" "^2.3.0"
     "vue-style-loader" "^4.1.0"
 
+"vue-recaptcha-v3@^2.0.0":
+  "integrity" "sha512-33UEpaBoIHW2XWf+Kc+ny2ri7d2LN/UgaxUNqo30fSzAxmNc71E+/mJrSBhG95iaOQCzj54fxtz/KSfesSS5sA=="
+  "resolved" "https://registry.npmjs.org/vue-recaptcha-v3/-/vue-recaptcha-v3-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "recaptcha-v3" "^1.8.0"
+
 "vue-style-loader@^4.1.0", "vue-style-loader@^4.1.2":
   "integrity" "sha512-0ip8ge6Gzz/Bk0iHovU9XAUQaFt/G2B61bnWa2tCcqqdgfHs1lF9xXorFbE55Gmy92okFT+8bfmySuUOu13vxQ=="
   "resolved" "https://registry.npmjs.org/vue-style-loader/-/vue-style-loader-4.1.2.tgz"
@@ -8915,7 +8939,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2 || ^3.0.0-0", "vue@^3.0.5", "vue@3.0.5":
+"vue@^ 3.0.0 || ^ 2.0.0", "vue@^2 || ^3.0.0-0", "vue@^3.0.0", "vue@^3.0.5", "vue@3.0.5":
   "integrity" "sha512-TfaprOmtsAfhQau7WsomXZ8d9op/dkQLNIq8qPV3A0Vxs6GR5E+c1rfJS1SDkXRQj+dFyfnec7+U0Be1huiScg=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.0.5.tgz"
   "version" "3.0.5"

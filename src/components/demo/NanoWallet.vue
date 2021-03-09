@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
 
@@ -41,8 +41,8 @@ export default {
     walletBalance: Object,
   },
   setup(props) {
-    const shortenedNanoAddress = ref(
-      props.walletAddress.slice(0, 5) + props.walletAddress.slice(-7)
+    const shortenedNanoAddress = computed(
+      () => props.walletAddress.slice(0, 5) + props.walletAddress.slice(-7)
     );
     const nanoBalance = computed(() => {
       return removeTrailingZeros(tools.convert(props.walletBalance.raw, 'RAW', 'NANO'));

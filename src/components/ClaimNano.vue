@@ -48,7 +48,7 @@
         type="success"
         plain
         :disabled="!canSendNano"
-        @click="onSendNano"
+        @click="sendNanoClicked"
         :loading="sendingNano"
       >
         <div v-show="!sendingNano && !nanoSuccessfullySent">
@@ -64,12 +64,16 @@
 import { ref, computed, getCurrentInstance } from 'vue';
 import { ElMessage } from 'element-plus';
 import { tools } from 'nanocurrency-web';
+import recaptcha from '../util/recaptcha';
+import serverAPI from '../util/server_api';
 
 export default {
   name: 'ClaimNano',
   props: {
     firstWallet: Object,
     secondWallet: Object,
+    recaptchaLoaded: Function,
+    executeRecaptcha: Function,
   },
   computed: {
     nanoAddressSpan() {
@@ -98,10 +102,10 @@ export default {
     },
   },
   setup(props) {
-    const {
-      emitter,
-      nanoClient,
-    } = getCurrentInstance().appContext.config.globalProperties;
+    const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+
+    const { getRecaptchaToken } = recaptcha();
+    const { sendNano } = serverAPI();
 
     const sendButton = ref(null);
     const receivingNanoAddress = ref('');
@@ -111,10 +115,10 @@ export default {
     const nanoSuccessfullySent = ref(false);
 
     const sendingWalletAccount = computed(() => {
-      if (props.firstWallet.accounts[0].balance.raw !== '0') {
-        return props.firstWallet.accounts[0];
+      if (props.firstWallet.balance.raw !== '0') {
+        return props.firstWallet;
       }
-      return props.secondWallet.accounts[0];
+      return props.secondWallet;
     });
 
     const canSendNano = computed(() => {
@@ -146,26 +150,33 @@ export default {
       isValidNanoAddress.value = tools.validateAddress(address);
     };
 
-    const onSendNano = () => {
+    const sendNanoClicked = async () => {
       sendingNano.value = true;
-      nanoClient
-        .send(
-          sendingWalletAccount.value,
-          receivingNanoAddress.value,
-          sendingWalletAccount.value.balance
-        )
-        .then((accountAfterSend) => {
-          sendingNano.value = false;
-          if (accountAfterSend.error && accountAfterSend.error != null) {
-            ElMessage({
-              message: 'Error sending Nano to address provided',
-              type: 'error',
-            });
-            return;
-          }
-          nanoSuccessfullySent.value = true;
-          emitter.emit('step-completed', 'third');
+
+      // Generate recaptcha token
+      const token = await getRecaptchaToken(
+        props.recaptchaLoaded,
+        props.executeRecaptcha,
+        'sendNano'
+      );
+
+      const res = await sendNano(
+        token,
+        sendingWalletAccount.value.address,
+        sendingWalletAccount.value.privateKey,
+        receivingNanoAddress.value
+      );
+
+      if (res.error) {
+        ElMessage({
+          message: 'Error sending Nano to address provided',
+          type: 'error',
         });
+        return;
+      }
+      sendingNano.value = false;
+      nanoSuccessfullySent.value = true;
+      emitter.emit('step-completed', 'third');
     };
 
     const maybeTriggerSendButtonClick = () => {
@@ -183,7 +194,7 @@ export default {
 
     return {
       receivingNanoAddress,
-      onSendNano,
+      sendNanoClicked,
       validateNanoAddress,
       isValidNanoAddress,
       validNanoAddressLabel,
