@@ -72,7 +72,11 @@
               />
               <transition :name="transitionDirection">
                 <div v-show="currentStep === 0">
-                  <NanoFaucetInfo :firstWalletData="firstWalletData"></NanoFaucetInfo>
+                  <NanoFaucetInfo
+                    :firstWalletData="firstWalletData"
+                    :recaptchaLoaded="recaptchaLoaded"
+                    :executeRecaptcha="executeRecaptcha"
+                  ></NanoFaucetInfo>
                 </div>
               </transition>
               <transition :name="transitionDirection">

@@ -19,11 +19,11 @@
     />
     <div style="display: block">
       <strong style="display: inline-block">Address:&ensp;</strong>
-      <div class="address" style="display: inline-block">{{ shortenedNanoAddress }}</div>
+      <div class="overflow" style="display: inline-block">{{ shortenedNanoAddress }}</div>
     </div>
     <div style="display: block">
       <strong style="display: inline-block">Balance:&ensp;</strong>
-      <div style="display: inline-block">{{ nanoBalance }} Ñ</div>
+      <div class="overflow" style="display: inline-block">{{ nanoBalance }} Ñ</div>
     </div>
   </div>
 </template>
@@ -96,7 +96,7 @@ export default {
   max-height: 50px;
 }
 
-.address {
+.overflow {
   overflow-wrap: break-word;
   max-width: 100%;
 }
