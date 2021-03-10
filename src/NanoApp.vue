@@ -220,12 +220,19 @@ export default {
     const handleRevealStepsClicked = async () => {
       didRevealSteps.value = true;
 
+      console.log('before getRecaptchaToken');
+
       const token = await getRecaptchaToken(
         recaptchaLoaded,
         executeRecaptcha,
         'generateWallets'
       );
+
+      console.log('after getRecaptchaToken, before generateWallets');
+
       const res = await generateWallets(token);
+
+      console.log('after generateWallets');
       if (res.error) {
         ElMessage({
           message: res.error,

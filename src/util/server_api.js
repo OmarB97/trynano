@@ -11,7 +11,10 @@ const serverAPI = () => {
       },
     };
     try {
+      console.log('before axios.get(/api/createWalelts)');
       const res = await axios.get("/api/createWallets", options);
+      console.log('after axios.get(/api/createWalelts)');
+      console.log(`axios GET api/createWallets response: ${JSON.stringify(res)}`);
       return res ? res.data : { error: `Error generating wallets: no response from server` };
     } catch (err) {
       const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
