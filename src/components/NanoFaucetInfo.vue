@@ -7,6 +7,23 @@
       'faucet-card-width-other': $mq === 'other',
     }"
   >
+    <div class="faucet-button">
+      <el-button
+        type="success"
+        :size="buttonSize"
+        round
+        class="faucet-button"
+        :class="{
+          'faucet-button-phone': $mq === 'phone',
+          'faucet-button-tablet': $mq === 'tablet',
+          'faucet-button-other': $mq === 'other',
+        }"
+        ><div class="faucet-button-content">
+          Use our TryNano Faucet <span class="faucet-emoji">🚰</span>
+        </div>
+      </el-button>
+    </div>
+    <el-divider content-position="center"><div>OR</div></el-divider>
     <p class="maintext">
       Go to
       <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and paste
@@ -74,15 +91,37 @@
 </template>
 
 <script>
-import { ref, computed, getCurrentInstance } from 'vue';
+import { ref, computed, getCurrentInstance, onMounted } from 'vue';
 
 export default {
   name: 'NanoFaucetInfo',
   props: {
     firstWalletData: Object,
   },
+  computed: {
+    buttonSize() {
+      switch (this.$mq) {
+        case 'phone':
+          return 'small';
+        case 'tablet':
+          return 'medium';
+        case 'other':
+          return 'default';
+        default:
+          return 'default';
+      }
+    },
+  },
   setup(props) {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+
+    onMounted(() => {
+      const dividerText = document.getElementsByClassName('el-divider__text');
+      if (dividerText) {
+        console.log(dividerText);
+        dividerText[0].style.background = '#f4fafe';
+      }
+    });
 
     const nanoRecieved = ref(false);
     const depositStatus = ref('Not Received');
@@ -121,9 +160,7 @@ export default {
 
 <style>
 .faucet-info {
-  margin-bottom: 50px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 20px auto 50px auto;
 }
 
 .faucet-card-width-phone {
@@ -136,6 +173,33 @@ export default {
 
 .faucet-card-width-other {
   width: 80%;
+}
+
+.faucet-button {
+  margin-bottom: 30px;
+}
+
+.faucet-button-phone {
+  width: auto;
+}
+
+.faucet-button-tablet {
+  width: 75%;
+}
+
+.faucet-button-other {
+  width: 70%;
+}
+
+.faucet-button-content {
+  font-weight: bold;
+  display: inline-block;
+  white-space: normal;
+}
+
+span.faucet-emoji {
+  font-size: 30px;
+  vertical-align: middle;
 }
 
 .waiting {
