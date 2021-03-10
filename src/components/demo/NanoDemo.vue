@@ -220,7 +220,6 @@ export default {
       confirmationSendHash.value = null;
       confirmationReceiveHash.value = null;
       transactionStatus.value = null;
-      transactionStartTimeMs.value = Date.now();
 
       // Generate recaptcha token
       const token = await getRecaptchaToken(
@@ -229,6 +228,7 @@ export default {
         'sendNano'
       );
 
+      transactionStartTimeMs.value = Date.now();
       if (receivingWalletLetter === 'B') {
         // send from Wallet A to Wallet B
         isInitialNanoA.value = false;

@@ -8882,6 +8882,11 @@
   "resolved" "https://registry.npmjs.org/vue-cli-plugin-element-plus/-/vue-cli-plugin-element-plus-0.0.13.tgz"
   "version" "0.0.13"
 
+"vue-element-loading@^3.0.1":
+  "integrity" "sha512-WzQJKTmOWBEfKzVoRr9Mk2aLYVxJNEatWYTNuOTG8SwWGvNI9ZfnJBxVwqTpBPclGLG7bZqTLfco+BP3ebu5Sw=="
+  "resolved" "https://registry.npmjs.org/vue-element-loading/-/vue-element-loading-3.0.1.tgz"
+  "version" "3.0.1"
+
 "vue-eslint-parser@^7.5.0":
   "integrity" "sha512-6EHzl00hIpy4yWZo3qSbtvtVw1A1cTKOv1w95QSuAqGgk4113XtRjvNIiEGo49r0YWOPYsrmI4Dl64axL5Agrw=="
   "resolved" "https://registry.npmjs.org/vue-eslint-parser/-/vue-eslint-parser-7.5.0.tgz"

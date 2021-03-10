@@ -63,6 +63,13 @@
               ></el-button>
             </div>
             <el-card shadow="always" :body-style="{ backgroundColor: '#F4FAFF' }">
+              <vue-element-loading
+                :active="!didGenerateWallets"
+                background-color="#F4FAFF"
+                spinner="spinner"
+                color="#3b7bbf"
+                text="Generating Wallets..."
+              />
               <transition :name="transitionDirection">
                 <div v-show="currentStep === 0">
                   <NanoFaucetInfo :firstWalletData="firstWalletData"></NanoFaucetInfo>
@@ -112,6 +119,7 @@ import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
 import { useReCaptcha } from 'vue-recaptcha-v3';
 import { ElMessage } from 'element-plus';
+import VueElementLoading from 'vue-element-loading';
 import recaptcha from './util/recaptcha';
 import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
@@ -132,6 +140,7 @@ export default {
     NanoFooter,
     ClaimNano,
     NanoResources,
+    VueElementLoading,
   },
   setup() {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
@@ -195,6 +204,7 @@ export default {
     };
 
     const didRevealSteps = ref(false);
+    const didGenerateWallets = ref(false);
     const firstWalletData = ref(firstSampleWallet.value);
     const secondWalletData = ref(secondSampleWallet.value);
     const alreadyProcessedReceiveBlock = ref(false);
@@ -216,6 +226,7 @@ export default {
         });
         return;
       }
+      didGenerateWallets.value = true;
       [firstWalletData.value, secondWalletData.value] = res.wallets;
       callWebsocket(
         [firstWalletData.value.address, secondWalletData.value.address],
@@ -326,6 +337,7 @@ export default {
       isCurrentStepComplete,
       transitionDirection,
       didRevealSteps,
+      didGenerateWallets,
       firstWalletData,
       secondWalletData,
       handleRevealStepsClicked,
