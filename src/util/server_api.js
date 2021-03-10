@@ -10,47 +10,63 @@ const serverAPI = () => {
         "X-Recaptcha": token,
       },
     };
-    const res = await axios.get("/api/createWallets", options);
-    return res ? res.data : {'error': 'Error generating wallets: no response from server'};
+    try {
+      const res = await axios.get("/api/createWallets", options);
+      return res ? res.data : { error: `Error generating wallets: no response from server` };
+    } catch (err) {
+      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
+      return { error: `Error generating wallets: ${errorMessage}` };
+    }
   };
 
   /* 
     Send nano from one wallet to another.
   */
-  const sendNano = async (token, fromAddress, privateKey, toAddress) => {
-    console.log(fromAddress);
-    console.log(privateKey);
-    console.log(toAddress);
+  const sendNano = async (token, fromAddress, privateKey, toAddress, amount = "max") => {
     const data = {
-      'fromAddress': fromAddress,
-      'privateKey': privateKey,
-      'toAddress': toAddress,
+      fromAddress,
+      privateKey,
+      toAddress,
     };
+
+    // add amount param if it was passed in
+    if (amount !== "max") {
+      data.amount = amount;
+    }
+
     const options = {
       headers: {
         "X-Recaptcha": token,
       },
     };
-    const res = await axios.post("/api/send", data, options);
-    return res ? res.data : {'error': 'Error sending nano: no response from server'};
-
+    try {
+      const res = await axios.post("/api/send", data, options);
+      return res ? res.data : { error: `Error sending nano: no response from server` };
+    } catch (err) {
+      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
+      return { error: `Error sending nano: ${errorMessage}` };
+    }
   };
 
   /* 
     Receive any pending nano transactions for a given wallet.
   */
   const receiveNano = async (token, receiveAddress) => {
-    console.log(receiveAddress);
     const data = {
-      'receiveAddress': receiveAddress,
+      receiveAddress,
     };
     const options = {
       headers: {
         "X-Recaptcha": token,
       },
     };
-    const res = await axios.post("/api/receive", data, options);
-    return res ? res.data : {'error': 'Error receiving nano: no response from server'};
+    try {
+      const res = await axios.post("/api/receive", data, options);
+      return res ? res.data : { error: `Error receiving nano: no response from server` };
+    } catch (err) {
+      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
+      return { error: `Error receiving nano: ${errorMessage}` };
+    }
   };
 
   /* 
@@ -58,8 +74,8 @@ const serverAPI = () => {
   */
   const getNanoFromFaucet = async (token, toAddress, privateKey) => {
     const data = {
-      'toAddress': toAddress,
-      'privateKey': privateKey,
+      toAddress,
+      privateKey,
     };
 
     const options = {
@@ -67,8 +83,13 @@ const serverAPI = () => {
         "X-Recaptcha": token,
       },
     };
-    const res = await axios.post("/api/getFromFaucet", data, options);
-    return res ? res.data : {'error': 'Error getting Nano from Faucet: no response from server'};
+    try {
+      const res = await axios.post("/api/getFromFaucet", data, options);
+      return res ? res.data : { error: `Error getting Nano from Faucet: no response from server` };
+    } catch (err) {
+      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
+      return { error: `Error getting Nano from Faucet: ${errorMessage}` };
+    }
   };
 
   return {

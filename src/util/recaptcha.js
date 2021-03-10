@@ -5,7 +5,6 @@ export default function () {
 
         // Execute reCAPTCHA with action.
         const token = await executeRecaptcha(action);
-        console.log(token);
         return token;
     };
     return {

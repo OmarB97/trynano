@@ -141,10 +141,11 @@ export default {
     const { getNanoFromFaucet } = serverAPI();
 
     onMounted(() => {
-      const dividerText = document.getElementsByClassName('el-divider__text');
-      if (dividerText) {
-        console.log(dividerText);
-        dividerText[0].style.background = '#f4fafe';
+      const dividerTextElements = document.getElementsByClassName('el-divider__text');
+      if (dividerTextElements) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const dividerTextElement of dividerTextElements)
+          dividerTextElement.style.background = '#f4fafe';
       }
     });
 
@@ -176,7 +177,7 @@ export default {
       nanoFaucetPending.value = false;
       if (res.error) {
         ElMessage({
-          message: 'Error getting Nano from TryNano Faucet',
+          message: res.error,
           type: 'error',
         });
       }

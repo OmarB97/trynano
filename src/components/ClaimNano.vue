@@ -59,6 +59,27 @@
       </el-button></el-col
     >
   </el-row>
+  <el-divider content-position="center"><div>OR</div></el-divider>
+  <div class="return-nano-button">
+    <el-button
+      type="success"
+      round
+      :disabled="!canReturnNano"
+      @click="returnNanoClicked"
+      :loading="returningNano"
+      :class="{
+        'return-nano-button-phone': $mq === 'phone',
+        'return-nano-button-tablet': $mq === 'tablet',
+        'return-nano-button-other': $mq === 'other',
+      }"
+    >
+      <div v-show="!returningNano && !nanoSuccessfullyReturned">
+        Return Back to Sender <i class="el-icon-s-promotion"></i>
+      </div>
+      <div v-show="returningNano && !nanoSuccessfullyReturned">Sending...</div>
+      <div v-show="!returningNano && nanoSuccessfullyReturned">Sent!</div>
+    </el-button>
+  </div>
 </template>
 <script>
 import { ref, computed, getCurrentInstance } from 'vue';
@@ -72,6 +93,7 @@ export default {
   props: {
     firstWallet: Object,
     secondWallet: Object,
+    originAddressMap: Map,
     recaptchaLoaded: Function,
     executeRecaptcha: Function,
   },
@@ -113,6 +135,8 @@ export default {
     const validNanoAddressLabel = ref(null);
     const sendingNano = ref(false);
     const nanoSuccessfullySent = ref(false);
+    const returningNano = ref(false);
+    const nanoSuccessfullyReturned = ref(false);
 
     const sendingWalletAccount = computed(() => {
       if (props.firstWallet.balance.raw !== '0') {
@@ -127,6 +151,14 @@ export default {
         sendingWalletAccount.value.balance.raw !== '0' &&
         !sendingNano.value &&
         !nanoSuccessfullySent.value
+      );
+    });
+
+    const canReturnNano = computed(() => {
+      return (
+        sendingWalletAccount.value.balance.raw !== '0' &&
+        !returningNano.value &&
+        !nanoSuccessfullyReturned.value
       );
     });
 
@@ -169,7 +201,7 @@ export default {
 
       if (res.error) {
         ElMessage({
-          message: 'Error sending Nano to address provided',
+          message: res.error,
           type: 'error',
         });
         return;
@@ -192,6 +224,46 @@ export default {
       }
     };
 
+    const returnNanoClicked = async () => {
+      returningNano.value = true;
+      // Generate recaptcha token
+      const token = await getRecaptchaToken(
+        props.recaptchaLoaded,
+        props.executeRecaptcha,
+        'returnNano'
+      );
+      const allNanoSent = ref(true);
+      const results = ref([]);
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [originAddress, originAmount] of props.originAddressMap) {
+        results.value.push(
+          sendNano(
+            token,
+            sendingWalletAccount.value.address,
+            sendingWalletAccount.value.privateKey,
+            originAddress,
+            originAmount
+          ).then((res) => {
+            if (res.error) {
+              allNanoSent.value = false;
+            }
+          })
+        );
+      }
+      // Now that all the asynchronous operations are running, here we wait until they all complete.
+      await Promise.all(results.value);
+      if (allNanoSent.value) {
+        nanoSuccessfullyReturned.value = true;
+        emitter.emit('step-completed', 'third');
+      } else {
+        ElMessage({
+          message: 'Error returning Nano back to original source(s)',
+          type: 'error',
+        });
+      }
+      returningNano.value = false;
+    };
+
     return {
       receivingNanoAddress,
       sendNanoClicked,
@@ -205,6 +277,10 @@ export default {
       sendButton,
       maybeTriggerSendButtonClick,
       canSendNano,
+      canReturnNano,
+      returningNano,
+      nanoSuccessfullyReturned,
+      returnNanoClicked,
     };
   },
 };
@@ -235,5 +311,22 @@ export default {
   font-weight: 500;
   text-align: left;
   margin: 1px auto 0px 16px;
+}
+
+.return-nano-button {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.return-nano-button-phone {
+  width: auto;
+}
+
+.return-nano-button-tablet {
+  width: 75%;
+}
+
+.return-nano-button-other {
+  width: 70%;
 }
 </style>

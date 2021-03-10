@@ -187,8 +187,6 @@ export default {
     const hasCompletedAtLeastOneTransaction = ref(false);
 
     const transactionTime = computed(() => {
-      console.log(`transactionStartTimeMs: ${transactionStartTimeMs.value}`);
-      console.log(`transactionEndTimeMs: ${transactionEndTimeMs.value}`);
       if (
         !transactionStartTimeMs.value ||
         transactionStartTimeMs.value === 0 ||
@@ -201,7 +199,6 @@ export default {
       const res = `${Math.abs(
         (transactionEndTimeMs.value - transactionStartTimeMs.value) / 1000.0
       ).toString()} seconds`;
-      console.log(res);
       return res;
     });
 
@@ -246,7 +243,7 @@ export default {
           transactionStatus.value = 'exception';
           sendingNanoA.value = false;
           ElMessage({
-            message: 'Error sending Nano from Wallet A to Wallet B',
+            message: res.error,
             type: 'error',
           });
         }
@@ -267,7 +264,7 @@ export default {
           transactionStatus.value = 'exception';
           sendingNanoB.value = false;
           ElMessage({
-            message: 'Error sending Nano from Wallet B to Wallet A',
+            message: res.error,
             type: 'error',
           });
         }
@@ -277,7 +274,6 @@ export default {
     emitter.on('internal-nano-send', (sendData) => {
       let wasSent;
       transactionEndTimeMs.value = sendData.timestamp;
-      console.log(`transactionTime after: ${transactionTime.value}`);
       if (sendData.address === props.firstWallet.address) {
         sendingNanoA.value = false;
         waitingForReceiveNanoB.value = true;

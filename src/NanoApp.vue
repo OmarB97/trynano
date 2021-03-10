@@ -94,6 +94,7 @@
                   <ClaimNano
                     :firstWallet="firstWalletData"
                     :secondWallet="secondWalletData"
+                    :originAddressMap="nanoOriginAddressMap"
                     :recaptchaLoaded="recaptchaLoaded"
                     :executeRecaptcha="executeRecaptcha"
                   ></ClaimNano>
@@ -121,6 +122,7 @@
 import { ref, computed, getCurrentInstance } from 'vue';
 import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
+import { NANO } from '@nanobox/nano-client/dist/models';
 import { useReCaptcha } from 'vue-recaptcha-v3';
 import { ElMessage } from 'element-plus';
 import VueElementLoading from 'vue-element-loading';
@@ -161,6 +163,14 @@ export default {
       isSecondStepComplete: false,
       isThirdStepComplete: false,
     });
+
+    const didRevealSteps = ref(false);
+    const didGenerateWallets = ref(false);
+    const firstWalletData = ref(firstSampleWallet.value);
+    const secondWalletData = ref(secondSampleWallet.value);
+    const alreadyProcessedReceiveBlock = ref(false);
+
+    const nanoOriginAddressMap = ref(new Map());
 
     const isCurrentStepComplete = computed(() => {
       switch (currentStep.value) {
@@ -207,12 +217,6 @@ export default {
       transitionDirection.value = 'fade-in-right';
     };
 
-    const didRevealSteps = ref(false);
-    const didGenerateWallets = ref(false);
-    const firstWalletData = ref(firstSampleWallet.value);
-    const secondWalletData = ref(secondSampleWallet.value);
-    const alreadyProcessedReceiveBlock = ref(false);
-
     const handleRevealStepsClicked = async () => {
       didRevealSteps.value = true;
 
@@ -222,10 +226,9 @@ export default {
         'generateWallets'
       );
       const res = await generateWallets(token);
-      console.log(res);
       if (res.error) {
         ElMessage({
-          message: 'Error generating wallets',
+          message: res.error,
           type: 'error',
         });
         return;
@@ -240,7 +243,6 @@ export default {
 
     // Handle send confirmation block, receive most recent pending block
     emitter.on('block-confirmation-send', async (res) => {
-      console.log(res);
       const confirmationSenderAddress = res.message.account;
       const confirmationReceiverAddress = res.message.block.link_as_account;
       let shouldEmitSend;
@@ -253,9 +255,16 @@ export default {
         secondWalletData.value.balance.raw = res.message.block.balance;
         shouldEmitSend = true;
       } else {
+        // save all external wallet addresses and how much Nano they've sent so far
+        let amountSentFromOrigin = NANO.fromRAW(res.message.amount);
+        if (nanoOriginAddressMap.value.has(confirmationSenderAddress)) {
+          amountSentFromOrigin = amountSentFromOrigin.plus(
+            nanoOriginAddressMap.value.get(confirmationSenderAddress)
+          );
+        }
+        nanoOriginAddressMap.value.set(confirmationSenderAddress, amountSentFromOrigin);
         shouldEmitSend = false;
       }
-      console.log(`shouldEmitSend: ${shouldEmitSend}`);
 
       const isInternalSend =
         (confirmationSenderAddress === firstWalletData.value.address ||
@@ -347,6 +356,7 @@ export default {
       handleRevealStepsClicked,
       recaptchaLoaded,
       executeRecaptcha,
+      nanoOriginAddressMap,
     };
   },
 };
