@@ -478,4 +478,8 @@ a:hover {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
+.grecaptcha-badge {
+  opacity: 0;
+}
 </style>
