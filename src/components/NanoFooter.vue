@@ -12,7 +12,7 @@
         <a href="https://github.com/OmarB97/trynano" target="_blank">GitHub</a>.
       </span>
       <span class="footer-content">
-        Donate to TryNano Faucet:
+        Donate to the TryNano Faucet:
         <a
           href="https://nanocrawler.cc/explorer/account/nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w/history"
           target="_blank"
