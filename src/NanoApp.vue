@@ -305,7 +305,7 @@ export default {
         const receiveRes = await receiveNano(token, matchingRecieveAccount);
         if (receiveRes.error) {
           ElMessage({
-            message: `Error receiving nano for wallet ${matchingRecieveAccount}`,
+            message: receiveRes.error,
             type: 'error',
           });
           return;
