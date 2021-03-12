@@ -4,8 +4,10 @@
     <div style="display: block">
       <span class="footer-content">
         Created by
-        <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank">Omar Baradei</a
-        >.
+        <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank"
+          >Omar Baradei</a
+        >
+        and <a href="https://www.reddit.com/u/miri1299/" target="_blank">u/miri1299</a>.
       </span>
       <span class="footer-content">
         Link to
