@@ -180,8 +180,9 @@ export default {
           message: res.error,
           type: 'error',
         });
+      } else {
+        nanoFaucetCompleted.value = true;
       }
-      nanoFaucetCompleted.value = true;
     };
 
     emitter.on('nano-received', (receiveData) => {
