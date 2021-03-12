@@ -17,6 +17,11 @@ We show the user the transaction settlement time, the fees associated with that 
 Finally, we provide some basic instructions on how to set up their own private wallet (Natrium, Nault, etc.) and even how to send their nano to that wallet.
 
 
+## [NEW] See the TryNano Server code!
+
+https://github.com/OmarB97/trynano-server
+
+
 ## Clone the repo
 
 ```
@@ -31,6 +36,8 @@ npm install
 
 ## Define your own env variables
 
+Before you do anything, take a look first at the sample.env included for a quick reference of how to define your .env file.
+
 NOTE: Make sure you're in the root directory of the project:
 
 ```
@@ -40,16 +47,25 @@ touch .env
 Open the file and define the following env variables:
 
 ```
-VUE_APP_NANO_API_URL=<YOUR_NANO_NODE_API_URL>
-VUE_APP_NANO_API_USERNAME=<YOUR_NANO_NODE_API_USERNAME>
-VUE_APP_NANO_API_PASSWORD=<YOUR_NANO_NODE_API_PASSWORD>
-VUE_APP_WS_SERVER=<YOUR_NANO_NODE_WEBSOCKET_URL>
-VUE_APP_EMAILJS_SERVICE_KEY=<YOUR_EMAILJS_SERVICE_KEY>
-VUE_APP_EMAILJS_TEMPLATE_KEY=<YOUR_EMAILJS_TEMPLATE_KEY>
-VUE_APP_EMAILJS_USER_KEY=<YOUR_EMAILJS_USER_KEY>
+# AWS Lambda URL
+VUE_APP_SERVER_URL=https://1nboums7ji.execute-api.us-west-1.amazonaws.com
+
+# URL if running lambda locally
+VUE_APP_SERVER_URL_LOCAL=http://localhost:3000/lambda
+
+# Nano Node Websocket URL
+VUE_APP_WS_SERVER=wss://ws.nanobox.cc
+
+# Google Recaptcha V3 Site Key
+VUE_APP_RECAPTCHA_SITE_KEY=6LcKfWkaAAAAAFl5OYv8fgNK_9KbWRAvdSk1ErrX
+
+# Gotta set these yourself
+VUE_APP_EMAILJS_SERVICE_KEY=VALID_EMAILJS_SERVICE_KEY
+VUE_APP_EMAILJS_TEMPLATE_KEY=VALID_EMAILJS_TEMPLATE_KEY
+VUE_APP_EMAILJS_USER_KEY=VALID_EMAILJS_USER_KEY
 ```
 
-If not sure what to put here just reach out to me and I can help provide you this info.
+If not sure what to put for the missing variables, just reach out to me and I can help provide you this info.
 
 
 ## Run the app
