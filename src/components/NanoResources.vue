@@ -18,6 +18,17 @@
         target="_blank"
         >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
       >
+      or the TryNano Faucet
+      <a
+        class="nano-address"
+        :class="{
+          'nano-address-phone': $mq === 'phone',
+          'nano-address-tablet': $mq === 'tablet',
+        }"
+        href="https://nanocrawler.cc/explorer/account/nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w/history"
+        target="_blank"
+        >nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w</a
+      >
       to help keep the website up and running!
     </div>
   </div>

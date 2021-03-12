@@ -48,7 +48,7 @@
         type="success"
         plain
         :disabled="!canSendNano"
-        @click="onSendNano"
+        @click="sendNanoClicked"
         :loading="sendingNano"
       >
         <div v-show="!sendingNano && !nanoSuccessfullySent">
@@ -59,17 +59,43 @@
       </el-button></el-col
     >
   </el-row>
+  <el-divider content-position="center"><div>OR</div></el-divider>
+  <div class="return-nano-button">
+    <el-button
+      type="success"
+      round
+      :disabled="!canReturnNano"
+      @click="returnNanoClicked"
+      :loading="returningNano"
+      :class="{
+        'return-nano-button-phone': $mq === 'phone',
+        'return-nano-button-tablet': $mq === 'tablet',
+        'return-nano-button-other': $mq === 'other',
+      }"
+    >
+      <div v-show="!returningNano && !nanoSuccessfullyReturned">
+        Return Back to Sender <i class="el-icon-s-promotion"></i>
+      </div>
+      <div v-show="returningNano && !nanoSuccessfullyReturned">Sending...</div>
+      <div v-show="!returningNano && nanoSuccessfullyReturned">Sent!</div>
+    </el-button>
+  </div>
 </template>
 <script>
 import { ref, computed, getCurrentInstance } from 'vue';
 import { ElMessage } from 'element-plus';
 import { tools } from 'nanocurrency-web';
+import recaptcha from '../util/recaptcha';
+import serverAPI from '../util/server_api';
 
 export default {
   name: 'ClaimNano',
   props: {
     firstWallet: Object,
     secondWallet: Object,
+    originAddressMap: Map,
+    recaptchaLoaded: Function,
+    executeRecaptcha: Function,
   },
   computed: {
     nanoAddressSpan() {
@@ -98,10 +124,10 @@ export default {
     },
   },
   setup(props) {
-    const {
-      emitter,
-      nanoClient,
-    } = getCurrentInstance().appContext.config.globalProperties;
+    const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+
+    const { getRecaptchaToken } = recaptcha();
+    const { sendNano } = serverAPI();
 
     const sendButton = ref(null);
     const receivingNanoAddress = ref('');
@@ -109,12 +135,14 @@ export default {
     const validNanoAddressLabel = ref(null);
     const sendingNano = ref(false);
     const nanoSuccessfullySent = ref(false);
+    const returningNano = ref(false);
+    const nanoSuccessfullyReturned = ref(false);
 
     const sendingWalletAccount = computed(() => {
-      if (props.firstWallet.accounts[0].balance.raw !== '0') {
-        return props.firstWallet.accounts[0];
+      if (props.firstWallet.balance.raw !== '0') {
+        return props.firstWallet;
       }
-      return props.secondWallet.accounts[0];
+      return props.secondWallet;
     });
 
     const canSendNano = computed(() => {
@@ -123,6 +151,14 @@ export default {
         sendingWalletAccount.value.balance.raw !== '0' &&
         !sendingNano.value &&
         !nanoSuccessfullySent.value
+      );
+    });
+
+    const canReturnNano = computed(() => {
+      return (
+        sendingWalletAccount.value.balance.raw !== '0' &&
+        !returningNano.value &&
+        !nanoSuccessfullyReturned.value
       );
     });
 
@@ -146,26 +182,33 @@ export default {
       isValidNanoAddress.value = tools.validateAddress(address);
     };
 
-    const onSendNano = () => {
+    const sendNanoClicked = async () => {
       sendingNano.value = true;
-      nanoClient
-        .send(
-          sendingWalletAccount.value,
-          receivingNanoAddress.value,
-          sendingWalletAccount.value.balance
-        )
-        .then((accountAfterSend) => {
-          sendingNano.value = false;
-          if (accountAfterSend.error && accountAfterSend.error != null) {
-            ElMessage({
-              message: 'Error sending Nano to address provided',
-              type: 'error',
-            });
-            return;
-          }
-          nanoSuccessfullySent.value = true;
-          emitter.emit('step-completed', 'third');
+
+      // Generate recaptcha token
+      const token = await getRecaptchaToken(
+        props.recaptchaLoaded,
+        props.executeRecaptcha,
+        'sendNano'
+      );
+
+      const res = await sendNano(
+        token,
+        sendingWalletAccount.value.address,
+        sendingWalletAccount.value.privateKey,
+        receivingNanoAddress.value
+      );
+
+      if (res.error) {
+        ElMessage({
+          message: res.error,
+          type: 'error',
         });
+        return;
+      }
+      sendingNano.value = false;
+      nanoSuccessfullySent.value = true;
+      emitter.emit('step-completed', 'third');
     };
 
     const maybeTriggerSendButtonClick = () => {
@@ -181,9 +224,49 @@ export default {
       }
     };
 
+    const returnNanoClicked = async () => {
+      returningNano.value = true;
+      // Generate recaptcha token
+      const token = await getRecaptchaToken(
+        props.recaptchaLoaded,
+        props.executeRecaptcha,
+        'returnNano'
+      );
+      const allNanoSent = ref(true);
+      const results = ref([]);
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [originAddress, originAmount] of props.originAddressMap) {
+        results.value.push(
+          sendNano(
+            token,
+            sendingWalletAccount.value.address,
+            sendingWalletAccount.value.privateKey,
+            originAddress,
+            originAmount
+          ).then((res) => {
+            if (res.error) {
+              allNanoSent.value = false;
+            }
+          })
+        );
+      }
+      // Now that all the asynchronous operations are running, here we wait until they all complete.
+      await Promise.all(results.value);
+      if (allNanoSent.value) {
+        nanoSuccessfullyReturned.value = true;
+        emitter.emit('step-completed', 'third');
+      } else {
+        ElMessage({
+          message: 'Error returning Nano back to original source(s)',
+          type: 'error',
+        });
+      }
+      returningNano.value = false;
+    };
+
     return {
       receivingNanoAddress,
-      onSendNano,
+      sendNanoClicked,
       validateNanoAddress,
       isValidNanoAddress,
       validNanoAddressLabel,
@@ -194,6 +277,10 @@ export default {
       sendButton,
       maybeTriggerSendButtonClick,
       canSendNano,
+      canReturnNano,
+      returningNano,
+      nanoSuccessfullyReturned,
+      returnNanoClicked,
     };
   },
 };
@@ -224,5 +311,22 @@ export default {
   font-weight: 500;
   text-align: left;
   margin: 1px auto 0px 16px;
+}
+
+.return-nano-button {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.return-nano-button-phone {
+  width: auto;
+}
+
+.return-nano-button-tablet {
+  width: 75%;
+}
+
+.return-nano-button-other {
+  width: 70%;
 }
 </style>
