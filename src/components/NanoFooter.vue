@@ -14,11 +14,12 @@
         <a href="https://github.com/OmarB97/trynano" target="_blank">GitHub</a>.
       </span>
       <span class="footer-content">
-        Icons made by
-        <a href="https://www.freepik.com" title="Freepik" target="_blank">Freepik</a>
-        from
-        <a href="https://www.flaticon.com/" title="Flaticon" target="_blank"
-          >www.flaticon.com</a
+        Donate to the TryNano Faucet:
+        <a
+          href="https://nanocrawler.cc/explorer/account/nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w/history"
+          target="_blank"
+          :class="{ 'footer-content-phone': $mq === 'phone' }"
+          >nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w</a
         >.
       </span>
       <span class="footer-content">
@@ -34,6 +35,23 @@
         Give feedback
         <a class="feedback-link" @click="toggleFeedbackDialogVisibility(true)">here</a>.
       </span>
+      <div class="footer-content recaptcha-disclaimer">
+        This site is protected by reCAPTCHA and the
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          :class="{ 'footer-content-phone': $mq === 'phone' }"
+          >Google Privacy Policy</a
+        >
+        and
+        <a
+          href="https://policies.google.com/terms"
+          target="_blank"
+          :class="{ 'footer-content-phone': $mq === 'phone' }"
+          >Terms of Service</a
+        >
+        apply.
+      </div>
       <FeedbackForm
         :feedbackDialogVisible="feedbackDialogVisible"
         @hideFeedbackForm="toggleFeedbackDialogVisibility(false)"
@@ -81,10 +99,12 @@ export default {
   color: #999;
   background-color: #404040;
   box-sizing: border-box;
+  margin-bottom: -5px;
 }
 
 .footer-content {
   margin: 0 0.5rem;
+  line-height: 2;
 }
 
 .feedback-link:hover {
@@ -95,4 +115,9 @@ export default {
   overflow-wrap: break-word;
   max-width: 100%;
 }
+
+/* .recaptcha-disclaimer {
+  margin-top: 7px;
+  margin-bottom: -5px;
+} */
 </style>

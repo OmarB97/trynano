@@ -9,14 +9,14 @@
         <NanoWallet
           class="wallet"
           walletLetter="A"
-          :walletAddress="firstWalletAccount.address"
-          :walletBalance="firstWalletAccount.balance"
+          :walletAddress="firstWallet.address"
+          :walletBalance="firstWallet.balance"
         ></NanoWallet>
         <el-button
           type="primary"
           :size="buttonSize"
           plain
-          @click="sendNano('B')"
+          @click="sendNanoClicked('B')"
           :loading="sendingNanoA || waitingForReceiveNanoA"
           :disabled="disableNanoA"
           ><div
@@ -30,7 +30,7 @@
           >
             Send to Wallet B <span class="arrow">→</span>
           </div>
-          <div v-show="disableNanoA && sendingNanoA">Sending...</div>
+          <div class="nano-button" v-show="disableNanoA && sendingNanoA">Sending...</div>
           <div
             v-show="
               !isInitialNanoA &&
@@ -41,7 +41,7 @@
           >
             Sent!
           </div>
-          <div v-show="waitingForReceiveNanoA">
+          <div class="nano-button" v-show="waitingForReceiveNanoA">
             Confirming Received Nano...
           </div></el-button
         >
@@ -53,14 +53,14 @@
         <NanoWallet
           class="wallet"
           walletLetter="B"
-          :walletAddress="secondWalletAccount.address"
-          :walletBalance="secondWalletAccount.balance"
+          :walletAddress="secondWallet.address"
+          :walletBalance="secondWallet.balance"
         ></NanoWallet>
         <el-button
           type="primary"
           plain
           :size="buttonSize"
-          @click="sendNano('A')"
+          @click="sendNanoClicked('A')"
           :loading="sendingNanoB || waitingForReceiveNanoB"
           :disabled="disableNanoB"
           ><div
@@ -75,7 +75,7 @@
             <span class="arrow">←</span>
             Send to Wallet A
           </div>
-          <div v-show="disableNanoB && sendingNanoB">Sending...</div>
+          <div class="nano-button" v-show="disableNanoB && sendingNanoB">Sending...</div>
           <div
             v-show="
               !isInitialNanoB &&
@@ -86,7 +86,7 @@
           >
             Sent!
           </div>
-          <div v-show="waitingForReceiveNanoB">
+          <div class="nano-button" v-show="waitingForReceiveNanoB">
             Confirming Received Nano...
           </div></el-button
         >
@@ -112,6 +112,8 @@ import { ElMessage } from 'element-plus';
 import NanoWallet from './NanoWallet.vue';
 import NanoTransactionResults from './NanoTransactionResults.vue';
 import NanoTransactionStatusBar from './NanoTransactionStatusBar.vue';
+import recaptcha from '../../util/recaptcha';
+import serverAPI from '../../util/server_api';
 
 export default {
   name: 'NanoDemo',
@@ -123,6 +125,8 @@ export default {
   props: {
     firstWallet: Object,
     secondWallet: Object,
+    recaptchaLoaded: Function,
+    executeRecaptcha: Function,
   },
   computed: {
     buttonSize() {
@@ -163,12 +167,10 @@ export default {
     },
   },
   setup(props) {
-    const {
-      emitter,
-      nanoClient,
-    } = getCurrentInstance().appContext.config.globalProperties;
-    const firstWalletAccount = computed(() => props.firstWallet.accounts[0]);
-    const secondWalletAccount = computed(() => props.secondWallet.accounts[0]);
+    const { emitter } = getCurrentInstance().appContext.config.globalProperties;
+
+    const { getRecaptchaToken } = recaptcha();
+    const { sendNano } = serverAPI();
     const isInitialNanoA = ref(true);
     const isInitialNanoB = ref(true);
     const lastWalletClicked = ref('');
@@ -179,82 +181,104 @@ export default {
 
     const showTransactionResults = ref(false);
     const transactionStartTimeMs = ref(0);
-    const transactionTime = ref('N/A');
+    const transactionEndTimeMs = ref(0);
     const confirmationSendHash = ref(null);
     const confirmationReceiveHash = ref(null);
     const hasCompletedAtLeastOneTransaction = ref(false);
 
+    const transactionTime = computed(() => {
+      if (
+        !transactionStartTimeMs.value ||
+        transactionStartTimeMs.value === 0 ||
+        !transactionEndTimeMs.value ||
+        transactionEndTimeMs.value === 0
+      ) {
+        return 'N/A';
+      }
+
+      const res = `${Math.abs(
+        (transactionEndTimeMs.value - transactionStartTimeMs.value) / 1000.0
+      ).toString()} seconds`;
+      return res;
+    });
+
     const transactionStatus = ref(null);
 
     const disableNanoA = computed(() => {
-      return firstWalletAccount.value.balance.raw === '0' || sendingNanoA.value;
+      return props.firstWallet.balance.raw === '0' || sendingNanoA.value;
     });
     const disableNanoB = computed(() => {
-      return secondWalletAccount.value.balance.raw === '0' || sendingNanoB.value;
+      return props.secondWallet.balance.raw === '0' || sendingNanoB.value;
     });
 
-    const sendNano = (receivingWalletLetter) => {
+    const sendNanoClicked = async (receivingWalletLetter) => {
       emitter.emit('transaction-started');
-      transactionStartTimeMs.value = Date.now();
       showTransactionResults.value = false;
       confirmationSendHash.value = null;
       confirmationReceiveHash.value = null;
       transactionStatus.value = null;
+
+      // Generate recaptcha token
+      const token = await getRecaptchaToken(
+        props.recaptchaLoaded,
+        props.executeRecaptcha,
+        'sendNano'
+      );
+
+      transactionStartTimeMs.value = Date.now();
       if (receivingWalletLetter === 'B') {
         // send from Wallet A to Wallet B
         isInitialNanoA.value = false;
         sendingNanoA.value = true;
         lastWalletClicked.value = 'A';
-        nanoClient
-          .send(
-            firstWalletAccount.value,
-            secondWalletAccount.value.address,
-            firstWalletAccount.value.balance
-          )
-          .then((accountAfterSend) => {
-            if (accountAfterSend.error && accountAfterSend.error != null) {
-              transactionStatus.value = 'exception';
-              sendingNanoA.value = false;
-              ElMessage({
-                message: 'Error sending Nano from Wallet A to Wallet B',
-                type: 'error',
-              });
-            }
+
+        const res = await sendNano(
+          token,
+          props.firstWallet.address,
+          props.firstWallet.privateKey,
+          props.secondWallet.address
+        );
+
+        if (res.error) {
+          transactionStatus.value = 'exception';
+          sendingNanoA.value = false;
+          ElMessage({
+            message: res.error,
+            type: 'error',
           });
+        }
       } else if (receivingWalletLetter === 'A') {
         // send from Wallet B to Wallet A
         isInitialNanoB.value = false;
         sendingNanoB.value = true;
         lastWalletClicked.value = 'B';
-        nanoClient
-          .send(
-            secondWalletAccount.value,
-            firstWalletAccount.value.address,
-            secondWalletAccount.value.balance
-          )
-          .then((accountAfterSend) => {
-            if (accountAfterSend.error && accountAfterSend.error != null) {
-              transactionStatus.value = 'exception';
-              sendingNanoB.value = false;
-              ElMessage({
-                message: 'Error sending Nano from Wallet B to Wallet A',
-                type: 'error',
-              });
-            }
+
+        const res = await sendNano(
+          token,
+          props.secondWallet.address,
+          props.secondWallet.privateKey,
+          props.firstWallet.address
+        );
+
+        if (res.error) {
+          transactionStatus.value = 'exception';
+          sendingNanoB.value = false;
+          ElMessage({
+            message: res.error,
+            type: 'error',
           });
+        }
       }
     };
 
-    emitter.on('nano-sent', (sendData) => {
+    emitter.on('internal-nano-send', (sendData) => {
       let wasSent;
-      transactionTime.value = `${Math.abs(
-        (sendData.timestamp - transactionStartTimeMs.value) / 1000.0
-      ).toString()} seconds`;
-      if (sendData.address === firstWalletAccount.value.address) {
+      transactionEndTimeMs.value = sendData.timestamp;
+      if (sendData.address === props.firstWallet.address) {
         sendingNanoA.value = false;
         waitingForReceiveNanoB.value = true;
         wasSent = true;
-      } else if (sendData.address === secondWalletAccount.value.address) {
+      } else if (sendData.address === props.secondWallet.address) {
         sendingNanoB.value = false;
         waitingForReceiveNanoA.value = true;
         wasSent = true;
@@ -271,10 +295,10 @@ export default {
 
     emitter.on('nano-received', (receiveData) => {
       let wasReceived;
-      if (receiveData.address === firstWalletAccount.value.address) {
+      if (receiveData.address === props.firstWallet.address) {
         waitingForReceiveNanoA.value = false;
         wasReceived = true;
-      } else if (receiveData.address === secondWalletAccount.value.address) {
+      } else if (receiveData.address === props.secondWallet.address) {
         waitingForReceiveNanoB.value = false;
         wasReceived = true;
         if (!hasCompletedAtLeastOneTransaction.value) {
@@ -290,8 +314,6 @@ export default {
     });
 
     return {
-      firstWalletAccount,
-      secondWalletAccount,
       isInitialNanoA,
       isInitialNanoB,
       sendingNanoA,
@@ -301,7 +323,7 @@ export default {
       waitingForReceiveNanoA,
       waitingForReceiveNanoB,
       lastWalletClicked,
-      sendNano,
+      sendNanoClicked,
       showTransactionResults,
       transactionTime,
       confirmationSendHash,
