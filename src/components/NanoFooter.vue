@@ -7,7 +7,9 @@
         <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank"
           >Omar Baradei</a
         >
-        and <a href="https://www.reddit.com/u/miri1299/" target="_blank">u/miri1299</a>.
+        and
+        <a href="https://www.linkedin.com/in/patricssss/" target="_blank">Patrick Smith</a
+        >.
       </span>
       <span class="footer-content">
         Link to
