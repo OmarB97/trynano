@@ -74,7 +74,7 @@ If not sure what to put for the missing variables, just reach out to me and I ca
 npm run serve
 ```
 
-## Build the app
+## (Optional) Build the app
 
 ```
 npm run build
