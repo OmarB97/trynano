@@ -22,11 +22,11 @@
         }"
         @click="onFaucetButtonClicked"
         ><div class="faucet-button-content">
-          <div v-show="!nanoFaucetPending && !nanoFaucetCompleted && !nanoRecieved">
+          <div v-show="!nanoFaucetPending && !nanoFaucetCompleted">
             <span class="faucet-text">Use our TryNano Faucet </span
             ><span class="faucet-emoji">🚰</span>
           </div>
-          <div v-show="nanoFaucetPending && !nanoFaucetCompleted && !nanoRecieved">
+          <div v-show="nanoFaucetPending && !nanoFaucetCompleted">
             <span class="faucet-text">Requesting Nano from Faucet... </span>
           </div>
           <div v-show="!nanoFaucetPending && nanoFaucetCompleted && !nanoRecieved">
@@ -89,7 +89,6 @@
         </div>
       </el-tooltip>
     </div>
-
     <strong style="display: block">
       <div style="display: inline-block">Status:&ensp;</div>
       <div

@@ -1,5 +1,13 @@
 /* eslint-disable operator-linebreak */
 <template>
+  <el-alert
+    title="TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!"
+    type="warning"
+    effect="dark"
+    center
+    show-icon
+  >
+  </el-alert>
   <div class="flex-wrapper">
     <div class="site-content">
       <NanoIntro @revealStepsClicked="handleRevealStepsClicked"></NanoIntro>
