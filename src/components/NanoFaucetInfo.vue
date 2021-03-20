@@ -296,7 +296,7 @@ export default {
 }
 
 .faucet-button {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .faucet-button-phone {
