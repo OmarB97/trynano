@@ -171,7 +171,7 @@ export default {
   setup(props) {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { getRecaptchaToken } = recaptcha();
-    const { getFaucetInfo, getNanoFromFaucet } = serverAPI();
+    const { getNanoFromFaucet } = serverAPI();
 
     const didGetFaucetInfo = ref(false);
     const faucetBalance = ref(0);
@@ -192,25 +192,6 @@ export default {
         // eslint-disable-next-line no-restricted-syntax
         for (const dividerTextElement of dividerTextElements)
           dividerTextElement.style.background = '#f4fafe';
-      }
-
-      const token = await getRecaptchaToken(
-        props.recaptchaLoaded,
-        props.executeRecaptcha,
-        'getFaucetInfo'
-      );
-
-      const getFaucetInfoRes = await getFaucetInfo(token);
-      if (getFaucetInfoRes.error) {
-        ElMessage({
-          message: getFaucetInfoRes.error,
-          type: 'error',
-        });
-      } else {
-        didGetFaucetInfo.value = true;
-        faucetBalance.value = getFaucetInfoRes.balance.toFixed(6);
-        faucetPayout.value = `${getFaucetInfoRes.payout * 100}%`;
-        console.log(`getFaucetInfo: ${JSON.stringify(getFaucetInfoRes)}`);
       }
     });
 
@@ -240,6 +221,12 @@ export default {
         faucetBalance.value = res.balance.toFixed(6);
       }
     };
+
+    emitter.on('faucet-balance-info', (faucetBalanceInfo) => {
+      didGetFaucetInfo.value = true;
+      faucetBalance.value = faucetBalanceInfo.balance;
+      faucetPayout.value = faucetBalanceInfo.payout;
+    });
 
     emitter.on('nano-received', (receiveData) => {
       if (receiveData.address === walletAccount.value.address) {

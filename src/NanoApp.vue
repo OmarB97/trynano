@@ -160,7 +160,7 @@ export default {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { recaptchaLoaded, executeRecaptcha } = useReCaptcha();
     const { getRecaptchaToken } = recaptcha();
-    const { generateWallets, receiveNano } = serverAPI();
+    const { generateWallets, getFaucetInfo, receiveNano } = serverAPI();
     const { firstSampleWallet, secondSampleWallet } = sampleWalletData();
 
     const currentStep = ref(0);
@@ -225,28 +225,55 @@ export default {
       transitionDirection.value = 'fade-in-right';
     };
 
+    const getFaucetInfoData = async (token1, token2) => {
+      return Promise.all([generateWallets(token1), getFaucetInfo(token2)]);
+    };
+
     const handleRevealStepsClicked = async () => {
       didRevealSteps.value = true;
-      const token = await getRecaptchaToken(
+      const token1 = await getRecaptchaToken(
         recaptchaLoaded,
         executeRecaptcha,
         'generateWallets'
       );
-      const generateWalletRes = await generateWallets(token);
-      if (generateWalletRes.error) {
+
+      const token2 = await getRecaptchaToken(
+        recaptchaLoaded,
+        executeRecaptcha,
+        'getFaucetInfo'
+      );
+
+      // concurently get both wallets + faucet info
+      const [generateWalletsRes, getFaucetInfoRes] = await getFaucetInfoData(
+        token1,
+        token2
+      );
+
+      if (getFaucetInfoRes.error) {
         ElMessage({
-          message: generateWalletRes.error,
+          message: getFaucetInfoRes.error,
           type: 'error',
         });
-        return;
+      } else {
+        emitter.emit('faucet-balance-info', {
+          balance: getFaucetInfoRes.balance.toFixed(6),
+          payout: `${getFaucetInfoRes.payout * 100}%`,
+        });
       }
 
-      didGenerateWallets.value = true;
-      [firstWalletData.value, secondWalletData.value] = generateWalletRes.wallets;
-      callWebsocket(
-        [firstWalletData.value.address, secondWalletData.value.address],
-        emitter
-      );
+      if (generateWalletsRes.error) {
+        ElMessage({
+          message: generateWalletsRes.error,
+          type: 'error',
+        });
+      } else {
+        didGenerateWallets.value = true;
+        [firstWalletData.value, secondWalletData.value] = generateWalletsRes.wallets;
+        callWebsocket(
+          [firstWalletData.value.address, secondWalletData.value.address],
+          emitter
+        );
+      }
     };
 
     // Handle send confirmation block, receive most recent pending block
