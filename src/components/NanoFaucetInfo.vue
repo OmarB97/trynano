@@ -23,7 +23,10 @@
         @click="onFaucetButtonClicked"
         ><div class="faucet-button-content">
           <div v-show="!nanoFaucetPending && !nanoFaucetCompleted">
-            <span class="faucet-text">Use our TryNano Faucet </span
+            <span
+              :style="{ paddingLeft: $mq !== 'phone' ? '30px' : '0px' }"
+              class="faucet-text"
+              >Use the TryNano Faucet </span
             ><span class="faucet-emoji">🚰</span>
           </div>
           <div v-show="nanoFaucetPending && !nanoFaucetCompleted">
@@ -40,6 +43,25 @@
         </div>
       </el-button>
     </div>
+    <el-row class="faucet-balance-info" :gutter="20" type="flex" justify="center">
+      <vue-element-loading
+        :active="!didGetFaucetInfo"
+        background-color="#F4FAFF"
+        spinner="spinner"
+        color="#3b7bbf"
+        text="Getting Faucet Info..."
+      />
+      <el-col :span="faucetInfoSpan"
+        ><p class="faucet-balance-info-items">
+          Faucet balance: <b>{{ faucetBalance }} Ñ</b>
+        </p></el-col
+      >
+      <el-col :span="faucetInfoSpan"
+        ><p class="faucet-balance-info-items">
+          Faucet payout: <b>{{ faucetPayout }}</b>
+        </p></el-col
+      >
+    </el-row>
     <el-divider content-position="center"><div>OR</div></el-divider>
     <p class="maintext">
       Go to
@@ -121,6 +143,18 @@ export default {
     executeRecaptcha: Function,
   },
   computed: {
+    faucetInfoSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 10;
+        case 'tablet':
+          return 7;
+        case 'other':
+          return 6;
+        default:
+          return 6;
+      }
+    },
     buttonSize() {
       switch (this.$mq) {
         case 'phone':
@@ -137,17 +171,11 @@ export default {
   setup(props) {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { getRecaptchaToken } = recaptcha();
-    const { getNanoFromFaucet } = serverAPI();
+    const { getFaucetInfo, getNanoFromFaucet } = serverAPI();
 
-    onMounted(() => {
-      const dividerTextElements = document.getElementsByClassName('el-divider__text');
-      if (dividerTextElements) {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const dividerTextElement of dividerTextElements)
-          dividerTextElement.style.background = '#f4fafe';
-      }
-    });
-
+    const didGetFaucetInfo = ref(false);
+    const faucetBalance = ref(0);
+    const faucetPayout = ref('');
     const nanoRecieved = ref(false);
     const depositStatus = ref('Not Received');
     const hoverOnCopyAddress = ref(false);
@@ -157,6 +185,34 @@ export default {
 
     const nanoFaucetPending = ref(false);
     const nanoFaucetCompleted = ref(false);
+
+    onMounted(async () => {
+      const dividerTextElements = document.getElementsByClassName('el-divider__text');
+      if (dividerTextElements) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const dividerTextElement of dividerTextElements)
+          dividerTextElement.style.background = '#f4fafe';
+      }
+
+      const token = await getRecaptchaToken(
+        props.recaptchaLoaded,
+        props.executeRecaptcha,
+        'getFaucetInfo'
+      );
+
+      const getFaucetInfoRes = await getFaucetInfo(token);
+      if (getFaucetInfoRes.error) {
+        ElMessage({
+          message: getFaucetInfoRes.error,
+          type: 'error',
+        });
+      } else {
+        didGetFaucetInfo.value = true;
+        faucetBalance.value = getFaucetInfoRes.balance.toFixed(6);
+        faucetPayout.value = `${getFaucetInfoRes.payout * 100}%`;
+        console.log(`getFaucetInfo: ${JSON.stringify(getFaucetInfoRes)}`);
+      }
+    });
 
     const onFaucetButtonClicked = async () => {
       nanoFaucetPending.value = true;
@@ -181,6 +237,7 @@ export default {
         });
       } else {
         nanoFaucetCompleted.value = true;
+        faucetBalance.value = res.balance.toFixed(6);
       }
     };
 
@@ -210,6 +267,9 @@ export default {
       onFaucetButtonClicked,
       nanoFaucetPending,
       nanoFaucetCompleted,
+      didGetFaucetInfo,
+      faucetBalance,
+      faucetPayout,
     };
   },
 };
@@ -217,7 +277,23 @@ export default {
 
 <style>
 .faucet-info {
-  margin: 20px auto 50px auto;
+  margin: 10px auto 50px auto;
+}
+
+.faucet-balance-info {
+  padding: 0;
+  margin: 0 auto 30px auto;
+}
+
+.faucet-balance-info-items {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.faucet-balance-info-items > b {
+  font-weight: 500;
 }
 
 .faucet-card-width-phone {
@@ -233,7 +309,7 @@ export default {
 }
 
 .faucet-button {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .faucet-button-phone {

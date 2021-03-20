@@ -20,6 +20,47 @@ const serverAPI = () => {
   };
 
   /* 
+    Get current faucet balance + payout perent (decimal format).
+  */
+  const getFaucetInfo = async (token) => {
+    const options = {
+      headers: {
+        "X-Recaptcha": token,
+      },
+    };
+    try {
+      const res = await axios.get("/api/getFaucetInfo", options);
+      return res ? res.data : { error: `Error getting NanoFaucet info: no response from server` };
+    } catch (err) {
+      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
+      return { error: `Error getting NanoFaucet info: ${errorMessage}` };
+    }
+  };
+
+   /* 
+    Get a small amount of Nano from the TryNano Faucet.
+  */
+  const getNanoFromFaucet = async (token, toAddress, privateKey) => {
+    const data = {
+      toAddress,
+      privateKey,
+    };
+
+    const options = {
+      headers: {
+        "X-Recaptcha": token,
+      },
+    };
+    try {
+      const res = await axios.post("/api/getFromFaucet", data, options);
+      return res ? res.data : { error: `Error getting Nano from Faucet: no response from server` };
+    } catch (err) {
+      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
+      return { error: `Error getting Nano from Faucet: ${errorMessage}` };
+    }
+  };
+
+  /* 
     Send nano from one wallet to another.
   */
   const sendNano = async (token, fromAddress, privateKey, toAddress, amount = "max") => {
@@ -69,31 +110,9 @@ const serverAPI = () => {
     }
   };
 
-  /* 
-    Get a small amount of Nano from the TryNano Faucet.
-  */
-  const getNanoFromFaucet = async (token, toAddress, privateKey) => {
-    const data = {
-      toAddress,
-      privateKey,
-    };
-
-    const options = {
-      headers: {
-        "X-Recaptcha": token,
-      },
-    };
-    try {
-      const res = await axios.post("/api/getFromFaucet", data, options);
-      return res ? res.data : { error: `Error getting Nano from Faucet: no response from server` };
-    } catch (err) {
-      const errorMessage = err.response.data.error ? err.response.data.error : 'no error message provided from server';
-      return { error: `Error getting Nano from Faucet: ${errorMessage}` };
-    }
-  };
-
   return {
     generateWallets,
+    getFaucetInfo,
     getNanoFromFaucet,
     sendNano,
     receiveNano,

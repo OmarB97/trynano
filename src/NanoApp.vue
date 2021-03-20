@@ -232,16 +232,17 @@ export default {
         executeRecaptcha,
         'generateWallets'
       );
-      const res = await generateWallets(token);
-      if (res.error) {
+      const generateWalletRes = await generateWallets(token);
+      if (generateWalletRes.error) {
         ElMessage({
-          message: res.error,
+          message: generateWalletRes.error,
           type: 'error',
         });
         return;
       }
+
       didGenerateWallets.value = true;
-      [firstWalletData.value, secondWalletData.value] = res.wallets;
+      [firstWalletData.value, secondWalletData.value] = generateWalletRes.wallets;
       callWebsocket(
         [firstWalletData.value.address, secondWalletData.value.address],
         emitter
