@@ -1,0 +1,126 @@
+{
+  "nanoApp": {
+    "networkAlert": "TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!",
+    "steps": {
+      "title": "Step {count}",
+      "description": {
+        "one": "Grab Some Nano",
+        "two": "Try It Out",
+        "three": "Set Up Your Wallet",
+        "four": "Done!"
+      }
+    },
+    "steppers": {
+      "previous": " Previous Step",
+      "next": "Next Step "
+    },
+    "generatingWallets": "Generating Wallets..."
+  },
+  "nanoIntro": {
+    "firstSentence": "TryNano demonstrates how fast and simple Nano transactions are by giving you two wallets to send Nano back and forth between each other.",
+    "secondSentence": {
+      "main": "{0} Nano (NANO) is a peer-to-peer digital currency designed to provide instant transactions, zero fees, and scalability, all while being eco-friendly.",
+      "whatIsNano": "What is Nano?"
+    },
+    "revealText": "Click here to try it out yourself!"
+  },
+  "nanoFaucetInfo": {
+    "faucetButton": "Use the TryNano Faucet",
+    "requestingFaucet": "Requesting Nano from Faucet...",
+    "receivePendingFromFaucet": "Faucet Nano sent! Receiving pending Nano from Faucet...",
+    "faucetReceived": "Faucet Nano Received!",
+    "gettingFaucetInfo": "Getting Faucet Info...",
+    "faucetBalance": {
+      "main": "Faucet balance: {0}",
+      "balance": "{faucetBalance} Ñ"
+    },
+    "faucetPayout": {
+      "main": "Faucet payout: {0}",
+      "payout": "{faucetPayout}"
+    },
+    "dividerText": "OR",
+    "firstSentence": {
+      "main": "Go to {0} and paste the generated wallet address below.",
+      "faucetUrl": "nano-faucet.org"
+    },
+    "secondSentence": {
+      "main": "({0}: If you've received a tip from someone using NanoTipBot and would like to use that instead, use the !withdraw command outlined {1}.)",
+      "note": "Note",
+      "nanoTipBotUrl": "here"
+    },
+    "popover": {
+      "main": "A {0} is a unique identifier that serves as a virtual location where cryptocurrency can be sent/received, similar to having an email address!",
+      "walletAddress": "wallet address"
+    },
+    "tooltip": {
+      "copyAddress": "Copy Address",
+      "copiedAddress": "Copied!"
+    },
+    "generatedWalletAddress": "Generated wallet address",
+    "depositStatus": {
+      "main": "Status:",
+      "notReceived": "Not Received",
+      "received": "Received!"
+    },
+    "walletBalance": {
+      "main": "Balance:",
+      "amount": "{walletBalance} Ñ"
+    }
+  },
+  "demo": {
+    "nanoDemo": {
+      "firstSentence": "Try sending some nano back and forth between these two wallets to get a feel for just how quick and easy it is to use Nano!",
+      "firstWalletLetter": "A",
+      "secondWalletLetter": "B",
+      "sendToWallet": "Send to Wallet {walletLetter}",
+      "sending": "Sending...",
+      "sent": "Sent!",
+      "confirmingReceivedNano": "Confirming Received Nano...",
+      "transactionTime": {
+        "default": "N/A",
+        "time": "{time} seconds"
+      }
+    },
+    "nanoTransactionResults": {
+      "language": "Languages"
+    },
+    "nanoTransactionStatusBar": {
+      "language": "Languages"
+    },
+    "nanoWallet": {
+      "language": "Languages"
+    }
+  },
+  "claimNano": {
+    "firstSentence": {
+      "main": "To claim back your Nano, you'll need to set up a {0} to store it in.",
+      "privateWallet": "private wallet"
+    },
+    "secondSentence": {
+      "main": "The most popular wallets in the Nano community are {0} (Android/iOS) and {1} (Web/Desktop).",
+      "natrium": "Natrium",
+      "nault": "Nault"
+    },
+    "thirdSentence": {
+      "main": "(For a more complete list of options, please visit {0}.)",
+      "guide": "this guide"
+    },
+    "fourthSentence": "Once you've finished setting up your wallet, enter your new Nano wallet address below and click send. That's it!",
+    "addressPlaceholder": "Enter your Nano address...",
+    "validNanoAddress": "Valid Nano Address",
+    "invalidNanoAddress": "Invalid Nano Address",
+    "send": "Send",
+    "returnToSender": "Return Back to Sender",
+    "sending": "Sending..",
+    "sent": "Sent!"
+  },
+  "nanoResources": {
+    "language": "Languages"
+  },
+  "nanoFooter": {
+    "language": "Languages"
+  },
+  "feedbackForm": {
+    "language": "Languages"
+  }
+}
