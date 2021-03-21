@@ -10,7 +10,11 @@
       t('claimNano.secondSentence.nault')
     }}</a>
   </i18n-t>
-  <i18n-t keypath="claimNano.thirdSentence.main" tag="p">
+  <i18n-t
+    keypath="claimNano.thirdSentence.main"
+    tag="p"
+    style="font-size: 90%; opacity: 85%; margin-top: -10px"
+  >
     <a href="https://nanowallets.guide/" target="_blank">{{
       t('claimNano.thirdSentence.guide')
     }}</a>

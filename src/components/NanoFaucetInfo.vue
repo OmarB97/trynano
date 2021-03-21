@@ -26,19 +26,19 @@
             <span
               :style="{ paddingLeft: $mq !== 'phone' ? '30px' : '0px' }"
               class="faucet-text"
-              >Use the TryNano Faucet </span
+              >{{ t('nanoFaucetInfo.faucetButton') }}</span
             ><span class="faucet-emoji">🚰</span>
           </div>
           <div v-show="nanoFaucetPending && !nanoFaucetCompleted">
-            <span class="faucet-text">Requesting Nano from Faucet... </span>
+            <span class="faucet-text">{{ t('nanoFaucetInfo.requestingFaucet') }}</span>
           </div>
           <div v-show="!nanoFaucetPending && nanoFaucetCompleted && !nanoRecieved">
             <span class="faucet-text"
-              >Faucet Nano sent! Receiving pending Nano from Faucet...
+              >{{ t('nanoFaucetInfo.receivePendingFromFaucet') }}
             </span>
           </div>
           <div v-show="!nanoFaucetPending && nanoFaucetCompleted && nanoRecieved">
-            <span class="faucet-text">Faucet Nano Received!</span>
+            <span class="faucet-text">{{ t('nanoFaucetInfo.faucetReceived') }}</span>
           </div>
         </div>
       </el-button>
@@ -49,30 +49,41 @@
         background-color="#F4FAFF"
         spinner="spinner"
         color="#3b7bbf"
-        text="Getting Faucet Info..."
+        :text="t('nanoFaucetInfo.gettingFaucetInfo')"
       />
-      <el-col :span="faucetInfoSpan"
-        ><p class="faucet-balance-info-items">
-          Faucet balance: <b>{{ faucetBalance }} Ñ</b>
-        </p></el-col
-      >
-      <el-col :span="faucetInfoSpan"
-        ><p class="faucet-balance-info-items">
-          Faucet payout: <b>{{ faucetPayout }}</b>
-        </p></el-col
-      >
+      <el-col :span="faucetInfoSpan">
+        <i18n-t
+          keypath="nanoFaucetInfo.faucetBalance.main"
+          tag="p"
+          class="faucet-balance-info-items"
+        >
+          <b>{{ t('nanoFaucetInfo.faucetBalance.balance', { faucetBalance }) }}</b>
+        </i18n-t>
+      </el-col>
+      <el-col :span="faucetInfoSpan">
+        <i18n-t
+          keypath="nanoFaucetInfo.faucetPayout.main"
+          tag="p"
+          class="faucet-balance-info-items"
+        >
+          <b>{{ t('nanoFaucetInfo.faucetPayout.payout', { faucetPayout }) }}</b>
+        </i18n-t>
+      </el-col>
     </el-row>
-    <el-divider content-position="center"><div>OR</div></el-divider>
-    <p class="maintext">
-      Go to
-      <a href="https://www.nano-faucet.org" target="_blank">nano-faucet.org</a> and paste
-      the generated wallet address below.
-    </p>
-    <p class="subtext">
-      (<u>Note</u>: If you've received a tip from someone using NanoTipBot and would like
-      to use that instead, use the !withdraw command outlined
-      <a href="https://nanotipbot.com/" target="_blank">here</a>.)
-    </p>
+    <el-divider content-position="center"
+      ><div>{{ t('nanoFaucetInfo.dividerText') }}</div></el-divider
+    >
+    <i18n-t keypath="nanoFaucetInfo.firstSentence.main" tag="p" class="maintext">
+      <a href="https://www.nano-faucet.org" target="_blank">{{
+        t('nanoFaucetInfo.firstSentence.faucetUrl')
+      }}</a>
+    </i18n-t>
+    <i18n-t keypath="nanoFaucetInfo.secondSentence.main" tag="p" class="subtext">
+      <u>{{ t('nanoFaucetInfo.secondSentence.note') }}</u>
+      <a href="https://nanotipbot.com/" target="_blank">{{
+        t('nanoFaucetInfo.secondSentence.nanoTipBotUrl')
+      }}</a>
+    </i18n-t>
     <div>
       <el-popover
         class="popover"
@@ -83,11 +94,15 @@
         <template #reference>
           <i class="el-icon-question wallet-tooltip pointer"></i>
         </template>
-        <div style="word-break: keep-all">
-          A <strong><u>wallet address</u></strong> is a unique identifier that serves as a
-          virtual location where cryptocurrency can be sent/received, similar to having an
-          email address!
-        </div>
+        <i18n-t
+          keypath="nanoFaucetInfo.popover.main"
+          tag="div"
+          style="word-break: keep-all"
+        >
+          <strong
+            ><u>{{ t('nanoFaucetInfo.popover.walletAddress') }}</u></strong
+          >
+        </i18n-t>
       </el-popover>
       <el-tooltip
         effect="dark"
@@ -97,7 +112,7 @@
       >
         <div
           style="display: inline-block; margin: 16px 0px"
-          @mouseenter="copyPrompt = 'Copy Address'"
+          @mouseenter="copyPrompt = t('nanoFaucetInfo.tooltip.copyAddress')"
           @mouseover="hoverOnCopyAddress = true"
           @mouseleave="hoverOnCopyAddress = false"
           class="overflow"
@@ -105,14 +120,17 @@
           v-clipboard:copy="walletAccount.address"
           v-clipboard:success="onAddressCopySuccess"
         >
-          <b>Generated wallet address</b>:
+          <b>{{ t('nanoFaucetInfo.generatedWalletAddress') }}</b
+          >:
           <span>{{ walletAccount.address }}</span>
           <img class="logo" src="../assets/copy.png" />
         </div>
       </el-tooltip>
     </div>
     <strong style="display: block">
-      <div style="display: inline-block">Status:&ensp;</div>
+      <div style="display: inline-block">
+        {{ t('nanoFaucetInfo.depositStatus.main') }}&ensp;
+      </div>
       <div
         style="display: inline-block"
         :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
@@ -122,8 +140,12 @@
     </strong>
     <div v-show="walletBalance > 0">
       <div style="display: block">
-        <strong style="display: inline-block">Balance:&ensp;</strong>
-        <div class="overflow" style="display: inline-block">{{ walletBalance }} Ñ</div>
+        <strong style="display: inline-block"
+          >{{ t('nanoFaucetInfo.walletBalance.main') }}&ensp;</strong
+        >
+        <div class="overflow" style="display: inline-block">
+          {{ t('nanoFaucetInfo.walletBalance.amount', { walletBalance }) }}
+        </div>
       </div>
     </div>
   </div>
@@ -131,6 +153,7 @@
 
 <script>
 import { ref, computed, getCurrentInstance, onMounted } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { ElMessage } from 'element-plus';
 import recaptcha from '../util/recaptcha';
 import serverAPI from '../util/server_api';
@@ -169,6 +192,7 @@ export default {
     },
   },
   setup(props) {
+    const { t } = useI18n({ useScope: 'global' });
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { getRecaptchaToken } = recaptcha();
     const { getNanoFromFaucet } = serverAPI();
@@ -177,9 +201,9 @@ export default {
     const faucetBalance = ref(0);
     const faucetPayout = ref('');
     const nanoRecieved = ref(false);
-    const depositStatus = ref('Not Received');
+    const depositStatus = ref(t('nanoFaucetInfo.depositStatus.notReceived'));
     const hoverOnCopyAddress = ref(false);
-    const copyPrompt = ref('Copy Address');
+    const copyPrompt = ref(t('nanoFaucetInfo.tooltip.copyAddress'));
     const walletBalance = ref(0);
     const walletAccount = computed(() => props.firstWalletData);
 
@@ -231,7 +255,7 @@ export default {
     emitter.on('nano-received', (receiveData) => {
       if (receiveData.address === walletAccount.value.address) {
         if (!nanoRecieved.value && receiveData.balance > 0) {
-          depositStatus.value = 'Received!';
+          depositStatus.value = t('nanoFaucetInfo.depositStatus.received');
           nanoRecieved.value = true;
           walletBalance.value = receiveData.balance;
           emitter.emit('step-completed', 'first');
@@ -240,10 +264,11 @@ export default {
     });
 
     const onAddressCopySuccess = () => {
-      copyPrompt.value = 'Copied!';
+      copyPrompt.value = t('nanoFaucetInfo.tooltip.copiedAddress');
     };
 
     return {
+      t,
       nanoRecieved,
       depositStatus,
       hoverOnCopyAddress,
