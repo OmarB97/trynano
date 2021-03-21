@@ -101,6 +101,7 @@
                 type="primary"
                 plain
                 @click="increaseStep"
+                :disabled="!isCurrentStepComplete"
                 >{{ t('nanoApp.steppers.next') }}<i class="el-icon-right"></i
               ></el-button>
             </div>
