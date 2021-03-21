@@ -143,7 +143,26 @@
     }
   },
   "nanoFooter": {
-    "language": "Languages"
+    "createdBy": {
+      "main": "Created by {0} and {1}.",
+      "omar": "Omar Baradei",
+      "patrick": "Patrick Smith"
+    },
+    "github": {
+      "main": "Link to {0}.",
+      "url": "GitHub"
+    },
+    "faucet": "Donate to the TryNano Faucet: {0}.",
+    "tips": "Tips accepted at: {0}.",
+    "feedback": {
+      "main": "Give feedback {0}.",
+      "feedbackLink": "here"
+    },
+    "recaptcha": {
+      "main": " This site is protected by reCAPTCHA and the {0} and the {1} apply.",
+      "policy": "Google Privacy Policy",
+      "tos": "Terms of Service"
+    }
   },
   "feedbackForm": {
     "language": "Languages"

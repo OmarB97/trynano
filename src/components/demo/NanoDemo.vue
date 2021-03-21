@@ -35,7 +35,7 @@
             <span class="arrow"> →</span>
           </div>
           <div class="nano-button" v-show="disableNanoA && sendingNanoA">
-            {{ t('nanoDemo.demo.sending') }}
+            {{ t('demo.nanoDemo.sending') }}
           </div>
           <div
             v-show="
@@ -45,10 +45,10 @@
               !sendingNanoA
             "
           >
-            {{ t('nanoDemo.demo.sent') }}
+            {{ t('demo.nanoDemo.sent') }}
           </div>
           <div class="nano-button" v-show="waitingForReceiveNanoA">
-            {{ t('nanoDemo.demo.confirmingReceivedNano') }}
+            {{ t('demo.nanoDemo.confirmingReceivedNano') }}
           </div></el-button
         >
       </el-col>
@@ -86,7 +86,7 @@
             }}
           </div>
           <div class="nano-button" v-show="disableNanoB && sendingNanoB">
-            {{ t('nanoDemo.demo.sending') }}
+            {{ t('demo.nanoDemo.sending') }}
           </div>
           <div
             v-show="
@@ -96,10 +96,10 @@
               !sendingNanoB
             "
           >
-            {{ t('nanoDemo.demo.sent') }}
+            {{ t('demo.nanoDemo.sent') }}
           </div>
           <div class="nano-button" v-show="waitingForReceiveNanoB">
-            {{ t('nanoDemo.demo.confirmingReceivedNano') }}
+            {{ t('demo.nanoDemo.confirmingReceivedNano') }}
           </div></el-button
         >
       </el-col>
@@ -207,10 +207,10 @@ export default {
         !transactionEndTimeMs.value ||
         transactionEndTimeMs.value === 0
       ) {
-        return t('nanoDemo.demo.transactionTime.default');
+        return t('demo.nanoDemo.transactionTime.default');
       }
 
-      const res = t('nanoDemo.demo.transactionTime.time', {
+      const res = t('demo.nanoDemo.transactionTime.time', {
         time: Math.abs(
           (transactionEndTimeMs.value - transactionStartTimeMs.value) / 1000.0
         ).toString(),
