@@ -133,7 +133,14 @@
     "sent": "Sent!"
   },
   "nanoResources": {
-    "language": "Languages"
+    "title": "Thanks for using TryNano!",
+    "firstSentence": {
+      "main": "For a comprehensive list of resources related to Nano including the core team, social media channels, where to buy Nano, and more, please visit {0}.",
+      "nanoLinksUrl": "nanolinks.info"
+    },
+    "secondSentence": {
+      "main": "If you liked this experience, please consider donating to me at {0} or the TryNano Faucet {1} to help keep the website up and running!"
+    }
   },
   "nanoFooter": {
     "language": "Languages"
