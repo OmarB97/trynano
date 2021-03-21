@@ -89,11 +89,24 @@
         "amount": "{nanoBalance} Ñ"
       }
     },
-    "nanoTransactionStatusBar": {
-      "language": "Languages"
-    },
     "nanoTransactionResults": {
-      "language": "Languages"
+      "title": "Transaction Results",
+      "placeholder": "Send Nano between the two wallets to start a transaction!",
+      "transactionTime": {
+        "label": "Transaction Time:",
+        "time": "{transactionTime}"
+      },
+      "transactionFees": {
+        "label": "Transaction Fees:",
+        "fees": "None"
+      },
+      "energyConsumption": {
+        "label": "Energy Consumption:",
+        "usage": "~ 0.000112 kWh"
+      },
+      "sendConfirmationBlock": "Link to sent confirmation block",
+      "receiveConfirmationBlock": "Link to received confirmation block",
+      "nanoCrawlerLink": "on NanoCrawler"
     }
   },
   "claimNano": {
