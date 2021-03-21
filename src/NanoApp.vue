@@ -134,6 +134,7 @@ import { NANO } from '@nanobox/nano-client/dist/models';
 import { useReCaptcha } from 'vue-recaptcha-v3';
 import { ElMessage } from 'element-plus';
 import VueElementLoading from 'vue-element-loading';
+import { useI18n } from 'vue-i18n';
 import recaptcha from './util/recaptcha';
 import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
@@ -157,6 +158,7 @@ export default {
     VueElementLoading,
   },
   setup() {
+    const { t } = useI18n({ useScope: 'global' });
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { recaptchaLoaded, executeRecaptcha } = useReCaptcha();
     const { getRecaptchaToken } = recaptcha();
@@ -378,6 +380,7 @@ export default {
     });
 
     return {
+      t,
       currentStep,
       decreaseStep,
       increaseStep,

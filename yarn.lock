@@ -900,6 +900,44 @@
     "cssnano-preset-default" "^4.0.0"
     "postcss" "^7.0.0"
 
+"@intlify/core-base@9.0.0":
+  "integrity" "sha512-dxqakT94EV2bFshG3LENQUPWX9yJFCga1BOwJ6mz7J8LnAYVB9Kxw7NRyE2ybN31USW2IUTQH6WWR1yDbCiefQ=="
+  "resolved" "https://registry.npmjs.org/@intlify/core-base/-/core-base-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@intlify/message-compiler" "9.0.0"
+    "@intlify/message-resolver" "9.0.0"
+    "@intlify/runtime" "9.0.0"
+    "@intlify/shared" "9.0.0"
+
+"@intlify/message-compiler@9.0.0":
+  "integrity" "sha512-3oiLj+8z6koRYJwknazjilBsrqnJEAJywr/t39MYVy2yPmwOI1+NDfdDwM9U3ioA2RvsQEUICqW8gmjq1YIElw=="
+  "resolved" "https://registry.npmjs.org/@intlify/message-compiler/-/message-compiler-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@intlify/message-resolver" "9.0.0"
+    "@intlify/shared" "9.0.0"
+    "source-map" "0.6.1"
+
+"@intlify/message-resolver@9.0.0":
+  "integrity" "sha512-LVK4cwu1l33yvBy0UQkEdXm6pZUcbbiparobruJXz+U8jRTmYHBprN59j59YKXEKcV43cHfzNveaQIm84bgxvQ=="
+  "resolved" "https://registry.npmjs.org/@intlify/message-resolver/-/message-resolver-9.0.0.tgz"
+  "version" "9.0.0"
+
+"@intlify/runtime@9.0.0":
+  "integrity" "sha512-UqCKduZezb5/qA+XPRfHVvXoLmhnQ8iKMyCh0Lg3ZwjW2vOMep/AgZU3T9cgESe67r4buPYHs7nOBSHbTdjNxg=="
+  "resolved" "https://registry.npmjs.org/@intlify/runtime/-/runtime-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@intlify/message-compiler" "9.0.0"
+    "@intlify/message-resolver" "9.0.0"
+    "@intlify/shared" "9.0.0"
+
+"@intlify/shared@9.0.0":
+  "integrity" "sha512-0r4v7dnY8g/Jfx2swUWy2GyfH/WvIpWvkU4OIupvxDTWiE8RhcpbOCVvqpVh/xGi0proHQ/r2Dhc0QSItUsfDQ=="
+  "resolved" "https://registry.npmjs.org/@intlify/shared/-/shared-9.0.0.tgz"
+  "version" "9.0.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   "integrity" "sha512-bPHp6Ji8b41szTOcaP63VlnbbO5Ny6dwAATtY6JTjh5N2OLrb5Qk/Th5cRkRQhkWCt+EJsYrNB0MiL+Gpn6e3g=="
   "resolved" "https://registry.npmjs.org/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz"
@@ -1441,6 +1479,11 @@
     "vue-template-es2015-compiler" "^1.9.0"
   optionalDependencies:
     "prettier" "^1.18.2"
+
+"@vue/devtools-api@^6.0.0-beta.5":
+  "integrity" "sha512-mIfqX8ZF6s2ulelIzfxGk9sFoigpoeK/2/DlWrtBGWfvwaK3kR1P2bxNkZ0LbJeuKHfcRP6hGZtGist7nxUN9A=="
+  "resolved" "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.0.0-beta.7.tgz"
+  "version" "6.0.0-beta.7"
 
 "@vue/eslint-config-airbnb@^5.0.2":
   "integrity" "sha512-m9ldRhbqaODbcc9mQZjPgnTzyNweZblLMTqMfC2kHWY68dYd3kwG/hvENeZWXJnKKo+eGnoptk+7Zq/c1519ZQ=="
@@ -8119,6 +8162,11 @@
   "resolved" "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
   "version" "0.6.1"
 
+"source-map@0.6.1":
+  "integrity" "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="
+  "resolved" "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
+  "version" "0.6.1"
+
 "sourcemap-codec@^1.4.4":
   "integrity" "sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA=="
   "resolved" "https://registry.npmjs.org/sourcemap-codec/-/sourcemap-codec-1.4.8.tgz"
@@ -9000,6 +9048,15 @@
   "integrity" "sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog=="
   "resolved" "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
   "version" "2.3.4"
+
+"vue-i18n@^9.0.0":
+  "integrity" "sha512-iks0eJDv/4cK/7tl/ooMUroNVVIGOK4kKS1PIHmPQk7QjT/sDfFM84vjPKgpARbw0GjJsOiADL43jufNfs9e9A=="
+  "resolved" "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "@intlify/core-base" "9.0.0"
+    "@intlify/shared" "9.0.0"
+    "@vue/devtools-api" "^6.0.0-beta.5"
 
 "vue-loader-v16@npm:vue-loader@^16.1.0":
   "integrity" "sha512-8QTxh+Fd+HB6fiL52iEVLKqE9N1JSlMXLR92Ijm6g8PZrwIxckgpqjPDWRP5TWxdiPaHR+alUWsnu1ShQOwt+Q=="
