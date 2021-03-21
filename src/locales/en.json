@@ -81,13 +81,18 @@
         "time": "{time} seconds"
       }
     },
-    "nanoTransactionResults": {
-      "language": "Languages"
+    "nanoWallet": {
+      "walletLabel": "Nano Wallet {walletLetter}",
+      "addressLabel": "Address:",
+      "walletBalance": {
+        "label": "Balance:",
+        "amount": "{nanoBalance} Ñ"
+      }
     },
     "nanoTransactionStatusBar": {
       "language": "Languages"
     },
-    "nanoWallet": {
+    "nanoTransactionResults": {
       "language": "Languages"
     }
   },

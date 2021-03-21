@@ -7,7 +7,7 @@
       'wallet-other': $mq === 'other',
     }"
   >
-    <h3 class="wallet-label">Nano Wallet {{ walletLetter }}</h3>
+    <h3 class="wallet-label">{{ t('demo.nanoWallet.walletLabel', { walletLetter }) }}</h3>
     <img
       class="logo"
       :class="{
@@ -18,18 +18,25 @@
       src="../../assets/wallet.png"
     />
     <div style="display: block">
-      <strong style="display: inline-block">Address:&ensp;</strong>
+      <strong style="display: inline-block"
+        >{{ t('demo.nanoWallet.addressLabel') }}&ensp;</strong
+      >
       <div class="overflow" style="display: inline-block">{{ shortenedNanoAddress }}</div>
     </div>
     <div style="display: block">
-      <strong style="display: inline-block">Balance:&ensp;</strong>
-      <div class="overflow" style="display: inline-block">{{ nanoBalance }} Ñ</div>
+      <strong style="display: inline-block"
+        >{{ t('demo.nanoWallet.walletBalance.label') }}&ensp;</strong
+      >
+      <div class="overflow" style="display: inline-block">
+        {{ t('demo.nanoWallet.walletBalance.amount', { nanoBalance }) }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { computed } from 'vue';
+import { useI18n } from 'vue-i18n';
 import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
 
@@ -41,13 +48,14 @@ export default {
     walletBalance: Object,
   },
   setup(props) {
+    const { t } = useI18n({ useScope: 'global' });
     const shortenedNanoAddress = computed(
       () => props.walletAddress.slice(0, 5) + props.walletAddress.slice(-7)
     );
     const nanoBalance = computed(() => {
       return removeTrailingZeros(tools.convert(props.walletBalance.raw, 'RAW', 'NANO'));
     });
-    return { shortenedNanoAddress, nanoBalance };
+    return { t, shortenedNanoAddress, nanoBalance };
   },
 };
 </script>
