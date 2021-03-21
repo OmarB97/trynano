@@ -2,16 +2,13 @@
   <div class="intro">
     <img class="logo" src="../assets/trynano_full.png" />
     <h3>
-      TryNano demonstrates how fast and simple Nano transactions are by giving you two
-      wallets to send Nano back and forth between each other.
+      {{ t('nanoIntro.firstSentence') }}
     </h3>
-    <h5>
-      <strong>What is Nano?</strong> Nano (NANO) is a peer-to-peer digital currency
-      designed to provide instant transactions, zero fees, and scalability, all while
-      being eco-friendly.
-    </h5>
+    <i18n-t keypath="nanoIntro.secondSentence.main" tag="h5">
+      <strong>{{ t('nanoIntro.secondSentence.whatIsNano') }}</strong>
+    </i18n-t>
     <ClickToReveal
-      :revealText="'Click here to try it out yourself!'"
+      :revealText="t('nanoIntro.revealText')"
       :clickable="true"
       :shouldBoldText="true"
       :sizeFactor="1"
@@ -22,6 +19,7 @@
 
 <script>
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import ClickToReveal from './common/ClickToReveal.vue';
 
 export default {
@@ -29,6 +27,7 @@ export default {
   components: { ClickToReveal },
   emits: ['revealStepsClicked'],
   setup(props, context) {
+    const { t } = useI18n({ useScope: 'global' });
     const revealStepsClicked = ref(false);
 
     const handleRevealStepsClicked = () => {
@@ -36,7 +35,7 @@ export default {
       context.emit('revealStepsClicked');
     };
 
-    return { revealStepsClicked, handleRevealStepsClicked };
+    return { t, revealStepsClicked, handleRevealStepsClicked };
   },
 };
 </script>
