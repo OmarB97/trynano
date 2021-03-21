@@ -1,7 +1,7 @@
 /* eslint-disable operator-linebreak */
 <template>
   <el-alert
-    title="TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!"
+    :title="t('nanoApp.networkAlert')"
     type="warning"
     effect="dark"
     center
@@ -26,21 +26,25 @@
             finish-status="success"
           >
             <el-step
-              title="Step 1"
-              description="Grab Some Nano"
+              :title="t('nanoApp.steps.title', 1)"
+              :description="t('nanoApp.steps.description.one')"
               icon="el-icon-coin"
             ></el-step>
             <el-step
-              title="Step 2"
-              description="Try It Out"
+              :title="t('nanoApp.steps.title', 2)"
+              :description="t('nanoApp.steps.description.two')"
               icon="el-icon-set-up"
             ></el-step>
             <el-step
-              title="Step 3"
-              description="Set Up Your Wallet"
+              :title="t('nanoApp.steps.title', 3)"
+              :description="t('nanoApp.steps.description.three')"
               icon="el-icon-wallet"
             ></el-step>
-            <el-step title="Step 4" description="Done!" icon="el-icon-finished"></el-step>
+            <el-step
+              :title="t('nanoApp.steps.title', 4)"
+              :description="t('nanoApp.steps.description.four')"
+              icon="el-icon-finished"
+            ></el-step>
           </el-steps>
           <div
             class="step-section"
@@ -58,7 +62,7 @@
                 plain
                 icon="el-icon-back"
                 @click="decreaseStep"
-                >Previous Step</el-button
+                >{{ t('nanoApp.steppers.previous') }}</el-button
               >
               <el-button
                 :style="{ visibility: currentStep < 4 ? 'visible' : 'hidden' }"
@@ -67,7 +71,7 @@
                 plain
                 @click="increaseStep"
                 :disabled="!isCurrentStepComplete"
-                >Next Step <i class="el-icon-right"></i
+                >{{ t('nanoApp.steppers.next') }}<i class="el-icon-right"></i
               ></el-button>
             </div>
             <el-card shadow="always" :body-style="{ backgroundColor: '#F4FAFF' }">
@@ -76,7 +80,7 @@
                 background-color="#F4FAFF"
                 spinner="spinner"
                 color="#3b7bbf"
-                text="Generating Wallets..."
+                :text="t('nanoApp.generatingWallets')"
               />
               <transition :name="transitionDirection">
                 <div v-show="currentStep === 0">
