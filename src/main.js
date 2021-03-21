@@ -21,6 +21,7 @@ app.config.globalProperties.emitter = emitter;
 const vueMqConfig = {
   breakpoints: {
     phone: 450,
+    tabletSm: 750,
     tablet: 1250,
     other: Infinity,
   },

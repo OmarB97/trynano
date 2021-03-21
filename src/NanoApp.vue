@@ -1,14 +1,45 @@
 /* eslint-disable operator-linebreak */
 <template>
-  <el-alert
-    :title="t('nanoApp.networkAlert')"
-    type="warning"
-    effect="dark"
-    center
-    show-icon
-  >
-  </el-alert>
   <div class="flex-wrapper">
+    <div>
+      <el-alert
+        :title="t('nanoApp.networkAlert')"
+        type="warning"
+        effect="dark"
+        center
+        show-icon
+      >
+      </el-alert>
+      <div :style="{ float: 'right', width: headerWidth }">
+        <el-row type="flex" justify="end" align="middle" class="header-row">
+          <el-col :span="languageSpan">
+            <el-select v-model="locale">
+              <template #prefix>
+                <i class="fas fa-globe-americas locale-icon"></i>
+              </template>
+              <el-option
+                v-for="language in availableLocales"
+                :key="language"
+                :label="'  ' + localeNameMapping[language]"
+                :value="language"
+              >
+                <span class="select-locale-font" style="float: left">{{
+                  localeNameMapping[language]
+                }}</span>
+                <span
+                  class="select-locale-font"
+                  style="float: right; color: #8492a6; font-size: 13px"
+                  >{{ language }}</span
+                >
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="6">
+            <p class="version">v{{ version }}</p>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
     <div class="site-content">
       <NanoIntro @revealStepsClicked="handleRevealStepsClicked"></NanoIntro>
       <transition name="fade-in-down">
@@ -138,6 +169,7 @@ import { useReCaptcha } from 'vue-recaptcha-v3';
 import { ElMessage } from 'element-plus';
 import VueElementLoading from 'vue-element-loading';
 import { useI18n } from 'vue-i18n';
+import { version } from '../package.json';
 import recaptcha from './util/recaptcha';
 import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
@@ -160,8 +192,46 @@ export default {
     NanoResources,
     VueElementLoading,
   },
+  data() {
+    return {
+      localeNameMapping: {
+        en: 'English',
+      },
+    };
+  },
+  computed: {
+    headerWidth() {
+      switch (this.$mq) {
+        case 'phone':
+          return '80%';
+        case 'tabletSm':
+          return '60%';
+        case 'tablet':
+          return '40%';
+        case 'other':
+          return '25%';
+        default:
+          return '25%';
+      }
+    },
+    languageSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 18;
+        case 'tabletSm':
+          return 14;
+        case 'tablet':
+          return 12;
+        case 'other':
+          return 10;
+        default:
+          return 10;
+      }
+    },
+  },
   setup() {
-    const { t } = useI18n({ useScope: 'global' });
+    const { t, locale, availableLocales } = useI18n({ useScope: 'global' });
+
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { recaptchaLoaded, executeRecaptcha } = useReCaptcha();
     const { getRecaptchaToken } = recaptcha();
@@ -384,6 +454,9 @@ export default {
 
     return {
       t,
+      locale,
+      availableLocales,
+      version,
       currentStep,
       decreaseStep,
       increaseStep,
@@ -522,5 +595,26 @@ a:hover {
 
 .grecaptcha-badge {
   opacity: 0;
+}
+
+.select-locale-font {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.locale-icon {
+  font-size: 1.2em;
+  position: relative;
+  top: calc(50% - 1.04em);
+  left: 5px;
+}
+
+.header-row {
+  margin: 10px auto;
+}
+
+.version {
+  font-size: 14px;
 }
 </style>
