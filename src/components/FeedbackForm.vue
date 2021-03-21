@@ -1,5 +1,9 @@
 <template>
-  <el-dialog title="Give Feedback" v-model="isDialogVisible" :width="dialogWidth">
+  <el-dialog
+    :title="t('feedbackForm.title')"
+    v-model="isDialogVisible"
+    :width="dialogWidth"
+  >
     <el-form
       :model="ruleForm"
       class="form"
@@ -8,20 +12,29 @@
       status-icon
       label-width="120px"
     >
-      <el-form-item label="Name" prop="name">
+      <el-form-item :label="t('feedbackForm.name.label')" prop="name">
         <el-input v-model="name" name="name"></el-input>
       </el-form-item>
-      <el-form-item label="Email" prop="email">
+      <el-form-item :label="t('feedbackForm.email.label')" prop="email">
         <el-input v-model="email" name="email"></el-input>
       </el-form-item>
-      <el-form-item label="Feedback Type">
+      <el-form-item :label="t('feedbackForm.feedbackType.label')">
         <el-radio-group v-model="feedbackType" name="feedback_type">
-          <el-radio label="Bug" name="feedback_type"></el-radio>
-          <el-radio label="Feature Request" name="feedback_type"></el-radio>
-          <el-radio label="Other" name="feedback_type"></el-radio>
+          <el-radio
+            :label="t('feedbackForm.feedbackType.type.bug')"
+            name="feedback_type"
+          ></el-radio>
+          <el-radio
+            :label="t('feedbackForm.feedbackType.type.featureRequest')"
+            name="feedback_type"
+          ></el-radio>
+          <el-radio
+            :label="t('feedbackForm.feedbackType.type.other')"
+            name="feedback_type"
+          ></el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="Message" prop="message">
+      <el-form-item :label="t('feedbackForm.message.label')" prop="message">
         <el-input
           type="textarea"
           v-model="message"
@@ -33,12 +46,14 @@
     </el-form>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="hideFeedbackForm">Cancel</el-button>
+        <el-button @click="hideFeedbackForm">{{
+          t('feedbackForm.buttons.cancel')
+        }}</el-button>
         <el-button
           :disabled="name === '' || email === '' || message === ''"
           type="primary"
           @click="onSubmitFeedbackForm"
-          >Confirm</el-button
+          >{{ t('feedbackForm.buttons.confirm') }}</el-button
         >
       </span>
     </template>
@@ -46,11 +61,12 @@
 </template>
 <script>
 import { ref, getCurrentInstance } from 'vue';
+import { useI18n } from 'vue-i18n';
 import emailjs from 'emailjs-com';
 import { ElMessage } from 'element-plus';
 
 export default {
-  name: '',
+  name: 'FeedbackForm',
   props: {
     feedbackDialogVisible: Boolean,
   },
@@ -69,6 +85,7 @@ export default {
     },
   },
   setup(props) {
+    const { t } = useI18n({ useScope: 'global' });
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
 
     const isDialogVisible = ref(props.feedbackDialogVisible);
@@ -85,7 +102,7 @@ export default {
 
     const name = ref('');
     const email = ref('');
-    const feedbackType = ref('Bug');
+    const feedbackType = ref(t('feedbackForm.feedbackType.type.bug'));
     const message = ref('');
 
     const ruleForm = ref({
@@ -96,14 +113,22 @@ export default {
     });
 
     const rules = ref({
-      name: [{ required: true, message: 'Please enter a name', trigger: 'blur' }],
+      name: [{ required: true, message: t('feedbackForm.name.rule'), trigger: 'blur' }],
       email: [
-        { required: true, message: 'Please enter an email', trigger: 'blur' },
-        { type: 'email', message: 'Invalid email address', trigger: 'blur' },
+        {
+          required: true,
+          message: t('feedbackForm.email.rules.required'),
+          trigger: 'blur',
+        },
+        { type: 'email', message: t('feedbackForm.email.rules.email'), trigger: 'blur' },
       ],
       message: [
-        { required: true, message: 'Please enter a message', trigger: 'blur' },
-        { min: 10, message: 'Please enter more than 10 characters', trigger: 'blur' },
+        {
+          required: true,
+          message: t('feedbackForm.message.rules.required'),
+          trigger: 'blur',
+        },
+        { min: 10, message: t('feedbackForm.message.rules.min'), trigger: 'blur' },
       ],
     });
 
@@ -135,7 +160,7 @@ export default {
                 // Reset form field
                 name.value = '';
                 email.value = '';
-                feedbackType.value = 'Bug';
+                feedbackType.value = t('feedbackForm.feedbackType.type.bug');
                 message.value = '';
               } else {
                 ElMessage({
@@ -156,6 +181,7 @@ export default {
     };
 
     return {
+      t,
       isDialogVisible,
       hideFeedbackForm,
       onSubmitFeedbackForm,

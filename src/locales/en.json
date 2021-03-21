@@ -165,6 +165,36 @@
     }
   },
   "feedbackForm": {
-    "language": "Languages"
+    "title": "Give Feedback",
+    "name": {
+      "label": "Name",
+      "rule": "Please enter a name"
+    },
+    "email": {
+      "label": "Email",
+      "rules": {
+        "required": "Please enter an email",
+        "email": "Invalid email address"
+      }
+    },
+    "feedbackType": {
+      "label": "Feedback Type",
+      "type": {
+        "bug": "Bug",
+        "featureRequest": "Feature Request",
+        "other": "Other"
+      }
+    },
+    "message": {
+      "label": "Email",
+      "rules": {
+        "required": "Please enter a message",
+        "min": "Please enter more than 10 characters"
+      }
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
   }
 }
