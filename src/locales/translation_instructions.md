@@ -9,7 +9,7 @@ Once you've created the json file, you'll need to add it inside translations.js.
 
 Lastly, you'll need to add the language name mapping inside ```NanoApp.vue```:
 
-![image](https://user-images.githubusercontent.com/21279036/111917325-95c02300-8a3c-11eb-89e0-e82b8d9647c5.png)
+![image](https://user-images.githubusercontent.com/21279036/111931342-413a9900-8a78-11eb-83a5-6787db59855a.png)
 
 When adding your language name mapping here, It is encouraged to use the language name in its own language so users will be able to quickly identify it in the dropdown.
 
