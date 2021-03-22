@@ -1,13 +1,12 @@
 <template>
   <div class="resources">
-    <h3 class="headline">&#127881; Thanks for using TryNano! &#127881;</h3>
-    <div>
-      For a comprehensive list of resources related to Nano including the core team,
-      social media channels, where to buy Nano, and more, please visit
-      <a href="https://nanolinks.info/" target="_blank">nanolinks.info</a>.
-    </div>
-    <div class="donation">
-      If you liked this experience, please consider donating to me at
+    <h3 class="headline">&#127881; {{ t('nanoResources.title') }} &#127881;</h3>
+    <i18n-t keypath="nanoResources.firstSentence.main" tag="div">
+      <a href="https://nanolinks.info/" target="_blank">{{
+        t('nanoResources.firstSentence.nanoLinksUrl')
+      }}</a>
+    </i18n-t>
+    <i18n-t keypath="nanoResources.secondSentence.main" tag="div" class="donation">
       <a
         class="nano-address"
         :class="{
@@ -18,7 +17,6 @@
         target="_blank"
         >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
       >
-      or the TryNano Faucet
       <a
         class="nano-address"
         :class="{
@@ -29,12 +27,19 @@
         target="_blank"
         >nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w</a
       >
-      to help keep the website up and running!
-    </div>
+    </i18n-t>
   </div>
 </template>
 <script>
-export default {};
+import { useI18n } from 'vue-i18n';
+
+export default {
+  name: 'NanoResources',
+  setup() {
+    const { t } = useI18n({ useScope: 'global' });
+    return { t };
+  },
+};
 </script>
 <style>
 .resources {

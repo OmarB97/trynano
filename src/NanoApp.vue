@@ -1,125 +1,166 @@
 /* eslint-disable operator-linebreak */
 <template>
-  <el-alert
-    title="TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!"
-    type="warning"
-    effect="dark"
-    center
-    show-icon
-  >
-  </el-alert>
   <div class="flex-wrapper">
-    <div class="site-content">
-      <NanoIntro @revealStepsClicked="handleRevealStepsClicked"></NanoIntro>
-      <transition name="fade-in-down">
-        <div v-show="didRevealSteps">
-          <el-steps
-            :space="500"
-            class="steps"
-            :class="{
-              'steps-width-phone': $mq === 'phone',
-              'steps-width-tablet': $mq === 'tablet',
-              'steps-width-other': $mq === 'other',
-            }"
-            :active="currentStep"
-            align-center
-            finish-status="success"
-          >
-            <el-step
-              title="Step 1"
-              description="Grab Some Nano"
-              icon="el-icon-coin"
-            ></el-step>
-            <el-step
-              title="Step 2"
-              description="Try It Out"
-              icon="el-icon-set-up"
-            ></el-step>
-            <el-step
-              title="Step 3"
-              description="Set Up Your Wallet"
-              icon="el-icon-wallet"
-            ></el-step>
-            <el-step title="Step 4" description="Done!" icon="el-icon-finished"></el-step>
-          </el-steps>
-          <div
-            class="step-section"
-            :class="{
-              'step-section-width-phone': $mq === 'phone',
-              'step-section-width-tablet': $mq === 'tablet',
-              'step-section-width-other': $mq === 'other',
-            }"
-          >
-            <div class="steppers">
-              <el-button
-                :style="{ visibility: currentStep > 0 ? 'visible' : 'hidden' }"
-                round
-                type="primary"
-                plain
-                icon="el-icon-back"
-                @click="decreaseStep"
-                >Previous Step</el-button
-              >
-              <el-button
-                :style="{ visibility: currentStep < 4 ? 'visible' : 'hidden' }"
-                round
-                type="primary"
-                plain
-                @click="increaseStep"
-                :disabled="!isCurrentStepComplete"
-                >Next Step <i class="el-icon-right"></i
-              ></el-button>
-            </div>
-            <el-card shadow="always" :body-style="{ backgroundColor: '#F4FAFF' }">
-              <vue-element-loading
-                :active="!didGenerateWallets"
-                background-color="#F4FAFF"
-                spinner="spinner"
-                color="#3b7bbf"
-                text="Generating Wallets..."
-              />
-              <transition :name="transitionDirection">
-                <div v-show="currentStep === 0">
-                  <NanoFaucetInfo
-                    :firstWalletData="firstWalletData"
-                    :recaptchaLoaded="recaptchaLoaded"
-                    :executeRecaptcha="executeRecaptcha"
-                  ></NanoFaucetInfo>
-                </div>
-              </transition>
-              <transition :name="transitionDirection">
-                <div v-show="currentStep === 1">
-                  <NanoDemo
-                    :firstWallet="firstWalletData"
-                    :secondWallet="secondWalletData"
-                    :recaptchaLoaded="recaptchaLoaded"
-                    :executeRecaptcha="executeRecaptcha"
-                  ></NanoDemo>
-                </div>
-              </transition>
-              <transition :name="transitionDirection">
-                <div v-show="currentStep === 2">
-                  <ClaimNano
-                    :firstWallet="firstWalletData"
-                    :secondWallet="secondWalletData"
-                    :originAddressMap="nanoOriginAddressMap"
-                    :recaptchaLoaded="recaptchaLoaded"
-                    :executeRecaptcha="executeRecaptcha"
-                  ></ClaimNano>
-                </div>
-              </transition>
-              <transition :name="transitionDirection">
-                <div v-show="currentStep === 4">
-                  <NanoResources
-                    :firstWallet="firstWalletData"
-                    :secondWallet="secondWalletData"
-                  ></NanoResources>
-                </div>
-              </transition>
-            </el-card>
+    <div>
+      <div class="content-vertical-align">
+        <el-alert
+          :title="t('nanoApp.networkAlert')"
+          type="warning"
+          effect="dark"
+          center
+          show-icon
+        >
+        </el-alert>
+        <div>
+          <div :style="{ float: 'right', width: headerWidth }">
+            <el-row type="flex" justify="end" align="middle" class="header-row">
+              <el-col :span="languageSpan">
+                <el-select v-model="locale">
+                  <template #prefix>
+                    <i class="fas fa-globe-americas locale-icon"></i>
+                  </template>
+                  <el-option
+                    v-for="language in availableLocales"
+                    :key="language"
+                    :label="'  ' + localeNameMapping[language]"
+                    :value="language"
+                  >
+                    <span
+                      class="select-locale-font"
+                      style="float: left; margin-right: 20px"
+                      >{{ localeNameMapping[language] }}</span
+                    >
+                    <span
+                      class="select-locale-font"
+                      style="float: right; color: #8492a6; font-size: 13px"
+                      >{{ language }}</span
+                    >
+                  </el-option>
+                </el-select>
+              </el-col>
+              <el-col :span="6">
+                <p class="version">v{{ version }}</p>
+              </el-col>
+            </el-row>
           </div>
         </div>
-      </transition>
+        <div class="site-content">
+          <NanoIntro @revealStepsClicked="handleRevealStepsClicked"></NanoIntro>
+          <transition name="fade-in-down">
+            <div v-show="didRevealSteps">
+              <el-steps
+                :space="500"
+                class="steps"
+                :class="{
+                  'steps-width-phone': $mq === 'phone',
+                  'steps-width-tablet': $mq === 'tablet',
+                  'steps-width-other': $mq === 'other',
+                }"
+                :active="currentStep"
+                align-center
+                finish-status="success"
+              >
+                <el-step
+                  :title="t('nanoApp.steps.title', 1)"
+                  :description="t('nanoApp.steps.description.one')"
+                  icon="el-icon-coin"
+                ></el-step>
+                <el-step
+                  :title="t('nanoApp.steps.title', 2)"
+                  :description="t('nanoApp.steps.description.two')"
+                  icon="el-icon-set-up"
+                ></el-step>
+                <el-step
+                  :title="t('nanoApp.steps.title', 3)"
+                  :description="t('nanoApp.steps.description.three')"
+                  icon="el-icon-wallet"
+                ></el-step>
+                <el-step
+                  :title="t('nanoApp.steps.title', 4)"
+                  :description="t('nanoApp.steps.description.four')"
+                  icon="el-icon-finished"
+                ></el-step>
+              </el-steps>
+              <div
+                class="step-section"
+                :class="{
+                  'step-section-width-phone': $mq === 'phone',
+                  'step-section-width-tablet': $mq === 'tablet',
+                  'step-section-width-other': $mq === 'other',
+                }"
+              >
+                <div class="steppers">
+                  <el-button
+                    :style="{ visibility: currentStep > 0 ? 'visible' : 'hidden' }"
+                    round
+                    type="primary"
+                    plain
+                    icon="el-icon-back"
+                    @click="decreaseStep"
+                    >{{ t('nanoApp.steppers.previous') }}</el-button
+                  >
+                  <el-button
+                    :style="{ visibility: currentStep < 4 ? 'visible' : 'hidden' }"
+                    round
+                    type="primary"
+                    plain
+                    @click="increaseStep"
+                    :disabled="!isCurrentStepComplete"
+                    >{{ t('nanoApp.steppers.next') }}<i class="el-icon-right"></i
+                  ></el-button>
+                </div>
+                <el-card shadow="always" :body-style="{ backgroundColor: '#F4FAFF' }">
+                  <vue-element-loading
+                    :active="!didGenerateWallets"
+                    background-color="#F4FAFF"
+                    spinner="spinner"
+                    color="#3b7bbf"
+                    :text="t('nanoApp.generatingWallets')"
+                  />
+                  <transition :name="transitionDirection">
+                    <div v-show="currentStep === 0">
+                      <NanoFaucetInfo
+                        :firstWalletData="firstWalletData"
+                        :recaptchaLoaded="recaptchaLoaded"
+                        :executeRecaptcha="executeRecaptcha"
+                      ></NanoFaucetInfo>
+                    </div>
+                  </transition>
+                  <transition :name="transitionDirection">
+                    <div v-show="currentStep === 1">
+                      <NanoDemo
+                        :firstWallet="firstWalletData"
+                        :secondWallet="secondWalletData"
+                        :recaptchaLoaded="recaptchaLoaded"
+                        :executeRecaptcha="executeRecaptcha"
+                      ></NanoDemo>
+                    </div>
+                  </transition>
+                  <transition :name="transitionDirection">
+                    <div v-show="currentStep === 2">
+                      <ClaimNano
+                        :firstWallet="firstWalletData"
+                        :secondWallet="secondWalletData"
+                        :originAddressMap="nanoOriginAddressMap"
+                        :recaptchaLoaded="recaptchaLoaded"
+                        :executeRecaptcha="executeRecaptcha"
+                      ></ClaimNano>
+                    </div>
+                  </transition>
+                  <transition :name="transitionDirection">
+                    <div v-show="currentStep === 4">
+                      <NanoResources
+                        :firstWallet="firstWalletData"
+                        :secondWallet="secondWalletData"
+                      ></NanoResources>
+                    </div>
+                  </transition>
+                </el-card>
+              </div>
+            </div>
+          </transition>
+        </div>
+      </div>
       <div class="push"></div>
     </div>
     <NanoFooter></NanoFooter>
@@ -134,6 +175,8 @@ import { NANO } from '@nanobox/nano-client/dist/models';
 import { useReCaptcha } from 'vue-recaptcha-v3';
 import { ElMessage } from 'element-plus';
 import VueElementLoading from 'vue-element-loading';
+import { useI18n } from 'vue-i18n';
+import { version } from '../package.json';
 import recaptcha from './util/recaptcha';
 import NanoIntro from './components/NanoIntro.vue';
 import NanoFaucetInfo from './components/NanoFaucetInfo.vue';
@@ -156,7 +199,46 @@ export default {
     NanoResources,
     VueElementLoading,
   },
+  data() {
+    return {
+      localeNameMapping: {
+        en: 'English',
+        'pt-BR': 'Português brasileiro',
+      },
+    };
+  },
+  computed: {
+    headerWidth() {
+      switch (this.$mq) {
+        case 'phone':
+          return '80%';
+        case 'tabletSm':
+        case 'tablet':
+          return '40%';
+        case 'other':
+          return '25%';
+        default:
+          return '25%';
+      }
+    },
+    languageSpan() {
+      switch (this.$mq) {
+        case 'phone':
+          return 18;
+        case 'tabletSm':
+          return 16;
+        case 'tablet':
+          return 12;
+        case 'other':
+          return 11;
+        default:
+          return 11;
+      }
+    },
+  },
   setup() {
+    const { t, locale, availableLocales } = useI18n({ useScope: 'global' });
+
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const { recaptchaLoaded, executeRecaptcha } = useReCaptcha();
     const { getRecaptchaToken } = recaptcha();
@@ -378,6 +460,10 @@ export default {
     });
 
     return {
+      t,
+      locale,
+      availableLocales,
+      version,
       currentStep,
       decreaseStep,
       increaseStep,
@@ -516,5 +602,34 @@ a:hover {
 
 .grecaptcha-badge {
   opacity: 0;
+}
+
+.select-locale-font {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.locale-icon {
+  font-size: 1.2em;
+  position: relative;
+  top: calc(50% - 1.04em);
+  left: 5px;
+}
+
+.header-row {
+  margin: 10px auto;
+}
+
+.version {
+  font-size: 14px;
+}
+
+.content-vertical-align {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

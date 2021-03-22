@@ -1,20 +1,26 @@
 <template>
-  <p>
-    To claim back your Nano, you'll need to set up a <strong>private wallet</strong> to
-    store it in.
-  </p>
-  <p>
-    The most popular wallets in the Nano community are
-    <a href="https://natrium.io/" target="_blank">Natrium</a> (Android/iOS) and
-    <a href="https://nault.cc" target="_blank">Nault</a> (Web/Desktop).
-  </p>
-  <p style="font-size: 90%; opacity: 85%; margin-top: -10px">
-    (For a more complete list of options, please visit
-    <a href="https://nanowallets.guide/" target="_blank">this guide</a>.)
-  </p>
+  <i18n-t keypath="claimNano.firstSentence.main" tag="p">
+    <strong>{{ t('claimNano.firstSentence.privateWallet') }}</strong>
+  </i18n-t>
+  <i18n-t keypath="claimNano.secondSentence.main" tag="p">
+    <a href="https://natrium.io/" target="_blank">{{
+      t('claimNano.secondSentence.natrium')
+    }}</a>
+    <a href="https://nault.cc" target="_blank">{{
+      t('claimNano.secondSentence.nault')
+    }}</a>
+  </i18n-t>
+  <i18n-t
+    keypath="claimNano.thirdSentence.main"
+    tag="p"
+    style="font-size: 90%; opacity: 85%; margin-top: -10px"
+  >
+    <a href="https://nanowallets.guide/" target="_blank">{{
+      t('claimNano.thirdSentence.guide')
+    }}</a>
+  </i18n-t>
   <p style="margin-top: 30px">
-    Once you've finished setting up your wallet, enter your new Nano wallet address below
-    and click send. That's it!
+    {{ t('claimNano.fourthSentence') }}
   </p>
   <el-row
     class="send-nano-row"
@@ -29,7 +35,7 @@
     <el-col :span="nanoAddressSpan">
       <el-input
         class="nano-address-input"
-        placeholder="Enter your Nano address..."
+        :placeholder="t('claimNano.addressPlaceholder')"
         v-model="receivingNanoAddress"
         clearable
         @input="validateNanoAddress"
@@ -39,7 +45,11 @@
       >
       </el-input>
       <div ref="validNanoAddressLabel" class="validNanoAddressLabel">
-        {{ isValidNanoAddress ? 'Valid Nano Address' : 'Invalid Nano Address' }}
+        {{
+          isValidNanoAddress
+            ? t('claimNano.validNanoAddress')
+            : t('claimNano.invalidNanoAddress')
+        }}
       </div>
     </el-col>
     <el-col :span="sendButtonSpan">
@@ -52,10 +62,12 @@
         :loading="sendingNano"
       >
         <div v-show="!sendingNano && !nanoSuccessfullySent">
-          Send <i class="el-icon-s-promotion"></i>
+          {{ t('claimNano.send') }} <i class="el-icon-s-promotion"></i>
         </div>
-        <div v-show="sendingNano && !nanoSuccessfullySent">Sending...</div>
-        <div v-show="!sendingNano && nanoSuccessfullySent">Sent!</div>
+        <div v-show="sendingNano && !nanoSuccessfullySent">
+          {{ t('claimNano.sending') }}
+        </div>
+        <div v-show="!sendingNano && nanoSuccessfullySent">{{ t('claimNano.sent') }}</div>
       </el-button></el-col
     >
   </el-row>
@@ -74,10 +86,14 @@
       }"
     >
       <div v-show="!returningNano && !nanoSuccessfullyReturned">
-        Return Back to Sender <i class="el-icon-s-promotion"></i>
+        {{ t('claimNano.returnToSender') }} <i class="el-icon-s-promotion"></i>
       </div>
-      <div v-show="returningNano && !nanoSuccessfullyReturned">Sending...</div>
-      <div v-show="!returningNano && nanoSuccessfullyReturned">Sent!</div>
+      <div v-show="returningNano && !nanoSuccessfullyReturned">
+        {{ t('claimNano.sending') }}
+      </div>
+      <div v-show="!returningNano && nanoSuccessfullyReturned">
+        {{ t('claimNano.sent') }}
+      </div>
     </el-button>
   </div>
 </template>
@@ -85,6 +101,7 @@
 import { ref, computed, getCurrentInstance } from 'vue';
 import { ElMessage } from 'element-plus';
 import { tools } from 'nanocurrency-web';
+import { useI18n } from 'vue-i18n';
 import recaptcha from '../util/recaptcha';
 import serverAPI from '../util/server_api';
 
@@ -124,6 +141,7 @@ export default {
     },
   },
   setup(props) {
+    const { t } = useI18n({ useScope: 'global' });
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
 
     const { getRecaptchaToken } = recaptcha();
@@ -265,6 +283,7 @@ export default {
     };
 
     return {
+      t,
       receivingNanoAddress,
       sendNanoClicked,
       validateNanoAddress,

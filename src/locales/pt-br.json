@@ -1,0 +1,200 @@
+{
+  "nanoApp": {
+    "networkAlert": "No momento o TryNano está com dificuldades para se comunicar com a rede da Nano. Obrigado pela sua compreensão",
+    "steps": {
+      "title": "Passo {count}",
+      "description": {
+        "one": "Pegue algumas Nanos",
+        "two": "Experimente",
+        "three": "Crie sua Carteira",
+        "four": "Pronto!"
+      }
+    },
+    "steppers": {
+      "previous": "Passo Anterior",
+      "next": "Próximo Passo"
+    },
+    "generatingWallets": "Criando carteiras ..."
+  },
+  "nanoIntro": {
+    "firstSentence": "O TryNano mostra quão rápido e simples é fazer uma transação com Nano dando a você 2 carteiras para enviar Nano de uma para outra",
+    "secondSentence": {
+      "main": "{0} Nano (NANO) é uma moeda digital projetada para ter transações instantâneas, zero taxas e escalabilidade. Tudo isso sendo eco-friendly",
+      "whatIsNano": "O que é a Nano?"
+    },
+    "revealText": "Clique aqui para testar você mesmo!"
+  },
+  "nanoFaucetInfo": {
+    "faucetButton": "Use nosso faucet",
+    "requestingFaucet": "Requisitando Nano do faucet ...",
+    "receivePendingFromFaucet": "Nano enviada! Recebendo Nanos pendentes dos Faucet...",
+    "faucetReceived": "Nanos recebidas do Faucet!",
+    "gettingFaucetInfo": "Carregando informação do Faucet...",
+    "faucetBalance": {
+      "main": "Saldo do Faucet: {0}",
+      "balance": "{faucetBalance} Ñ"
+    },
+    "faucetPayout": {
+      "main": "Pagamento do Faucet: {0}",
+      "payout": "{faucetPayout}"
+    },
+    "dividerText": "OU",
+    "firstSentence": {
+      "main": "Vá para {0} e cole o endereço da carteira gerado abaixo.",
+      "faucetUrl": "nano-faucet.org"
+    },
+    "secondSentence": {
+      "main": "({0}: ISe você recebeu um tip de alguém usando o NanoTipBot e gostaria de usar essas Nanos, use o comando !withdraw {1}.)",
+      "note": "Nota",
+      "nanoTipBotUrl": "aqui"
+    },
+    "popover": {
+      "main": "Um {0} é um identificador único que serve como um local virtual onde é possivel enviar e receber Nanos, similar a um endereço de email!",
+      "walletAddress": "endereço de carteira"
+    },
+    "tooltip": {
+      "copyAddress": "Copiar endereço",
+      "copiedAddress": "Copiado!"
+    },
+    "generatedWalletAddress": "Endereço de carteira gerado",
+    "depositStatus": {
+      "main": "Status:",
+      "notReceived": "Não recebido",
+      "received": "Recebido!"
+    },
+    "walletBalance": {
+      "main": "Saldo:",
+      "amount": "{walletBalance} Ñ"
+    }
+  },
+  "demo": {
+    "nanoDemo": {
+      "firstSentence": "Tente enviar nano de uma carteira para outra para ver como é fácil e rápido usar Nano!",
+      "firstWalletLetter": "A",
+      "secondWalletLetter": "B",
+      "sendToWallet": "Enviao para a carteira {walletLetter}",
+      "sending": "Enviando...",
+      "sent": "Enviado!",
+      "confirmingReceivedNano": "Confirmando o recebimento das Nanos...",
+      "transactionTime": {
+        "default": "N/A",
+        "time": "{time} segundos"
+      }
+    },
+    "nanoWallet": {
+      "walletLabel": "Carteira Nano {walletLetter}",
+      "addressLabel": "Endereço:",
+      "walletBalance": {
+        "label": "Saldo:",
+        "amount": "{nanoBalance} Ñ"
+      }
+    },
+    "nanoTransactionResults": {
+      "title": "Resultados da transação",
+      "placeholder": "Envie Nano entre duas carteiras para fazer uma transferência!",
+      "transactionTime": {
+        "label": "Tempo da transação:",
+        "time": "{transactionTime}"
+      },
+      "transactionFees": {
+        "label": "Taxas:",
+        "fees": "Zero"
+      },
+      "energyConsumption": {
+        "label": "Consumo de energia:",
+        "usage": "~ 0.000112 kWh"
+      },
+      "sendConfirmationBlock": "Link do bloco de confirmação",
+      "receiveConfirmationBlock": "Link do bloco de recebimento",
+      "nanoCrawlerLink": "no NanoCrawler"
+    }
+  },
+  "claimNano": {
+    "firstSentence": {
+      "main": "Para pegar suas Nanos de volta, você vai precisar criar uma {0} para guardar suas Nanos.",
+      "privateWallet": "carteira própria"
+    },
+    "secondSentence": {
+      "main": "As carteiras mas populares da comunidade Nano são a {0} (Android/iOS) e a {1} (Web/Desktop).",
+      "natrium": "Natrium",
+      "nault": "Nault"
+    },
+    "thirdSentence": {
+      "main": "(Para uma lista mais completade opções, por favor visite {0}.)",
+      "guide": "este guia"
+    },
+    "fourthSentence": "Assim que você tiver cabado de criar sua carteira, insira seu endereço Nano da carteira abaixo em clique em enviar. Simples, assim!",
+    "addressPlaceholder": "Insira se endereço Nano...",
+    "validNanoAddress": "Endereço Nano válido",
+    "invalidNanoAddress": "Endereço Nano inválido",
+    "send": "Enviar",
+    "returnToSender": "Envie de volta",
+    "sending": "Enviando..",
+    "sent": "Enviado!"
+  },
+  "nanoResources": {
+    "title": "Obrigado por usar o TryNano!",
+    "firstSentence": {
+      "main": " Para uma lista compreensiva de recursos relacionados à Nano incluindo a equipe de desenvolvimento, canais de media social, onde comprar Nano e mais. Por favor visite {0}.",
+      "nanoLinksUrl": "nanolinks.info"
+    },
+    "secondSentence": {
+      "main": "Se você gostou da experiência, considera fazer uma doação para mim {0} ou para o faucet do TryNano  {1} para ajusdar o site a continuar rodando!"
+    }
+  },
+  "nanoFooter": {
+    "createdBy": {
+      "main": "Criado por {0} and {1}.",
+      "omar": "Omar Baradei",
+      "patrick": "Patrick Smith"
+    },
+    "github": {
+      "main": "Link para {0}.",
+      "url": "GitHub"
+    },
+    "faucet": "Doe para o faucet do TryNano: {0}.",
+    "tips": "Tips aceitas em: {0}.",
+    "feedback": {
+      "main": "Deixe um feedback {0}.",
+      "feedbackLink": "aqui"
+    },
+    "recaptcha": {
+      "main": " Esse site é protegido pelo reCAPTCHA e a {0} e {1} se aplicam.",
+      "policy": "Politica de privacidade do Google",
+      "tos": "Termos de Serviço"
+    }
+  },
+  "feedbackForm": {
+    "title": "Deixe um feedback",
+    "name": {
+      "label": "Nome",
+      "rule": "Por favor, insira um nome"
+    },
+    "email": {
+      "label": "Email",
+      "rules": {
+        "required": "Por favor, insira um email",
+        "email": "Email inválido"
+      }
+    },
+    "feedbackType": {
+      "label": "Typo do feedback",
+      "type": {
+        "bug": "Bug",
+        "featureRequest": "Feature Request",
+        "other": "Other"
+      }
+    },
+    "message": {
+      "label": "Email",
+      "rules": {
+        "required": "Por favor, insira uma mensagem",
+        "min": "Por favor, insira mais de 10 caracteres"
+      }
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    }
+  }
+}

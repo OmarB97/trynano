@@ -2,58 +2,54 @@
 <template>
   <footer class="footer">
     <div style="display: block">
-      <span class="footer-content">
-        Created by
-        <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank"
-          >Omar Baradei</a
-        >
-        and
-        <a href="https://www.linkedin.com/in/patricssss/" target="_blank">Patrick Smith</a
-        >.
-      </span>
-      <span class="footer-content">
-        Link to
-        <a href="https://github.com/OmarB97/trynano" target="_blank">GitHub</a>.
-      </span>
-      <span class="footer-content">
-        Donate to the TryNano Faucet:
+      <i18n-t keypath="nanoFooter.createdBy.main" tag="span" class="footer-content">
+        <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank">{{
+          t('nanoFooter.createdBy.omar')
+        }}</a>
+        <a href="https://www.linkedin.com/in/patricssss/" target="_blank">{{
+          t('nanoFooter.createdBy.patrick')
+        }}</a>
+      </i18n-t>
+      <i18n-t keypath="nanoFooter.github.main" tag="span" class="footer-content">
+        <a href="https://github.com/OmarB97/trynano" target="_blank">{{
+          t('nanoFooter.github.url')
+        }}</a>
+      </i18n-t>
+      <i18n-t keypath="nanoFooter.faucet" tag="span" class="footer-content">
         <a
           href="https://nanocrawler.cc/explorer/account/nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w/history"
           target="_blank"
           :class="{ 'footer-content-phone': $mq === 'phone' }"
           >nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w</a
-        >.
-      </span>
-      <span class="footer-content">
-        Tips accepted at:
+        >
+      </i18n-t>
+      <i18n-t keypath="nanoFooter.tips" tag="span" class="footer-content">
         <a
           href="https://nanocrawler.cc/explorer/account/nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq/history"
           target="_blank"
           :class="{ 'footer-content-phone': $mq === 'phone' }"
           >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
-        >.
-      </span>
-      <span class="footer-content">
-        Give feedback
-        <a class="feedback-link" @click="toggleFeedbackDialogVisibility(true)">here</a>.
-      </span>
-      <div class="footer-content recaptcha-disclaimer">
-        This site is protected by reCAPTCHA and the
+        >
+      </i18n-t>
+      <i18n-t keypath="nanoFooter.feedback.main" tag="span" class="footer-content">
+        <a class="feedback-link" @click="toggleFeedbackDialogVisibility(true)">{{
+          t('nanoFooter.feedback.feedbackLink')
+        }}</a>
+      </i18n-t>
+      <i18n-t keypath="nanoFooter.recaptcha.main" tag="div" class="footer-content">
         <a
           href="https://policies.google.com/privacy"
           target="_blank"
           :class="{ 'footer-content-phone': $mq === 'phone' }"
-          >Google Privacy Policy</a
+          >{{ t('nanoFooter.recaptcha.policy') }}</a
         >
-        and
         <a
           href="https://policies.google.com/terms"
           target="_blank"
           :class="{ 'footer-content-phone': $mq === 'phone' }"
-          >Terms of Service</a
+          >{{ t('nanoFooter.recaptcha.tos') }}</a
         >
-        apply.
-      </div>
+      </i18n-t>
       <FeedbackForm
         :feedbackDialogVisible="feedbackDialogVisible"
         @hideFeedbackForm="toggleFeedbackDialogVisibility(false)"
@@ -64,6 +60,7 @@
 
 <script>
 import { ref, getCurrentInstance } from 'vue';
+import { useI18n } from 'vue-i18n';
 import FeedbackForm from './FeedbackForm.vue';
 
 export default {
@@ -72,6 +69,7 @@ export default {
     FeedbackForm,
   },
   setup() {
+    const { t } = useI18n({ useScope: 'global' });
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
 
     const feedbackDialogVisible = ref(false);
@@ -85,6 +83,7 @@ export default {
     });
 
     return {
+      t,
       feedbackDialogVisible,
       toggleFeedbackDialogVisibility,
     };
@@ -117,9 +116,4 @@ export default {
   overflow-wrap: break-word;
   max-width: 100%;
 }
-
-/* .recaptcha-disclaimer {
-  margin-top: 7px;
-  margin-bottom: -5px;
-} */
 </style>

@@ -1,14 +1,13 @@
 <template>
   <div class="demo">
     <p>
-      Try sending some nano back and forth between these two wallets to get a feel for
-      just how quick and easy it is to use Nano!
+      {{ t('demo.nanoDemo.firstSentence') }}
     </p>
     <el-row type="flex" class="row-bg" justify="center" align="middle">
       <el-col :span="walletSpan">
         <NanoWallet
           class="wallet"
-          walletLetter="A"
+          :walletLetter="t('demo.nanoDemo.firstWalletLetter')"
           :walletAddress="firstWallet.address"
           :walletBalance="firstWallet.balance"
         ></NanoWallet>
@@ -16,7 +15,7 @@
           type="primary"
           :size="buttonSize"
           plain
-          @click="sendNanoClicked('B')"
+          @click="sendNanoClicked(t('demo.nanoDemo.secondWalletLetter'))"
           :loading="sendingNanoA || waitingForReceiveNanoA"
           :disabled="disableNanoA"
           ><div
@@ -24,25 +23,32 @@
             v-show="
               !waitingForReceiveNanoA &&
               (isInitialNanoA ||
-                lastWalletClicked === 'B' ||
+                lastWalletClicked === t('demo.nanoDemo.secondWalletLetter') ||
                 (!disableNanoA && !sendingNanoA))
             "
           >
-            Send to Wallet B <span class="arrow">→</span>
+            {{
+              t('demo.nanoDemo.sendToWallet', {
+                walletLetter: t('demo.nanoDemo.secondWalletLetter'),
+              })
+            }}
+            <span class="arrow"> →</span>
           </div>
-          <div class="nano-button" v-show="disableNanoA && sendingNanoA">Sending...</div>
+          <div class="nano-button" v-show="disableNanoA && sendingNanoA">
+            {{ t('demo.nanoDemo.sending') }}
+          </div>
           <div
             v-show="
               !isInitialNanoA &&
-              lastWalletClicked !== 'B' &&
+              lastWalletClicked !== t('demo.nanoDemo.secondWalletLetter') &&
               disableNanoA &&
               !sendingNanoA
             "
           >
-            Sent!
+            {{ t('demo.nanoDemo.sent') }}
           </div>
           <div class="nano-button" v-show="waitingForReceiveNanoA">
-            Confirming Received Nano...
+            {{ t('demo.nanoDemo.confirmingReceivedNano') }}
           </div></el-button
         >
       </el-col>
@@ -52,7 +58,7 @@
       <el-col :span="walletSpan">
         <NanoWallet
           class="wallet"
-          walletLetter="B"
+          :walletLetter="t('demo.nanoDemo.secondWalletLetter')"
           :walletAddress="secondWallet.address"
           :walletBalance="secondWallet.balance"
         ></NanoWallet>
@@ -60,7 +66,7 @@
           type="primary"
           plain
           :size="buttonSize"
-          @click="sendNanoClicked('A')"
+          @click="sendNanoClicked(t('demo.nanoDemo.firstWalletLetter'))"
           :loading="sendingNanoB || waitingForReceiveNanoB"
           :disabled="disableNanoB"
           ><div
@@ -68,26 +74,32 @@
             v-show="
               !waitingForReceiveNanoB &&
               (isInitialNanoB ||
-                lastWalletClicked === 'A' ||
+                lastWalletClicked === t('demo.nanoDemo.firstWalletLetter') ||
                 (!disableNanoB && !sendingNanoB))
             "
           >
-            <span class="arrow">←</span>
-            Send to Wallet A
+            <span class="arrow">← </span>
+            {{
+              t('demo.nanoDemo.sendToWallet', {
+                walletLetter: t('demo.nanoDemo.firstWalletLetter'),
+              })
+            }}
           </div>
-          <div class="nano-button" v-show="disableNanoB && sendingNanoB">Sending...</div>
+          <div class="nano-button" v-show="disableNanoB && sendingNanoB">
+            {{ t('demo.nanoDemo.sending') }}
+          </div>
           <div
             v-show="
               !isInitialNanoB &&
-              lastWalletClicked !== 'A' &&
+              lastWalletClicked !== t('demo.nanoDemo.firstWalletLetter') &&
               disableNanoB &&
               !sendingNanoB
             "
           >
-            Sent!
+            {{ t('demo.nanoDemo.sent') }}
           </div>
           <div class="nano-button" v-show="waitingForReceiveNanoB">
-            Confirming Received Nano...
+            {{ t('demo.nanoDemo.confirmingReceivedNano') }}
           </div></el-button
         >
       </el-col>
@@ -108,6 +120,7 @@
 
 <script>
 import { computed, ref, getCurrentInstance } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { ElMessage } from 'element-plus';
 import NanoWallet from './NanoWallet.vue';
 import NanoTransactionResults from './NanoTransactionResults.vue';
@@ -167,6 +180,7 @@ export default {
     },
   },
   setup(props) {
+    const { t } = useI18n({ useScope: 'global' });
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
 
     const { getRecaptchaToken } = recaptcha();
@@ -193,12 +207,14 @@ export default {
         !transactionEndTimeMs.value ||
         transactionEndTimeMs.value === 0
       ) {
-        return 'N/A';
+        return t('demo.nanoDemo.transactionTime.default');
       }
 
-      const res = `${Math.abs(
-        (transactionEndTimeMs.value - transactionStartTimeMs.value) / 1000.0
-      ).toString()} seconds`;
+      const res = t('demo.nanoDemo.transactionTime.time', {
+        time: Math.abs(
+          (transactionEndTimeMs.value - transactionStartTimeMs.value) / 1000.0
+        ).toString(),
+      });
       return res;
     });
 
@@ -226,11 +242,11 @@ export default {
       );
 
       transactionStartTimeMs.value = Date.now();
-      if (receivingWalletLetter === 'B') {
+      if (receivingWalletLetter === t('demo.nanoDemo.secondWalletLetter')) {
         // send from Wallet A to Wallet B
         isInitialNanoA.value = false;
         sendingNanoA.value = true;
-        lastWalletClicked.value = 'A';
+        lastWalletClicked.value = t('demo.nanoDemo.firstWalletLetter');
 
         const res = await sendNano(
           token,
@@ -247,11 +263,11 @@ export default {
             type: 'error',
           });
         }
-      } else if (receivingWalletLetter === 'A') {
+      } else if (receivingWalletLetter === t('demo.nanoDemo.firstWalletLetter')) {
         // send from Wallet B to Wallet A
         isInitialNanoB.value = false;
         sendingNanoB.value = true;
-        lastWalletClicked.value = 'B';
+        lastWalletClicked.value = t('demo.nanoDemo.secondWalletLetter');
 
         const res = await sendNano(
           token,
@@ -314,6 +330,7 @@ export default {
     });
 
     return {
+      t,
       isInitialNanoA,
       isInitialNanoB,
       sendingNanoA,
