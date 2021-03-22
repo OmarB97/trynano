@@ -86,8 +86,8 @@
                 class="step-section"
                 :class="{
                   'step-section-width-phone': $mq === 'phone',
-                  'step-section-width-tablet': $mq === 'tablet',
                   'step-section-width-tabletSm': $mq === 'tabletSm',
+                  'step-section-width-tablet': $mq === 'tablet',
                   'step-section-width-other': $mq === 'other',
                 }"
               >
@@ -107,6 +107,7 @@
                     type="primary"
                     plain
                     @click="increaseStep"
+                    :disabled="!isCurrentStepComplete"
                     >{{ t('nanoApp.steppers.next') }}<i class="el-icon-right"></i
                   ></el-button>
                 </div>
