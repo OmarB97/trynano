@@ -201,6 +201,7 @@ export default {
     return {
       localeNameMapping: {
         en: 'English',
+        ptBr: 'Portuguese (Brazil)',
       },
     };
   },
