@@ -21,8 +21,6 @@ Finally, we provide some basic instructions on how to set up their own private w
 
 Please go [here](https://github.com/OmarB97/trynano/blob/44f276873f858898ca209e919afe996052948426/src/locales/translation_instructions.md) for more details on how to contribute. Thanks!
 
-Please see 
-
 ## Check out the TryNano backend code!
 
 https://github.com/OmarB97/trynano-server
