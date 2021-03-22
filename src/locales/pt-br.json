@@ -186,7 +186,7 @@
       }
     },
     "message": {
-      "label": "Email",
+      "label": "Mensagem",
       "rules": {
         "required": "Por favor, insira uma mensagem",
         "min": "Por favor, insira mais de 10 caracteres"

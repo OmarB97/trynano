@@ -3,6 +3,7 @@
     class="wallet"
     :class="{
       'wallet-phone': $mq === 'phone',
+      'wallet-tabletSm': $mq === 'tabletSm',
       'wallet-tablet': $mq === 'tablet',
       'wallet-other': $mq === 'other',
     }"
@@ -12,6 +13,7 @@
       class="logo"
       :class="{
         'logo-phone': $mq === 'phone',
+        'logo-tabletSm': $mq === 'tabletSm',
         'logo-tablet': $mq === 'tablet',
         'logo-other': $mq === 'other',
       }"
@@ -75,6 +77,10 @@ export default {
   font-size: 0.8em;
 }
 
+.wallet-tabletSm {
+  font-size: 0.85em;
+}
+
 .wallet-tablet {
   font-size: 0.9em;
 }
@@ -92,6 +98,11 @@ export default {
 .logo-phone {
   max-width: 35px;
   max-height: 35px;
+}
+
+.logo-tabletSm {
+  max-width: 37.5px;
+  max-height: 37.5px;
 }
 
 .logo-tablet {

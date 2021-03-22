@@ -3,6 +3,7 @@
     class="faucet-info"
     :class="{
       'faucet-card-width-phone': $mq === 'phone',
+      'faucet-card-width-tabletSm': $mq === 'tabletSm',
       'faucet-card-width-tablet': $mq === 'tablet',
       'faucet-card-width-other': $mq === 'other',
     }"
@@ -17,6 +18,7 @@
         :disabled="nanoFaucetPending || nanoFaucetCompleted || nanoRecieved"
         :class="{
           'faucet-button-phone': $mq === 'phone',
+          'faucet-button-tabletSm': $mq === 'tabletSm',
           'faucet-button-tablet': $mq === 'tablet',
           'faucet-button-other': $mq === 'other',
         }"
@@ -170,6 +172,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 10;
+        case 'tabletSm':
+          return 8;
         case 'tablet':
           return 7;
         case 'other':
@@ -182,6 +186,7 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 'small';
+        case 'tabletSm':
         case 'tablet':
           return 'medium';
         case 'other':
@@ -308,10 +313,8 @@ export default {
   font-weight: 500;
 }
 
-.faucet-card-width-phone {
-  width: 100%;
-}
-
+.faucet-card-width-phone,
+.faucet-card-width-tabletSm,
 .faucet-card-width-tablet {
   width: 100%;
 }
@@ -326,6 +329,10 @@ export default {
 
 .faucet-button-phone {
   width: auto;
+}
+
+.faucet-button-tabletSm {
+  width: 90%;
 }
 
 .faucet-button-tablet {
