@@ -17,7 +17,13 @@ We show the user the transaction settlement time, the fees associated with that 
 Finally, we provide some basic instructions on how to set up their own private wallet (Natrium, Nault, etc.) and even how to send their nano to that wallet.
 
 
-## [NEW] Check out the TryNano backend code!
+## Call To Action: Language Translation Help Needed!
+
+Please go [here](https://github.com/OmarB97/trynano/blob/44f276873f858898ca209e919afe996052948426/src/locales/translation_instructions.md) for more details on how to contribute. Thanks!
+
+Please see 
+
+## Check out the TryNano backend code!
 
 https://github.com/OmarB97/trynano-server
 
