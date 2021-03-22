@@ -25,9 +25,11 @@
                     :label="'  ' + localeNameMapping[language]"
                     :value="language"
                   >
-                    <span class="select-locale-font" style="float: left">{{
-                      localeNameMapping[language]
-                    }}</span>
+                    <span
+                      class="select-locale-font"
+                      style="float: left; margin-right: 20px"
+                      >{{ localeNameMapping[language] }}</span
+                    >
                     <span
                       class="select-locale-font"
                       style="float: right; color: #8492a6; font-size: 13px"
@@ -201,7 +203,7 @@ export default {
     return {
       localeNameMapping: {
         en: 'English',
-        ptBr: 'Portuguese (Brazil)',
+        'pt-BR': 'Português brasileiro',
       },
     };
   },
@@ -228,23 +230,11 @@ export default {
         case 'tablet':
           return 12;
         case 'other':
-          return 10;
+          return 11;
         default:
-          return 10;
+          return 11;
       }
     },
-    // versionSpan() {
-    //   switch (this.$mq) {
-    //     case 'phone':
-    //       return 6;
-    //     case 'tablet':
-    //       return 6;
-    //     case 'other':
-    //       return 6;
-    //     default:
-    //       return 6;
-    //   }
-    // },
   },
   setup() {
     const { t, locale, availableLocales } = useI18n({ useScope: 'global' });

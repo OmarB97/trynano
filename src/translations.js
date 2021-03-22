@@ -9,7 +9,7 @@ import * as ptBr from './locales/pt-br.json';
 */
 const translations = {
     en, /* English */
-    ptBr: ptBr.default, /* Brazilian Portuguese */
+    'pt-BR': ptBr.default, /* Brazilian Portuguese */
 }
 
 export default translations;
