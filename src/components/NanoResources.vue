@@ -11,6 +11,7 @@
         class="nano-address"
         :class="{
           'nano-address-phone': $mq === 'phone',
+          'nano-address-tabletSm': $mq === 'tabletS,',
           'nano-address-tablet': $mq === 'tablet',
         }"
         href="https://nanocrawler.cc/explorer/account/nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq/history"
@@ -21,6 +22,7 @@
         class="nano-address"
         :class="{
           'nano-address-phone': $mq === 'phone',
+          'nano-address-tabletSm': $mq === 'tabletSm',
           'nano-address-tablet': $mq === 'tablet',
         }"
         href="https://nanocrawler.cc/explorer/account/nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w/history"
@@ -57,6 +59,7 @@ export default {
 }
 
 .nano-address-phone,
+.nano-address-tabletSm,
 .nano-address-tablet {
   overflow-wrap: break-word;
 }

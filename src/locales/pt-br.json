@@ -128,6 +128,7 @@
     "validNanoAddress": "Endereço Nano válido",
     "invalidNanoAddress": "Endereço Nano inválido",
     "send": "Enviar",
+    "dividerText": "OU",
     "returnToSender": "Envie de volta",
     "sending": "Enviando..",
     "sent": "Enviado!"
@@ -186,7 +187,7 @@
       }
     },
     "message": {
-      "label": "Email",
+      "label": "Mensagem",
       "rules": {
         "required": "Por favor, insira uma mensagem",
         "min": "Por favor, insira mais de 10 caracteres"

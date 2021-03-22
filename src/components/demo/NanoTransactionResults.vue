@@ -3,6 +3,7 @@
     class="demo"
     :class="{
       'demo-phone': $mq === 'phone',
+      'demo-tabletSm': $mq === 'tabletSm',
       'demo-tablet': $mq === 'tablet',
       'demo-other': $mq === 'other',
     }"
@@ -105,6 +106,11 @@ export default {
 
 .demo-phone {
   max-width: 95%;
+}
+
+.demo-tabletSm {
+  min-width: 300px;
+  max-width: 80%;
 }
 
 .demo-tablet {

@@ -10,7 +10,7 @@
       ref="form"
       :rules="rules"
       status-icon
-      label-width="120px"
+      label-width="150px"
     >
       <el-form-item :label="t('feedbackForm.name.label')" prop="name">
         <el-input v-model="name" name="name"></el-input>
@@ -75,6 +75,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return '95%';
+        case 'tabletSm':
+          return '85%';
         case 'tablet':
           return '80%';
         case 'other':

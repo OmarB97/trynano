@@ -3,6 +3,7 @@
     class="faucet-info"
     :class="{
       'faucet-card-width-phone': $mq === 'phone',
+      'faucet-card-width-tabletSm': $mq === 'tabletSm',
       'faucet-card-width-tablet': $mq === 'tablet',
       'faucet-card-width-other': $mq === 'other',
     }"
@@ -13,10 +14,11 @@
         :size="buttonSize"
         round
         class="faucet-button"
-        :loading="nanoFaucetPending || (nanoFaucetCompleted && !nanoRecieved)"
-        :disabled="nanoFaucetPending || nanoFaucetCompleted || nanoRecieved"
+        :loading="nanoFaucetPending || (nanoFaucetCompleted && !nanoReceived)"
+        :disabled="nanoFaucetPending || nanoFaucetCompleted || nanoReceived"
         :class="{
           'faucet-button-phone': $mq === 'phone',
+          'faucet-button-tabletSm': $mq === 'tabletSm',
           'faucet-button-tablet': $mq === 'tablet',
           'faucet-button-other': $mq === 'other',
         }"
@@ -32,12 +34,12 @@
           <div v-show="nanoFaucetPending && !nanoFaucetCompleted">
             <span class="faucet-text">{{ t('nanoFaucetInfo.requestingFaucet') }}</span>
           </div>
-          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && !nanoRecieved">
+          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && !nanoReceived">
             <span class="faucet-text"
               >{{ t('nanoFaucetInfo.receivePendingFromFaucet') }}
             </span>
           </div>
-          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && nanoRecieved">
+          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && nanoReceived">
             <span class="faucet-text">{{ t('nanoFaucetInfo.faucetReceived') }}</span>
           </div>
         </div>
@@ -131,11 +133,11 @@
       <div style="display: inline-block">
         {{ t('nanoFaucetInfo.depositStatus.main') }}&ensp;
       </div>
-      <div
-        style="display: inline-block"
-        :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
-      >
-        {{ depositStatus }}
+      <div style="display: inline-block" v-show="!nanoReceived" class="waiting">
+        {{ t('nanoFaucetInfo.depositStatus.notReceived') }}
+      </div>
+      <div style="display: inline-block" v-show="nanoReceived" class="received">
+        {{ t('nanoFaucetInfo.depositStatus.received') }}
       </div>
     </strong>
     <div v-show="walletBalance > 0">
@@ -170,6 +172,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 10;
+        case 'tabletSm':
+          return 8;
         case 'tablet':
           return 7;
         case 'other':
@@ -182,6 +186,7 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 'small';
+        case 'tabletSm':
         case 'tablet':
           return 'medium';
         case 'other':
@@ -200,8 +205,7 @@ export default {
     const didGetFaucetInfo = ref(false);
     const faucetBalance = ref(0);
     const faucetPayout = ref('');
-    const nanoRecieved = ref(false);
-    const depositStatus = ref(t('nanoFaucetInfo.depositStatus.notReceived'));
+    const nanoReceived = ref(false);
     const hoverOnCopyAddress = ref(false);
     const copyPrompt = ref(t('nanoFaucetInfo.tooltip.copyAddress'));
     const walletBalance = ref(0);
@@ -254,9 +258,8 @@ export default {
 
     emitter.on('nano-received', (receiveData) => {
       if (receiveData.address === walletAccount.value.address) {
-        if (!nanoRecieved.value && receiveData.balance > 0) {
-          depositStatus.value = t('nanoFaucetInfo.depositStatus.received');
-          nanoRecieved.value = true;
+        if (!nanoReceived.value && receiveData.balance > 0) {
+          nanoReceived.value = true;
           walletBalance.value = receiveData.balance;
           emitter.emit('step-completed', 'first');
         }
@@ -269,8 +272,7 @@ export default {
 
     return {
       t,
-      nanoRecieved,
-      depositStatus,
+      nanoReceived,
       hoverOnCopyAddress,
       onAddressCopySuccess,
       copyPrompt,
@@ -308,10 +310,8 @@ export default {
   font-weight: 500;
 }
 
-.faucet-card-width-phone {
-  width: 100%;
-}
-
+.faucet-card-width-phone,
+.faucet-card-width-tabletSm,
 .faucet-card-width-tablet {
   width: 100%;
 }
@@ -326,6 +326,10 @@ export default {
 
 .faucet-button-phone {
   width: auto;
+}
+
+.faucet-button-tabletSm {
+  width: 90%;
 }
 
 .faucet-button-tablet {

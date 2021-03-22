@@ -146,6 +146,7 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 'mini';
+        case 'tabletSm':
         case 'tablet':
           return 'medium';
         case 'other':
@@ -158,6 +159,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 8;
+        case 'tabletSm':
+          return 7;
         case 'tablet':
           return 6;
         case 'other':
@@ -170,6 +173,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 8;
+        case 'tabletSm':
+          return 10;
         case 'tablet':
           return 12;
         case 'other':

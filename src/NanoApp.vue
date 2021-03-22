@@ -53,6 +53,7 @@
                 class="steps"
                 :class="{
                   'steps-width-phone': $mq === 'phone',
+                  'steps-width-tabletSm': $mq === 'tabletSm',
                   'steps-width-tablet': $mq === 'tablet',
                   'steps-width-other': $mq === 'other',
                 }"
@@ -85,6 +86,7 @@
                 class="step-section"
                 :class="{
                   'step-section-width-phone': $mq === 'phone',
+                  'step-section-width-tabletSm': $mq === 'tabletSm',
                   'step-section-width-tablet': $mq === 'tablet',
                   'step-section-width-other': $mq === 'other',
                 }"
@@ -213,6 +215,7 @@ export default {
         case 'phone':
           return '80%';
         case 'tabletSm':
+          return '60%';
         case 'tablet':
           return '40%';
         case 'other':
@@ -503,7 +506,7 @@ body {
 }
 
 .site-content {
-  margin-top: 60px;
+  margin-top: 20px;
   padding: 0 20px;
 }
 
@@ -568,6 +571,10 @@ a:hover {
   width: 100%;
 }
 
+.steps-width-tabletSm {
+  width: 90%;
+}
+
 .steps-width-tablet {
   width: 80%;
 }
@@ -582,6 +589,10 @@ a:hover {
 
 .step-section-width-phone {
   width: 100%;
+}
+
+.step-section-width-tabletSm {
+  width: 95%;
 }
 
 .step-section-width-tablet {

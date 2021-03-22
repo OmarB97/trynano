@@ -26,6 +26,7 @@
     class="send-nano-row"
     :class="{
       'send-nano-row-phone': $mq === 'phone',
+      'send-nano-row-tabletSm': $mq === 'tabletSm',
       'send-nano-row-tablet': $mq === 'tablet',
       'send-nano-row-other': $mq === 'other',
     }"
@@ -71,7 +72,9 @@
       </el-button></el-col
     >
   </el-row>
-  <el-divider content-position="center"><div>OR</div></el-divider>
+  <el-divider content-position="center"
+    ><div>{{ t('claimNano.dividerText') }}</div></el-divider
+  >
   <div class="return-nano-button">
     <el-button
       type="success"
@@ -81,6 +84,7 @@
       :loading="returningNano"
       :class="{
         'return-nano-button-phone': $mq === 'phone',
+        'return-nano-button-tabletSm': $mq === 'tabletSm',
         'return-nano-button-tablet': $mq === 'tablet',
         'return-nano-button-other': $mq === 'other',
       }"
@@ -119,6 +123,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 16;
+        case 'tabletSm':
+          return 14;
         case 'tablet':
           return 12;
         case 'other':
@@ -131,6 +137,8 @@ export default {
       switch (this.$mq) {
         case 'phone':
           return 8;
+        case 'tabletSm':
+          return 7;
         case 'tablet':
           return 6;
         case 'other':
@@ -315,6 +323,7 @@ export default {
   width: 90%;
 }
 
+.send-nano-row-tabletSm,
 .send-nano-row-phone {
   width: 95%;
 }
@@ -337,6 +346,7 @@ export default {
   margin-bottom: 20px;
 }
 
+.return-nano-button-tabletSm,
 .return-nano-button-phone {
   width: auto;
 }
