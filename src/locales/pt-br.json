@@ -128,6 +128,7 @@
     "validNanoAddress": "Endereço Nano válido",
     "invalidNanoAddress": "Endereço Nano inválido",
     "send": "Enviar",
+    "dividerText": "OU",
     "returnToSender": "Envie de volta",
     "sending": "Enviando..",
     "sent": "Enviado!"

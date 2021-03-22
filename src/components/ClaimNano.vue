@@ -72,7 +72,9 @@
       </el-button></el-col
     >
   </el-row>
-  <el-divider content-position="center"><div>OR</div></el-divider>
+  <el-divider content-position="center"
+    ><div>{{ t('claimNano.dividerText') }}</div></el-divider
+  >
   <div class="return-nano-button">
     <el-button
       type="success"

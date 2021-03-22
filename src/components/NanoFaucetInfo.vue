@@ -14,8 +14,8 @@
         :size="buttonSize"
         round
         class="faucet-button"
-        :loading="nanoFaucetPending || (nanoFaucetCompleted && !nanoRecieved)"
-        :disabled="nanoFaucetPending || nanoFaucetCompleted || nanoRecieved"
+        :loading="nanoFaucetPending || (nanoFaucetCompleted && !nanoReceived)"
+        :disabled="nanoFaucetPending || nanoFaucetCompleted || nanoReceived"
         :class="{
           'faucet-button-phone': $mq === 'phone',
           'faucet-button-tabletSm': $mq === 'tabletSm',
@@ -34,12 +34,12 @@
           <div v-show="nanoFaucetPending && !nanoFaucetCompleted">
             <span class="faucet-text">{{ t('nanoFaucetInfo.requestingFaucet') }}</span>
           </div>
-          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && !nanoRecieved">
+          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && !nanoReceived">
             <span class="faucet-text"
               >{{ t('nanoFaucetInfo.receivePendingFromFaucet') }}
             </span>
           </div>
-          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && nanoRecieved">
+          <div v-show="!nanoFaucetPending && nanoFaucetCompleted && nanoReceived">
             <span class="faucet-text">{{ t('nanoFaucetInfo.faucetReceived') }}</span>
           </div>
         </div>
@@ -133,11 +133,11 @@
       <div style="display: inline-block">
         {{ t('nanoFaucetInfo.depositStatus.main') }}&ensp;
       </div>
-      <div
-        style="display: inline-block"
-        :class="{ waiting: !nanoRecieved, received: nanoRecieved }"
-      >
-        {{ depositStatus }}
+      <div style="display: inline-block" v-show="!nanoReceived" class="waiting">
+        {{ t('nanoFaucetInfo.depositStatus.notReceived') }}
+      </div>
+      <div style="display: inline-block" v-show="nanoReceived" class="received">
+        {{ t('nanoFaucetInfo.depositStatus.received') }}
       </div>
     </strong>
     <div v-show="walletBalance > 0">
@@ -205,8 +205,7 @@ export default {
     const didGetFaucetInfo = ref(false);
     const faucetBalance = ref(0);
     const faucetPayout = ref('');
-    const nanoRecieved = ref(false);
-    const depositStatus = ref(t('nanoFaucetInfo.depositStatus.notReceived'));
+    const nanoReceived = ref(false);
     const hoverOnCopyAddress = ref(false);
     const copyPrompt = ref(t('nanoFaucetInfo.tooltip.copyAddress'));
     const walletBalance = ref(0);
@@ -259,9 +258,8 @@ export default {
 
     emitter.on('nano-received', (receiveData) => {
       if (receiveData.address === walletAccount.value.address) {
-        if (!nanoRecieved.value && receiveData.balance > 0) {
-          depositStatus.value = t('nanoFaucetInfo.depositStatus.received');
-          nanoRecieved.value = true;
+        if (!nanoReceived.value && receiveData.balance > 0) {
+          nanoReceived.value = true;
           walletBalance.value = receiveData.balance;
           emitter.emit('step-completed', 'first');
         }
@@ -274,8 +272,7 @@ export default {
 
     return {
       t,
-      nanoRecieved,
-      depositStatus,
+      nanoReceived,
       hoverOnCopyAddress,
       onAddressCopySuccess,
       copyPrompt,
