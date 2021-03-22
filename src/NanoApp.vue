@@ -506,7 +506,7 @@ body {
 }
 
 .site-content {
-  margin-top: 60px;
+  margin-top: 20px;
   padding: 0 20px;
 }
 
