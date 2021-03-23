@@ -4,8 +4,8 @@
  - Step 2: Open up a text editor such as Notepad, or whatever your preferred editor is that allows you to edit the file.
  - Step 3: Translate each sentence in the file. Only modify the sentences, do not touch any words to the left of the ':' or anything contained inside curly braces (e.g. '{faucetBalance}' ) or the translation might not work properly!
  - Step 4: When you are done, save the file.
- - Step 5a: If you already have a Github account, <a href="https://github.com/OmarB97/trynano/issues/new?assignees=OmarB97&labels=translation&template=translation-request.md&title=%5BTRANSLATION+REQUEST%5D+-+%3CPUT+LANGUAGE+NAME+AND+CODE+HERE%3En">Click here</a> to create a new translation request, and drag and drop the txt file you saved in Step 4 into the issue body to attach the file. Update the issue name with the appropriate details (i.e. Language name and code), and click submit. That's it! 
- - Step 5b: If you don't have a github account, you can upload the file to your preferred storage hosting site (e.g. Google Drive, Dropbox, Amazon Cloud, etc.) and send me a link to download the file in a direct message on my reddit account: u/Yolomar
+ - Step 5a: If you already have a GiTHub account, <a href="https://github.com/OmarB97/trynano/issues/new?assignees=OmarB97&labels=translation&template=translation-request.md&title=%5BTRANSLATION+REQUEST%5D+-+%3CPUT+LANGUAGE+NAME+AND+CODE+HERE%3En">Click here</a> to create a new translation request, and drag and drop the txt file you saved in Step 4 into the issue body to attach the file. Update the issue name with the appropriate details (i.e. Language name and code), and click submit. That's it! 
+ - Step 5b: If you don't have a GitHub account, you can upload the file to your preferred storage hosting site (e.g. Google Drive, Dropbox, Amazon Cloud, etc.) and send me a link to download the file in a direct message on my reddit account: u/Yolomar
 
 # Steps for Coders:
 
