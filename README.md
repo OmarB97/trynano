@@ -19,7 +19,7 @@ Finally, we provide some basic instructions on how to set up their own private w
 
 ## Call To Action: Language Translation Help Needed!
 
-Please go [here](https://github.com/OmarB97/trynano/blob/44f276873f858898ca209e919afe996052948426/src/locales/translation_instructions.md) for more details on how to contribute. Thanks!
+Please go [here](https://github.com/OmarB97/trynano/blob/master/src/locales/translation_instructions.md) for more details on how to contribute. Thanks!
 
 ## Check out the TryNano backend code!
 
