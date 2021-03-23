@@ -1,7 +1,7 @@
 ---
 name: Translation Request
 about: Template for submitting new translations for Trynano
-title: "[TRANSLATION] - <LANGUAGE NAME AND CODE>"
+title: "[TRANSLATION REQUEST] - <PUT LANGUAGE NAME AND CODE HERE>"
 labels: translation
 assignees: OmarB97
 
