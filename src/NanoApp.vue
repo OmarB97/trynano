@@ -3,14 +3,6 @@
   <div class="flex-wrapper">
     <div>
       <div class="content-vertical-align">
-        <el-alert
-          :title="t('nanoApp.networkAlert')"
-          type="warning"
-          effect="dark"
-          center
-          show-icon
-        >
-        </el-alert>
         <div>
           <div :style="{ float: 'right', width: headerWidth }">
             <el-row type="flex" justify="end" align="middle" class="header-row">
