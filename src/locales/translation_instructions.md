@@ -1,3 +1,14 @@
+# Steps for Non-Coders:
+
+ - Step 1: <a href="https://github.com/OmarB97/trynano/files/6190791/en.txt">Click here</a> to download the template txt file. Change the filename to the appropriate language code (e.g. en.txt, pt-BR.txt).
+ - Step 2: Open up a text editor such as Notepad, or whatever your preferred editor is so you can edit the file.
+ - Step 3: Translate each sentence in the file. Only modify the sentences or the translation might not work properly!
+ - Step 4: When you are done, save the file.
+ - Step 5a: If you already have a Github account, <a href="https://github.com/OmarB97/trynano/issues/new?assignees=OmarB97&labels=translation&template=translation-request.md&title=%5BTRANSLATION+REQUEST%5D+-+%3CPUT+LANGUAGE+NAME+AND+CODE+HERE%3En">Click here</a> to create a new translation request, and drag and drop the txt file you saved in Step 4 into the issue body to attach the file. Update the issue name with the appropriate details (i.e. Language name and code), and click submit. That's it! 
+ - Step 5b: If you don't have a github account, you can upload the file to your preferred storage hosting site (e.g. Google Drive, Dropbox, Amazon Cloud, etc.) and send me a link to download the file in a direct message on my reddit account: u/Yolomar
+
+# Steps for Coders:
+
 To add a new language, you will need to create a new json file inside the ```src/locales``` folder. The filename should be: ```<locale_abbreviation>.json```.
 
 You will need to follow the same structure inside en.json, which holds all the English translations for the site. For details on how the syntax works, please refer to the [Vue-I18n documentation](https://vue-i18n.intlify.dev/guide/).
