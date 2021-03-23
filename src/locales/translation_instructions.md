@@ -1,7 +1,7 @@
 # Steps for Non-Coders:
 
  - Step 1: <a href="https://github.com/OmarB97/trynano/files/6190791/en.txt">Click here</a> to download the template txt file. Change the filename to the appropriate language code (e.g. en.txt, pt-BR.txt).
- - Step 2: Open up a text editor such as Notepad, or whatever your preferred editor is so you can edit the file.
+ - Step 2: Open up a text editor such as Notepad, or whatever your preferred editor is that allows you to edit the file.
  - Step 3: Translate each sentence in the file. Only modify the sentences or the translation might not work properly!
  - Step 4: When you are done, save the file.
  - Step 5a: If you already have a Github account, <a href="https://github.com/OmarB97/trynano/issues/new?assignees=OmarB97&labels=translation&template=translation-request.md&title=%5BTRANSLATION+REQUEST%5D+-+%3CPUT+LANGUAGE+NAME+AND+CODE+HERE%3En">Click here</a> to create a new translation request, and drag and drop the txt file you saved in Step 4 into the issue body to attach the file. Update the issue name with the appropriate details (i.e. Language name and code), and click submit. That's it! 
