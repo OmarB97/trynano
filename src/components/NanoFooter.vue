@@ -1,7 +1,18 @@
 /* eslint-disable no-unused-vars */
 <template>
-  <footer class="footer">
-    <div style="display: block">
+  <footer
+    class="footer"
+    :class="{
+      'footer-phone': $mq === 'phone',
+      'footer-normal': $mq !== 'phone',
+    }"
+  >
+    <div
+      :class="{
+        'footer-phone': $mq === 'phone',
+        'footer-normal': $mq !== 'phone',
+      }"
+    >
       <i18n-t keypath="nanoFooter.createdBy.main" tag="span" class="footer-content">
         <a href="https://www.linkedin.com/in/omarbaradei/" target="_blank">{{
           t('nanoFooter.createdBy.omar')
@@ -31,29 +42,38 @@
           >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
         >
       </i18n-t>
-      <i18n-t keypath="nanoFooter.feedback.main" tag="span" class="footer-content">
-        <a class="feedback-link" @click="toggleFeedbackDialogVisibility(true)">{{
-          t('nanoFooter.feedback.feedbackLink')
-        }}</a>
-      </i18n-t>
-      <i18n-t keypath="nanoFooter.recaptcha.main" tag="div" class="footer-content">
-        <a
-          href="https://policies.google.com/privacy"
-          target="_blank"
-          :class="{ 'footer-content-phone': $mq === 'phone' }"
-          >{{ t('nanoFooter.recaptcha.policy') }}</a
-        >
-        <a
-          href="https://policies.google.com/terms"
-          target="_blank"
-          :class="{ 'footer-content-phone': $mq === 'phone' }"
-          >{{ t('nanoFooter.recaptcha.tos') }}</a
-        >
-      </i18n-t>
-      <FeedbackForm
-        :feedbackDialogVisible="feedbackDialogVisible"
-        @hideFeedbackForm="toggleFeedbackDialogVisibility(false)"
-      ></FeedbackForm>
+      <div
+        :class="{
+          'footer-phone': $mq === 'phone',
+          'footer-normal': $mq !== 'phone',
+        }"
+      >
+        <i18n-t keypath="nanoFooter.feedback.main" tag="span" class="footer-content">
+          <a class="feedback-link" @click="toggleFeedbackDialogVisibility(true)">{{
+            t('nanoFooter.feedback.feedbackLink')
+          }}</a>
+        </i18n-t>
+        <i18n-t keypath="nanoFooter.recaptcha.main" tag="span" class="footer-content">
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            :class="{ 'footer-content-phone': $mq === 'phone' }"
+            >{{ t('nanoFooter.recaptcha.policy') }}</a
+          >
+          <a
+            href="https://policies.google.com/terms"
+            target="_blank"
+            :class="{ 'footer-content-phone': $mq === 'phone' }"
+            >{{ t('nanoFooter.recaptcha.tos') }}</a
+          >
+        </i18n-t>
+      </div>
+      <div class="feedback_form">
+        <FeedbackForm
+          :feedbackDialogVisible="feedbackDialogVisible"
+          @hideFeedbackForm="toggleFeedbackDialogVisibility(false)"
+        ></FeedbackForm>
+      </div>
     </div>
   </footer>
 </template>
@@ -96,16 +116,27 @@ export default {
   width: 100vw;
   padding: 1rem 1.5rem;
   font-size: 0.85em;
-  text-align: center;
   color: #999;
   background-color: #404040;
   box-sizing: border-box;
   margin-bottom: -5px;
 }
 
+.footer-phone {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  line-height: 2.6;
+}
+
+.footer-normal {
+  text-align: center;
+  display: inline-block;
+  line-height: 2;
+}
+
 .footer-content {
   margin: 0 0.5rem;
-  line-height: 2;
 }
 
 .feedback-link:hover {
@@ -115,5 +146,9 @@ export default {
 .footer-content-phone {
   overflow-wrap: break-word;
   max-width: 100%;
+}
+
+.feedback_form {
+  text-align: center;
 }
 </style>
