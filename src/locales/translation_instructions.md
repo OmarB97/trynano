@@ -24,4 +24,6 @@ Lastly, you'll need to add the language name mapping inside ```NanoApp.vue```:
 
 When adding your language name mapping here, It is encouraged to use the language name in its own language so users will be able to quickly identify it in the dropdown.
 
+When you're done, submit a PR!
+
 For any additional questions, please reach out to me and I can help out. Thanks!
