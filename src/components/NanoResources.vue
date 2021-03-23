@@ -25,9 +25,9 @@
           'nano-address-tabletSm': $mq === 'tabletSm',
           'nano-address-tablet': $mq === 'tablet',
         }"
-        href="https://nanocrawler.cc/explorer/account/nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w/history"
+        href="https://nanocrawler.cc/explorer/account/nano_3fb56gt1896wmzfrs78oowdjwed9arm1mugtg48eupewfnuq4io1gfjors5j/history"
         target="_blank"
-        >nano_1r71ir93w6ymq9bmjbbz7zmqngj54uhgcdjgrjzcpk5bog3rs5t7ijh47y7w</a
+        >nano_3fb56gt1896wmzfrs78oowdjwed9arm1mugtg48eupewfnuq4io1gfjors5j</a
       >
     </i18n-t>
   </div>
