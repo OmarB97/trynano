@@ -199,6 +199,7 @@ export default {
         en: 'English',
         'pt-BR': 'Português brasileiro',
         'fr-FR': 'Français (France)',
+        'ja-JP': '日本語',
       },
     };
   },
