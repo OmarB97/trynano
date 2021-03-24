@@ -160,7 +160,7 @@
       "feedbackLink": "hier"
     },
     "recaptcha": {
-      "main": " Diese Seite ist durch reCAPTCHA geschützt und die {0} sowie den geltenden {1}.",
+      "main": " Diese Seite ist durch reCAPTCHA geschützt und die {0} sowie die {1} gelten.",
       "policy": "Google-Datenschutzbestimmungen",
       "tos": "Nutzungsbedingungen"
     }
