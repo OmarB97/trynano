@@ -1,7 +1,7 @@
 import en from './locales/en.json';
 import * as ptBR from './locales/pt-BR.json';
 import * as frFR from './locales/fr-FR.json';
-import * as jaJP from '.locales/ja-JP.json';
+import * as jaJP from "./locales/ja-JP.json";
 
 /* To add a new translation: 
     1. create a new json file under ./locals/<language>.json
