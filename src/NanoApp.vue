@@ -198,6 +198,7 @@ export default {
       localeNameMapping: {
         en: 'English',
         'pt-BR': 'Português brasileiro',
+        'fr-FR': 'France francaise',
       },
     };
   },

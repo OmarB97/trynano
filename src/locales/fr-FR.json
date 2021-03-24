@@ -1,0 +1,201 @@
+{
+  "nanoApp": {
+    "networkAlert": "TryNano rencontre actuellement des difficultés pour communiquer avec le réseau Nano. Merci pour votre compréhension !",
+    "steps": {
+      "title": "Étape {count}",
+      "description": {
+        "one": "Récupérer quelques Nanos",
+        "two": "Faire un essai",
+        "three": "Configurer votre portefeuille",
+        "four": "Terminé !"
+      }
+    },
+    "steppers": {
+      "previous": " Étape précédente",
+      "next": "Étape suivante "
+    },
+    "generatingWallets": "Génération des portefeuilles..."
+  },
+  "nanoIntro": {
+    "firstSentence": "TryNano vous montre à quel point les transactions Nano peuvent être rapides et simples, en vous donnant deux portefeuilles pour pouvoir envoyer des Nanos de l'un à l'autre.",
+    "secondSentence": {
+      "main": "{0} Nano (NANO) est une monnaie numérique de pair à pair, conçue pour permettre des transactions instantanées, sans frais et extensibles, tout en étant respectueuses de l'environnement.",
+      "whatIsNano": "Qu'est-ce que Nano ?"
+    },
+    "revealText": "Cliquez ici pour essayer !"
+  },
+  "nanoFaucetInfo": {
+    "faucetButton": "Utiliser le Robinet TryNano",
+    "requestingFaucet": "Demande de Nanos au Robinet...",
+    "receivePendingFromFaucet": "Les Nanos du Robinet ont été envoyés ! Réception des Nanos du Robinet en cours...",
+    "faucetReceived": "Les Nanos du Robinet ont été reçus !",
+    "gettingFaucetInfo": "Réception des infos du Robinet...",
+    "faucetBalance": {
+      "main": "Solde du Robinet : {0}",
+      "balance": "{faucetBalance} Ñ"
+    },
+    "faucetPayout": {
+      "main": "Taux de distribution du Robinet : {0}",
+      "payout": "{faucetPayout}"
+    },
+    "dividerText": "OU",
+    "firstSentence": {
+      "main": "Allez sur {0} et collez l'adresse du portefeuille générée ci-dessous.",
+      "faucetUrl": "nano-faucet.org"
+    },
+    "secondSentence": {
+      "main": "({0} : Si vous avez reçu un pourboire de la part d'une personne utilisant NanoTipBot et que vous préférez utiliser ce logiciel, utilisez la commande !withdraw référencée {1}.)",
+      "note": "Note",
+      "nanoTipBotUrl": "ici"
+    },
+    "popover": {
+      "main": "Une {0} est un identifiant unique servant d'adresse virtuelle à laquelle une cryptomonnaie peut être envoyée/reçue, comme pour une adresse courriel !",
+      "walletAddress": "adresse de portefeuille"
+    },
+    "tooltip": {
+      "copyAddress": "Copier l'adresse",
+      "copiedAddress": "Copiée !"
+    },
+    "generatedWalletAddress": "Adresse du portefeuille générée",
+    "depositStatus": {
+      "main": "Statut :",
+      "notReceived": "Non reçus",
+      "received": "Reçus !"
+    },
+    "walletBalance": {
+      "main": "Solde :",
+      "amount": "{walletBalance} Ñ"
+    }
+  },
+  "demo": {
+    "nanoDemo": {
+      "firstSentence": "Essayez d'envoyer quelques Nanos d'un portefeuille à l'autre pour vous rendre compte à quel point l'utilisation de la monnaie Nano peut être rapide et simple !",
+      "firstWalletLetter": "A",
+      "secondWalletLetter": "B",
+      "sendToWallet": "Envoyer au Portefeuille {walletLetter}",
+      "sending": "Envoi en cours...",
+      "sent": "Envoyé !",
+      "confirmingReceivedNano": "Confirmation des la réception des Nanos...",
+      "transactionTime": {
+        "default": "(Sans objet)",
+        "time": "{time} secondes"
+      }
+    },
+    "nanoWallet": {
+      "walletLabel": "Portefeuille Nano {walletLetter}",
+      "addressLabel": "Addresse :",
+      "walletBalance": {
+        "label": "Solde :",
+        "amount": "{nanoBalance} Ñ"
+      }
+    },
+    "nanoTransactionResults": {
+      "title": "Résultats de la transaction",
+      "placeholder": "Envoyez des Nanos d'un portefeuille à l'autre pour débuter une transaction !",
+      "transactionTime": {
+        "label": "Durée de la transaction :",
+        "time": "{transactionTime}"
+      },
+      "transactionFees": {
+        "label": "Coût de la transaction :",
+        "fees": "Zéro"
+      },
+      "energyConsumption": {
+        "label": "Consommation d'énergie :",
+        "usage": "~ 0,000112 kWh"
+      },
+      "sendConfirmationBlock": "Lien vers le bloc de confirmation envoyé",
+      "receiveConfirmationBlock": "Lien vers le bloc de confirmation reçu",
+      "nanoCrawlerLink": "sur NanoCrawler"
+    }
+  },
+  "claimNano": {
+    "firstSentence": {
+      "main": "Pour récupérer vos Nanos, vous aurez besoin de créer un {0} afin de les y conserver.",
+      "privateWallet": "portefeuille privé"
+    },
+    "secondSentence": {
+      "main": "Les portefeuilles les plus populaires au sein de la communauté Nano sont {0} (Android/iOS) et {1} (Navigateur Internet/Ordinateur).",
+      "natrium": "Natrium",
+      "nault": "Nault"
+    },
+    "thirdSentence": {
+      "main": "(Pour une liste plus complète des portefeuilles disponibles, veuillez consulter {0}.)",
+      "guide": "ce guide"
+    },
+    "fourthSentence": "Une fois que vous aurez fini de créer votre portefeuille, saisissez l'adresse de votre nouveau portefeuille Nano ci-dessous et cliquez sur Envoyer. C'est tout !",
+    "addressPlaceholder": "Saisissez votre adresse Nano...",
+    "validNanoAddress": "Adresse Nano valide",
+    "invalidNanoAddress": "Adresse Nano invalide",
+    "send": "Envoyer",
+    "dividerText": "OU",
+    "returnToSender": "Renvoyer les Nanos à l'expéditeur",
+    "sending": "Envoi en cours...",
+    "sent": "Envoyé !"
+  },
+  "nanoResources": {
+    "title": "Merci d'utiliser TryNano!",
+    "firstSentence": {
+      "main": "Pour une liste complète des ressources liées à Nano, notamment l'équipe de développeurs, les chaînes de réseaux sociaux, les endroits où acheter des Nanos, et plus encore, veuillez consulter {0}.",
+      "nanoLinksUrl": "nanolinks.info"
+    },
+    "secondSentence": {
+      "main": "Si vous avez aimé cette expérience, pensez à me faire un don {0} ou au Robinet TryNano {1} pour contribuer au fonctionnement du site !"
+    }
+  },
+  "nanoFooter": {
+    "createdBy": {
+      "main": "Créé par {0} et {1}.",
+      "omar": "Omar Baradei",
+      "patrick": "Patrick Smith"
+    },
+    "github": {
+      "main": "Link vers {0}.",
+      "url": "GitHub"
+    },
+    "faucet": "Faire un don au Robinet TryNano : {0}.",
+    "tips": "Pourboires acceptés sur : {0}.",
+    "feedback": {
+      "main": "Envoyez-nous vos remarques {0}.",
+      "feedbackLink": "ici"
+    },
+    "recaptcha": {
+      "main": " Ce site est protégé par reCAPTCHA et la {0} et les {1} s'appliquent.",
+      "policy": "Politique de confidentialité de Google",
+      "tos": "Conditions d'utilisation"
+    }
+  },
+  "feedbackForm": {
+    "title": "Envoyez-nous vos remarques",
+    "name": {
+      "label": "Nom",
+      "rule": "Veuillez inscrire votre nom"
+    },
+    "email": {
+      "label": "Courriel",
+      "rules": {
+        "required": "Veuillez inscrire votre courriel",
+        "email": "Adresse courriel invalide"
+      }
+    },
+    "feedbackType": {
+      "label": "Type de remarque",
+      "type": {
+        "bug": "Problème",
+        "featureRequest": "Demander une nouvelle fonctionnalité",
+        "other": "Autre"
+      }
+    },
+    "message": {
+      "label": "Message",
+      "rules": {
+        "required": "Veuillez inscrire un message",
+        "min": "Veuillez rédiger plus de 10 caractères"
+      }
+    },
+    "buttons": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    }
+  }
+}
