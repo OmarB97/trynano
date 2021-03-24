@@ -14,7 +14,7 @@ To add a new language, you will need to create a new json file inside the ```src
 You will need to follow the same structure inside en.json, which holds all the English translations for the site. For details on how the syntax works, please refer to the [Vue-I18n documentation](https://vue-i18n.intlify.dev/guide/).
 
 Once you've created the json file, you'll need to add it inside ```src/translations.js```. See how "en.json" is imported + added as an example.
- -  NOTE: If your locale has a hyphen (e.g. 'pt-BR'), then just follow the same format as shown in the file / below:
+ -  NOTE: If your filename has a hyphen (e.g. 'pt-BR'), then just follow the same format as shown in the file / below:
    -  ```import * as ptBr from './locales/pt-br.json';```
    -  ```'pt-BR': ptBr.default, /* Brazilian Portuguese */```
 
