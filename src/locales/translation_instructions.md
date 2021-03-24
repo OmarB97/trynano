@@ -9,7 +9,7 @@
 
 # Steps for Coders:
 
-To add a new language, you will need to create a new json file inside the ```src/locales``` folder. The filename should be: ```<locale_abbreviation>.json```.
+To add a new language, you will need to create a new json file inside the ```src/locales``` folder. The filename should be: ```<language_code>.json```.
 
 You will need to follow the same structure inside en.json, which holds all the English translations for the site. For details on how the syntax works, please refer to the [Vue-I18n documentation](https://vue-i18n.intlify.dev/guide/).
 
