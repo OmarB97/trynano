@@ -1,6 +1,18 @@
 <template>
-  <div class="intro">
-    <img class="logo" src="../assets/trynano_full.png" />
+  <div
+    class="intro"
+    :class="{
+      'intro-phone': $mq === 'phone',
+    }"
+  >
+    <img
+      class="logo"
+      :class="{
+        'logo-phone': $mq === 'phone',
+        'logo-normal': $mq !== 'phone',
+      }"
+      src="../assets/trynano_full.png"
+    />
     <h3>
       {{ t('nanoIntro.firstSentence') }}
     </h3>
@@ -45,9 +57,22 @@ export default {
   margin-bottom: 25px;
 }
 
+.intro-phone {
+  font-size: 90%;
+}
+
 .logo {
   height: auto;
   width: auto;
+}
+
+.logo-phone {
+  max-width: 250px;
+  max-height: 250px;
+  padding-bottom: 15px;
+}
+
+.logo-normal {
   max-width: 300px;
   max-height: 300px;
   padding-bottom: 25px;
