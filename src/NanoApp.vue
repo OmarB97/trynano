@@ -200,6 +200,7 @@ export default {
         'pt-BR': 'Português brasileiro',
         'fr-FR': 'Français (France)',
         'ja-JP': '日本語',
+        'de-DE': 'Deutsches (Deutschland)',
       },
     };
   },
