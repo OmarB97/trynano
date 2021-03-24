@@ -1,12 +1,12 @@
 {
   "nanoApp": {
-    "networkAlert": "TryNano rencontre actuellement des difficultés pour communiquer avec le réseau Nano. Merci pour votre compréhension !",
+    "networkAlert": "TryNano rencontre actuellement des difficultés pour communiquer avec le réseau Nano. Merci de votre compréhension !",
     "steps": {
       "title": "Étape {count}",
       "description": {
-        "one": "Récupérer quelques Nanos",
-        "two": "Faire un essai",
-        "three": "Configurer votre portefeuille",
+        "one": "Récupérez quelques Nanos",
+        "two": "Faites un essai",
+        "three": "Configurez votre portefeuille",
         "four": "Terminé !"
       }
     },
@@ -25,7 +25,7 @@
     "revealText": "Cliquez ici pour essayer !"
   },
   "nanoFaucetInfo": {
-    "faucetButton": "Utiliser le Robinet TryNano",
+    "faucetButton": "Utilisez le Robinet TryNano",
     "requestingFaucet": "Demande de Nanos au Robinet...",
     "receivePendingFromFaucet": "Les Nanos du Robinet ont été envoyés ! Réception des Nanos du Robinet en cours...",
     "faucetReceived": "Les Nanos du Robinet ont été reçus !",
@@ -69,13 +69,13 @@
   },
   "demo": {
     "nanoDemo": {
-      "firstSentence": "Essayez d'envoyer quelques Nanos d'un portefeuille à l'autre pour vous rendre compte à quel point l'utilisation de la monnaie Nano peut être rapide et simple !",
+      "firstSentence": "Essayez d'envoyer quelques Nanos d'un portefeuille à l'autre, pour vous rendre compte à quel point l'utilisation de la monnaie Nano peut être rapide et simple !",
       "firstWalletLetter": "A",
       "secondWalletLetter": "B",
       "sendToWallet": "Envoyer au Portefeuille {walletLetter}",
       "sending": "Envoi en cours...",
       "sent": "Envoyé !",
-      "confirmingReceivedNano": "Confirmation des la réception des Nanos...",
+      "confirmingReceivedNano": "Confirmation de la réception des Nanos...",
       "transactionTime": {
         "default": "(Sans objet)",
         "time": "{time} secondes"
@@ -129,14 +129,14 @@
     "invalidNanoAddress": "Adresse Nano invalide",
     "send": "Envoyer",
     "dividerText": "OU",
-    "returnToSender": "Renvoyer les Nanos à l'expéditeur",
-    "sending": "Envoi en cours...",
-    "sent": "Envoyé !"
+    "returnToSender": "Renvoyez les Nanos à l'expéditeur",
+    "sending": "Renvoi en cours...",
+    "sent": "Renvoyé !"
   },
   "nanoResources": {
-    "title": "Merci d'utiliser TryNano!",
+    "title": "Merci d'utiliser TryNano !",
     "firstSentence": {
-      "main": "Pour une liste complète des ressources liées à Nano, notamment l'équipe de développeurs, les chaînes de réseaux sociaux, les endroits où acheter des Nanos, et plus encore, veuillez consulter {0}.",
+      "main": "Pour obtenir une liste complète des ressources liées à Nano, notamment connaître l'équipe de développeurs, les chaînes de réseaux sociaux, les endroits où acheter des Nanos, et plus encore, veuillez consulter {0}.",
       "nanoLinksUrl": "nanolinks.info"
     },
     "secondSentence": {
@@ -150,7 +150,7 @@
       "patrick": "Patrick Smith"
     },
     "github": {
-      "main": "Link vers {0}.",
+      "main": "Lien vers {0}.",
       "url": "GitHub"
     },
     "faucet": "Faire un don au Robinet TryNano : {0}.",
@@ -160,7 +160,7 @@
       "feedbackLink": "ici"
     },
     "recaptcha": {
-      "main": " Ce site est protégé par reCAPTCHA et la {0} et les {1} s'appliquent.",
+      "main": " Ce site est protégé par reCAPTCHA. La {0} et les {1} s'appliquent.",
       "policy": "Politique de confidentialité de Google",
       "tos": "Conditions d'utilisation"
     }
