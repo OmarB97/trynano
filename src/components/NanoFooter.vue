@@ -4,13 +4,14 @@
     class="footer"
     :class="{
       'footer-phone': $mq === 'phone',
-      'footer-normal': $mq !== 'phone',
+      'footer-small': $mq === 'phone' || $mq === 'tabletSm',
+      'footer-normal': $mq === 'tablet' || $mq === 'other',
     }"
   >
     <div
       :class="{
-        'footer-phone': $mq === 'phone',
-        'footer-normal': $mq !== 'phone',
+        'footer-small': $mq === 'phone' || $mq === 'tabletSm',
+        'footer-normal': $mq === 'tablet' || $mq === 'other',
       }"
     >
       <i18n-t keypath="nanoFooter.createdBy.main" tag="span" class="footer-content">
@@ -30,7 +31,7 @@
         <a
           href="https://nanocrawler.cc/explorer/account/nano_3fb56gt1896wmzfrs78oowdjwed9arm1mugtg48eupewfnuq4io1gfjors5j/history"
           target="_blank"
-          :class="{ 'footer-content-phone': $mq === 'phone' }"
+          :class="{ 'footer-content-phone': $mq === 'phone' || $mq === 'tabletSm' }"
           >nano_3fb56gt1896wmzfrs78oowdjwed9arm1mugtg48eupewfnuq4io1gfjors5j</a
         >
       </i18n-t>
@@ -38,14 +39,14 @@
         <a
           href="https://nanocrawler.cc/explorer/account/nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq/history"
           target="_blank"
-          :class="{ 'footer-content-phone': $mq === 'phone' }"
+          :class="{ 'footer-content-phone': $mq === 'phone' || $mq === 'tabletSm' }"
           >nano_17yrgm818r4348g4r61oc7x3w6nd68ji85686d5xo3nt455znb65zafaofrq</a
         >
       </i18n-t>
       <div
         :class="{
-          'footer-phone': $mq === 'phone',
-          'footer-normal': $mq !== 'phone',
+          'footer-small': $mq === 'phone' || $mq === 'tabletSm',
+          'footer-normal': $mq === 'tablet' || $mq === 'other',
         }"
       >
         <i18n-t keypath="nanoFooter.feedback.main" tag="span" class="footer-content">
@@ -57,18 +58,18 @@
           <a
             href="https://policies.google.com/privacy"
             target="_blank"
-            :class="{ 'footer-content-phone': $mq === 'phone' }"
+            :class="{ 'footer-content-phone': $mq === 'phone' || $mq === 'tabletSm' }"
             >{{ t('nanoFooter.recaptcha.policy') }}</a
           >
           <a
             href="https://policies.google.com/terms"
             target="_blank"
-            :class="{ 'footer-content-phone': $mq === 'phone' }"
+            :class="{ 'footer-content-phone': $mq === 'phone' || $mq === 'tabletSm' }"
             >{{ t('nanoFooter.recaptcha.tos') }}</a
           >
         </i18n-t>
       </div>
-      <div class="feedback_form">
+      <div class="feedback-form">
         <FeedbackForm
           :feedbackDialogVisible="feedbackDialogVisible"
           @hideFeedbackForm="toggleFeedbackDialogVisibility(false)"
@@ -123,6 +124,10 @@ export default {
 }
 
 .footer-phone {
+  font-size: 85%;
+}
+
+.footer-small {
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -148,7 +153,7 @@ export default {
   max-width: 100%;
 }
 
-.feedback_form {
+.feedback-form {
   text-align: center;
 }
 </style>
