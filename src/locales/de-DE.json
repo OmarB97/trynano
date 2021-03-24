@@ -6,7 +6,7 @@
       "description": {
         "one": "Schnapp Dir ein paar Nano",
         "two": "Probier es aus",
-        "three": "Richte Dein Wallet ein",
+        "three": "Richte Deine Wallet ein",
         "four": "Fertig!"
       }
     },
@@ -69,7 +69,7 @@
   },
   "demo": {
     "nanoDemo": {
-      "firstSentence": "Versuche ein paar Nano zwischen diesen beiden Wallets hin und herzusenden, um ein Gefühl dafür zu bekommen, wie schnell und einfach es ist, Nano zu nutzen!",
+      "firstSentence": "Versuche ein paar Nano zwischen diesen beiden Wallets hin und her zu senden, um ein Gefühl dafür zu bekommen, wie schnell und einfach es ist, Nano zu nutzen!",
       "firstWalletLetter": "A",
       "secondWalletLetter": "B",
       "sendToWallet": "Sende zu Wallet {walletLetter}",
@@ -111,8 +111,8 @@
   },
   "claimNano": {
     "firstSentence": {
-      "main": "Um deine Nano in Anspruch zu nehmen, musst Du ein {0} einrichten, in dem Du sie verwahren kannst.",
-      "privateWallet": "privates Wallet"
+      "main": "Um deine Nano in Anspruch zu nehmen, musst Du eine {0} einrichten, in der Du sie verwahren kannst.",
+      "privateWallet": "private Wallet"
     },
     "secondSentence": {
       "main": "Die beliebtesten Wallets in der Nano-Community sind {0} (Android/iOS) und {1} (Web/Desktop).",
@@ -160,7 +160,7 @@
       "feedbackLink": "hier"
     },
     "recaptcha": {
-      "main": " Diese Seite ist durch reCAPTCHA geschützt und die {0} sowie die {1} gelten.",
+      "main": " Diese Seite ist durch reCAPTCHA geschützt und die {0} sowie den geltenden {1}.",
       "policy": "Google-Datenschutzbestimmungen",
       "tos": "Nutzungsbedingungen"
     }
