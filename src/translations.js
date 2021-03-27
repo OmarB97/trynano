@@ -1,6 +1,7 @@
 import en from './locales/en.json';
 import * as ptBR from './locales/pt-BR.json';
 import * as frFR from './locales/fr-FR.json';
+import * as plPL from './locales/pl-PL.json';
 
 /* To add a new translation: 
     1. create a new json file under ./locals/<language>.json
@@ -12,6 +13,7 @@ const translations = {
     en, /* English */
     'pt-BR': ptBR.default, /* Brazilian Portuguese */
     'fr-FR': frFR.default, /* Brazilian Portuguese */
+    'pl-PL': plPL.default, /* Polish */
 }
 
 export default translations;
