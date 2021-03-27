@@ -1,0 +1,201 @@
+{
+  "nanoApp": {
+    "networkAlert": "TryNanoは現在、ナノネットワークとの通信に問題が発生しています。ご理解いただきありがとうございます。",
+    "steps": {
+      "title": "ステップ {count}",
+      "description": {
+        "one": "ナノを手にする",
+        "two": "送金を試す",
+        "three": "ウォレットを設定する",
+        "four": "完了!"
+      }
+    },
+    "steppers": {
+      "previous": " 前のステップ",
+      "next": "次のステップ "
+    },
+    "generatingWallets": "ウォレット生成中..."
+  },
+  "nanoIntro": {
+    "firstSentence": "TryNanoとは、2つの用意されたウォレットをお互いにナノをやり取りすることで、ナノの取引がいかに速くて簡単であるかを示すサイトである。",
+    "secondSentence": {
+      "main": "{0}　ナノ（NANO）は環境に配慮しながら、即時の取引、手数料ゼロ、拡張性を提供するように設計されたピアツーピアのデジタル通貨である。",
+      "whatIsNano": "ナノとは?"
+    },
+    "revealText": "自分で試してみたがったら、ここをクリックしてください。"
+  },
+  "nanoFaucetInfo": {
+    "faucetButton": "TryNanoのフォーセットを使う",
+    "requestingFaucet": "フォーセットからナノを要求中...",
+    "receivePendingFromFaucet": "ナノが送られました。フォーセットから保留中のナノを受信中...",
+    "faucetReceived": "ナノが届きました！",
+    "gettingFaucetInfo": "フォーセット情報を取得中...",
+    "faucetBalance": {
+      "main": "フォーセット残高: {0}",
+      "balance": "{faucetBalance} Ñ"
+    },
+    "faucetPayout": {
+      "main": "フォーセット払い出し: {0}",
+      "payout": "{faucetPayout}"
+    },
+    "dividerText": "オア",
+    "firstSentence": {
+      "main": "{0} を使いたいなら、リンクをアクセスして以下の生成されたウォレットのアドレスを貼り付けてください。",
+      "faucetUrl": "nano-faucet.org"
+    },
+    "secondSentence": {
+      "main": "({0}： NanoTipBotで受け取ったチップを代わりに使いたい場合は、{1}で説明している「!withdraw」というコマンドを使ってください。)",
+      "note": "注",
+      "nanoTipBotUrl": "ここ"
+    },
+    "popover": {
+      "main": "{0}とは、暗号通貨を送受信のための仮想的な場所となる固有の識別子のことで、メールアドレスと同じようなものです。",
+      "walletAddress": "ウォレットのアドレス"
+    },
+    "tooltip": {
+      "copyAddress": "アドレスをコピーする",
+      "copiedAddress": "コピーされた!"
+    },
+    "generatedWalletAddress": "生成されたウォレットのアドレス",
+    "depositStatus": {
+      "main": "ステータス：",
+      "notReceived": "非受信",
+      "received": "受信!"
+    },
+    "walletBalance": {
+      "main": "残高：",
+      "amount": "{walletBalance} Ñ"
+    }
+  },
+  "demo": {
+    "nanoDemo": {
+      "firstSentence": "この2つのウォレットの間でナノを送金してみると、ナノの使いやすさを実感できるようになります！",
+      "firstWalletLetter": "A",
+      "secondWalletLetter": "B",
+      "sendToWallet": "{walletLetter}ウォレットへ送金する",
+      "sending": "送金中...",
+      "sent": "送金完了!",
+      "confirmingReceivedNano": "ナノの受け取りを確認する...",
+      "transactionTime": {
+        "default": "N/A",
+        "time": "{time}秒"
+      }
+    },
+    "nanoWallet": {
+      "walletLabel": "ナノウォレット {walletLetter}",
+      "addressLabel": "アドレス：",
+      "walletBalance": {
+        "label": "残高：",
+        "amount": "{nanoBalance} Ñ"
+      }
+    },
+    "nanoTransactionResults": {
+      "title": "送金の結果",
+      "placeholder": "送金を開始するため、2つのウォレットの間でナノを送ってください。",
+      "transactionTime": {
+        "label": "送金スピード：",
+        "time": "{transactionTime}"
+      },
+      "transactionFees": {
+        "label": "手数料：",
+        "fees": "無料"
+      },
+      "energyConsumption": {
+        "label": "電力消費量：",
+        "usage": "~ 0.000112 kWh"
+      },
+      "sendConfirmationBlock": "送信された確認ブロックのリンク：",
+      "receiveConfirmationBlock": "受信された確認ブロックのリンク：",
+      "nanoCrawlerLink": "NanoCrawler"
+    }
+  },
+  "claimNano": {
+    "firstSentence": {
+      "main": "使ったナノを受け取るためには、ナノを保管するための{0}を設定する必要があります。",
+      "privateWallet": "プライベートウォレット"
+    },
+    "secondSentence": {
+      "main": "ナノコミュニティで最も人気のあるウォレットは{0}（アンドロイド/アップル）と{1}（ウエブ/デスクトップ）である。",
+      "natrium": "ナトリウム「Natrium」",
+      "nault": "ノールト「Nault」"
+    },
+    "thirdSentence": {
+      "main": "（より詳細なウォレットリストは、{0}をご覧ください。）",
+      "guide": "こちらのガイド"
+    },
+    "fourthSentence": "ウォレットの設定が完了したら、以下に新しいナノウォレットのアドレスを入れて送信をクリックしてください。",
+    "addressPlaceholder": "ナノのアドレスをご入力ください。",
+    "validNanoAddress": "有効なナノのアドレス",
+    "invalidNanoAddress": "無効なナノのアドレス",
+    "send": "送信",
+    "dividerText": "オア",
+    "returnToSender": "送信者に戻る",
+    "sending": "送信中...",
+    "sent": "送信された!"
+  },
+  "nanoResources": {
+    "title": "TryNanoをご利用いただきありがとうございます。",
+    "firstSentence": {
+      "main": "コアチーム、ソーシャルメディアチャンネル、ナノの購入先など、ナノに関連するリソースの総合的なリストは、{0}をご覧ください。",
+      "nanoLinksUrl": "nanolinks.info"
+    },
+    "secondSentence": {
+      "main": "もしこの体験を気に入っていただけたなら、このウェブサイトを運営し続けるために、私のアドレス{0}かTryNanoフォーセット{1}への寄付をご検討ください。"
+    }
+  },
+  "nanoFooter": {
+    "createdBy": {
+      "main": "TryNanoフォーセットは{0}と{1}で作り上げた",
+      "omar": "Omar Baradei",
+      "patrick": "Patrick Smith"
+    },
+    "github": {
+      "main": "{0}へのリンク",
+      "url": "GitHub"
+    },
+    "faucet": "TryNanoフォーセットへの寄付：{0}。",
+    "tips": "私への寄付：{0}.",
+    "feedback": {
+      "main": "{0}でフィードバックをあげられる",
+      "feedbackLink": "ここ"
+    },
+    "recaptcha": {
+      "main": " このサイトは reCAPTCHA と {0} で保護されています。{1} が適用されています。",
+      "policy": "Google Privacy Policy",
+      "tos": "利用規約"
+    }
+  },
+  "feedbackForm": {
+    "title": "フィードバック",
+    "name": {
+      "label": "名前",
+      "rule": "名前を入れてください"
+    },
+    "email": {
+      "label": "メール",
+      "rules": {
+        "required": "メールアドレスを入れてください",
+        "email": "無効なメールアドレス"
+      }
+    },
+    "feedbackType": {
+      "label": "フィードバックタイプ",
+      "type": {
+        "bug": "不具合",
+        "featureRequest": "機能リクエスト",
+        "other": "他"
+      }
+    },
+    "message": {
+      "label": "メッセージ",
+      "rules": {
+        "required": "メッセージを入れてください",
+        "min": "10文字以上で入れてください。"
+      }
+    },
+    "buttons": {
+      "cancel": "キャンセル",
+      "confirm": "送信"
+    }
+  }
+}
