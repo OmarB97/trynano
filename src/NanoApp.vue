@@ -202,6 +202,8 @@ export default {
         'ja-JP': '日本語',
         'de-DE': 'Deutsch (Deutschland)',
         'es-MX': 'Español (México)',
+        'pl-PL': 'Polski',
+        'es-VE': 'Español (Venezuela)',
       },
     };
   },

@@ -1,0 +1,201 @@
+{
+  "nanoApp": {
+    "networkAlert": "TryNano está actualmente enfrentando dificultades al intentar comunicarse con la red Nano. ¡Gracias por su comprensión!",
+    "steps": {
+      "title": "Paso {count}",
+      "description": {
+        "one": "Coge un poco de nano",
+        "two": "Pruébelo",
+        "three": "Configura tu billetera",
+        "four": "¡Listo!"
+      }
+    },
+    "steppers": {
+      "previous": " Paso anterior",
+      "next": "Paso siguiente "
+    },
+    "generatingWallets": "Generando billeteras..."
+  },
+  "nanoIntro": {
+    "firstSentence": "TryNano demuestra lo rápidas y sencillas que son las transacciones Nano al proporcionarle dos billeteras para enviar Nano entre sí.",
+    "secondSentence": {
+      "main": "{0} Nano (NANO) es una moneda digital peer-to-peer diseñada para proporcionar transacciones instantáneas, cero tarifas y escalabilidad, todo mientras es ecológico.",
+      "whatIsNano": "Qué es Nano?"
+    },
+    "revealText": "¡Haga clic aquí para probarlo usted mismo!"
+  },
+  "nanoFaucetInfo": {
+    "faucetButton": "Utilice TryNano Faucet",
+    "requestingFaucet": "Solicitando Nano de Faucet...",
+    "receivePendingFromFaucet": "¡Faucet Nano enviado! Recibiendo Nano pendiente de Faucet...",
+    "faucetReceived": "¡Faucet Nano Recibido!",
+    "gettingFaucetInfo": "Obteniendo información de Faucet...",
+    "faucetBalance": {
+      "main": "Saldo de grifo: {0}",
+      "balance": "{faucetBalance} Ñ"
+    },
+    "faucetPayout": {
+      "main": "Pago de grifo: {0}",
+      "payout": "{faucetPayout}"
+    },
+    "dividerText": "O",
+    "firstSentence": {
+      "main": "Vaya a {0} y pegue la dirección de billetera generada a continuación.",
+      "faucetUrl": "nano-faucet.org"
+    },
+    "secondSentence": {
+      "main": "({0}: Si recibió un consejo de alguien que usa NanoTipBot y le gustaría usarlo en su lugar, use el comando !withdraw command outlined {1}.)",
+      "note": "Nota",
+      "nanoTipBotUrl": "aqui"
+    },
+    "popover": {
+      "main": "Un {0} es un identificador único que sirve como una ubicación virtual donde se pueden enviar / recibir criptomonedas, ¡similar a tener una dirección de correo electrónico!",
+      "walletAddress": "dirección de billetera"
+    },
+    "tooltip": {
+      "copyAddress": "Copiar dirección",
+      "copiedAddress": "¡Copiado!"
+    },
+    "generatedWalletAddress": "Dirección de billetera generada",
+    "depositStatus": {
+      "main": "Estado:",
+      "notReceived": "No recibido",
+      "received": "¡Recibido!"
+    },
+    "walletBalance": {
+      "main": "Principal:",
+      "amount": "{walletBalance} Ñ"
+    }
+  },
+  "demo": {
+    "nanoDemo": {
+      "firstSentence": "¡Intente de enviar nano entre estas dos billeteras para tener una idea de lo rápido y fácil que es usar Nano!",
+      "firstWalletLetter": "A",
+      "secondWalletLetter": "B",
+      "sendToWallet": "Enviar a billetera {walletLetter}",
+      "sending": "Enviando...",
+      "sent": "¡Enviado!",
+      "confirmingReceivedNano": "Confirmando Nano Recibido...",
+      "transactionTime": {
+        "default": "N/D",
+        "time": "{time} segundos"
+      }
+    },
+    "nanoWallet": {
+      "walletLabel": "Nano Billetera {walletLetter}",
+      "addressLabel": "Dirección:",
+      "walletBalance": {
+        "label": "Principal:",
+        "amount": "{nanoBalance} Ñ"
+      }
+    },
+    "nanoTransactionResults": {
+      "title": "Resultados de la transacción",
+      "placeholder": "¡Envía Nano entre las dos carteras para iniciar una transacción!",
+      "transactionTime": {
+        "label": "Tiempo de la transacción:",
+        "time": "{transactionTime}"
+      },
+      "transactionFees": {
+        "label": "Tarifas de transacción:",
+        "fees": "Ninguna"
+      },
+      "energyConsumption": {
+        "label": "Consumo de energía:",
+        "usage": "~ 0.000112 kWh"
+      },
+      "sendConfirmationBlock": "Consumo de energía",
+      "receiveConfirmationBlock": "Consumo de energía",
+      "nanoCrawlerLink": "en NanoCrawler"
+    }
+  },
+  "claimNano": {
+    "firstSentence": {
+      "main": "Para reclamar su Nano, deberá configurar un {0} para almacenarlo.",
+      "privateWallet": "billetera privada"
+    },
+    "secondSentence": {
+      "main": "Las carteras más populares de la comunidad Nano son {0} (Android/iOS) and {1} (Web/Desktop).",
+      "natrium": "Natrium",
+      "nault": "Nault"
+    },
+    "thirdSentence": {
+      "main": "(Para obtener una lista más completa de opciones, visite {0}.)",
+      "guide": "esta guía"
+    },
+    "fourthSentence": "Cuando haya terminado de configurar su billetera, ingrese su nueva dirección de billetera Nano a continuación y haga clic en enviar. ¡Eso es todo!",
+    "addressPlaceholder": "Ingrese su Nano dirección...",
+    "validNanoAddress": "Nano dirección válida",
+    "invalidNanoAddress": "Nano dirección no válida",
+    "send": "Enviar",
+    "dividerText": "O",
+    "returnToSender": "Volver al remitente",
+    "sending": "Enviando..",
+    "sent": "¡Enviado!"
+  },
+  "nanoResources": {
+    "title": "¡Gracias por usar TryNano!",
+    "firstSentence": {
+      "main": "Para obtener una lista completa de recursos relacionados con Nano, incluido el equipo, canales de redes sociales, dónde comprar Nano y más, visite {0}.",
+      "nanoLinksUrl": "nanolinks.info"
+    },
+    "secondSentence": {
+      "main": "Si te gustó esta experiencia, considera hacer una donación a mí en {0} o en TryNano Faucet {1} tpara ayudar a mantener el sitio web en funcionamiento!"
+    }
+  },
+  "nanoFooter": {
+    "createdBy": {
+      "main": "Creado por {0} y {1}.",
+      "omar": "Omar Baradei",
+      "patrick": "Patrick Smith"
+    },
+    "github": {
+      "main": "Enlace a {0}.",
+      "url": "GitHub"
+    },
+    "faucet": "Donar a  TryNano Faucet: {0}.",
+    "tips": "Sugerencias aceptadas en: {0}.",
+    "feedback": {
+      "main": "Enviar comentarios {0}.",
+      "feedbackLink": "aqui"
+    },
+    "recaptcha": {
+      "main": " Este sitio está protegido por reCAPTCHA y se aplican {0} y {1} apply.",
+      "policy": "Política de privacidad de Google",
+      "tos": "Condiciones de servicio"
+    }
+  },
+  "feedbackForm": {
+    "title": "Enviar comentarios",
+    "name": {
+      "label": "Nombre",
+      "rule": "Introduzca un nombre"
+    },
+    "email": {
+      "label": "Correo electrónico",
+      "rules": {
+        "required": "Introduzca un correo electrónico",
+        "email": "IDirección de correo electrónico no es válida"
+      }
+    },
+    "feedbackType": {
+      "label": "Tipo de comentarios",
+      "type": {
+        "bug": "Error",
+        "featureRequest": "Solicitud de funcion",
+        "other": "Otro"
+      }
+    },
+    "message": {
+      "label": "Mensaje",
+      "rules": {
+        "required": "Introduzca un mensaje",
+        "min": "Introduzca mas de 10 caracteres"
+      }
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "confirm": "Confirmar"
+    }
+  }
+}
