@@ -4,6 +4,14 @@
     <div>
       <div class="content-vertical-align">
         <div>
+          <el-alert
+            :title="t('nanoApp.networkAlert')"
+            type="warning"
+            effect="dark"
+            center
+            show-icon
+          >
+          </el-alert>
           <div :style="{ float: 'right', width: headerWidth }">
             <el-row type="flex" justify="end" align="middle" class="header-row">
               <el-col :span="languageSpan">
