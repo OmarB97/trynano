@@ -5,8 +5,8 @@
       <div class="content-vertical-align">
         <div>
           <el-alert
-            :title="t('nanoApp.networkAlert.backOnline')"
-            type="success"
+            :title="t('nanoApp.networkAlert.warning')"
+            type="warning"
             effect="dark"
             center
             show-icon
