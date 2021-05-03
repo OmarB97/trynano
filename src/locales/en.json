@@ -1,7 +1,7 @@
 {
   "nanoApp": {
     "networkAlert": {
-      "warning": "TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!",
+      "warning": "Due to ongoing issues with the Nano network, there may be delays while sending transactions on TryNano. As a result, the TryNano Faucet will remain disabled until network conditions are back to normal. Thank you for your understanding!",
       "backOnline": "The TryNano Faucet is back online and ready to use!"
     },
     "steps": {
