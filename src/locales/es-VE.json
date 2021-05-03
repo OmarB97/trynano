@@ -1,6 +1,8 @@
 {
   "nanoApp": {
-    "networkAlert": "TryNano esta teniendo algunas dificultades cuando trata de comunicarse con la red Nano. Gracias por tu entendimiento!",
+    "networkAlert": {
+      "warning": "TryNano esta teniendo algunas dificultades cuando trata de comunicarse con la red Nano. Gracias por tu entendimiento!"
+    },
     "steps": {
       "title": "Paso {count}",
       "description": {

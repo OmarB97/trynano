@@ -1,6 +1,9 @@
 {
   "nanoApp": {
-    "networkAlert": "TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!",
+    "networkAlert": {
+      "warning": "TryNano is currently facing difficulties while trying to communicate with the Nano network. Thank you for your understanding!",
+      "backOnline": "The TryNano Faucet is back online and ready to use!"
+    },
     "steps": {
       "title": "Step {count}",
       "description": {

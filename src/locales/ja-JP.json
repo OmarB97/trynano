@@ -1,6 +1,8 @@
 {
   "nanoApp": {
-    "networkAlert": "TryNanoは現在、ナノネットワークとの通信に問題が発生しています。ご理解いただきありがとうございます。",
+    "networkAlert": {
+      "warning": "TryNanoは現在、ナノネットワークとの通信に問題が発生しています。ご理解いただきありがとうございます。"
+    },
     "steps": {
       "title": "ステップ {count}",
       "description": {
