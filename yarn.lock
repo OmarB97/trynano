@@ -3644,6 +3644,11 @@
     "normalize-wheel" "^1.0.1"
     "resize-observer-polyfill" "^1.5.1"
 
+"element-theme-chalk@^2.15.2":
+  "integrity" "sha512-+djbCItT2H/I/gdXzSgUgs3YYYVBJbQG/nyv1xhnAqHEMfhBuZKHjozmM8mFMvE3Ms93K+kIq0oYoMaO5mcJqA=="
+  "resolved" "https://registry.npmjs.org/element-theme-chalk/-/element-theme-chalk-2.15.2.tgz"
+  "version" "2.15.2"
+
 "elliptic@^6.5.3":
   "integrity" "sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ=="
   "resolved" "https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz"
