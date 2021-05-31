@@ -5,8 +5,8 @@
     :status="status"
     :show-text="false"
     :indeterminate="isTransactionInProgress"
-    :speed="3"
-    :stroke-width="$mq === 'phone' ? 16 : 6"
+    :stroke-width="6"
+    :duration="1"
   ></el-progress>
 </template>
 
@@ -15,25 +15,25 @@ import { ref, getCurrentInstance } from 'vue';
 
 export default {
   name: 'NanoTransactionStatusBar',
-  props: {
-    status: String,
-  },
   setup() {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const currentPercent = ref(0);
     const isTransactionInProgress = ref(false);
+    const status = ref(null);
 
     emitter.on('transaction-started', () => {
-      isTransactionInProgress.value = true;
       currentPercent.value = 50;
+      isTransactionInProgress.value = true;
+      status.value = null;
     });
 
-    emitter.on('transaction-finished', () => {
+    emitter.on('transaction-finished', (transactionStatus) => {
       currentPercent.value = 100;
       isTransactionInProgress.value = false;
+      status.value = transactionStatus;
     });
 
-    return { currentPercent, isTransactionInProgress };
+    return { status, currentPercent, isTransactionInProgress };
   },
 };
 </script>

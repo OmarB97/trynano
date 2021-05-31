@@ -53,7 +53,7 @@
         >
       </el-col>
       <el-col :span="barSpan">
-        <NanoTransactionStatusBar :status="transactionStatus"></NanoTransactionStatusBar>
+        <NanoTransactionStatusBar></NanoTransactionStatusBar>
       </el-col>
       <el-col :span="walletSpan">
         <NanoWallet
@@ -223,8 +223,6 @@ export default {
       return res;
     });
 
-    const transactionStatus = ref(null);
-
     const disableNanoA = computed(() => {
       return props.firstWallet.balance.raw === '0' || sendingNanoA.value;
     });
@@ -237,7 +235,6 @@ export default {
       showTransactionResults.value = false;
       confirmationSendHash.value = null;
       confirmationReceiveHash.value = null;
-      transactionStatus.value = null;
 
       // Generate recaptcha token
       const token = await getRecaptchaToken(
@@ -261,7 +258,7 @@ export default {
         );
 
         if (res.error) {
-          transactionStatus.value = 'exception';
+          emitter.emit('transaction-finished', 'exception');
           sendingNanoA.value = false;
           ElMessage({
             message: res.error,
@@ -282,7 +279,7 @@ export default {
         );
 
         if (res.error) {
-          transactionStatus.value = 'exception';
+          emitter.emit('transaction-finished', 'exception');
           sendingNanoB.value = false;
           ElMessage({
             message: res.error,
@@ -307,10 +304,9 @@ export default {
         wasSent = false;
       }
       if (wasSent) {
-        emitter.emit('transaction-finished');
+        emitter.emit('transaction-finished', 'success');
         confirmationSendHash.value = sendData.hash;
         showTransactionResults.value = true;
-        transactionStatus.value = 'success';
       }
     });
 
@@ -350,7 +346,6 @@ export default {
       transactionTime,
       confirmationSendHash,
       confirmationReceiveHash,
-      transactionStatus,
     };
   },
 };
