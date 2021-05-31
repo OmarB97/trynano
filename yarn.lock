@@ -3671,9 +3671,9 @@
   "version" "1.3.725"
 
 "element-plus@*":
-  "integrity" "sha512-GikmQdajaKB5oLxfHxhKXGXtiNoaN1wYiLr9aRx+yxwLx3nPDfoBx60+nrZoN6BOCk2M0HjBVj9TtA214WLRYw=="
-  "resolved" "https://registry.npmjs.org/element-plus/-/element-plus-1.0.2-beta.41.tgz"
-  "version" "1.0.2-beta.41"
+  "integrity" "sha512-F5U+fx3Lg7fvUPVSxrDQ02HKQbD9Az0fd7SYoqUOZhTuC9PPYlLezs7Pzpme0893cki18Dh7BS1mBcWcUg9ZWQ=="
+  "resolved" "https://registry.npmjs.org/element-plus/-/element-plus-1.0.2-beta.45.tgz"
+  "version" "1.0.2-beta.45"
   dependencies:
     "@popperjs/core" "^2.4.4"
     "@types/lodash" "^4.14.161"
