@@ -164,12 +164,13 @@
         </div>
       </div>
     </div>
+    <div ref="scrollEl"></div>
     <NanoFooter></NanoFooter>
   </div>
 </template>
 
 <script>
-import { ref, computed, getCurrentInstance } from 'vue';
+import { ref, inject, computed, getCurrentInstance } from 'vue';
 import removeTrailingZeros from 'remove-trailing-zeros';
 import { tools } from 'nanocurrency-web';
 import { NANO } from '@nanobox/nano-client/dist/models';
@@ -253,6 +254,9 @@ export default {
     const { generateWallets, getFaucetInfo, receiveNano } = serverAPI();
     const { firstSampleWallet, secondSampleWallet } = sampleWalletData();
 
+    const smoothScroll = inject('smoothScroll');
+    const scrollEl = ref(null);
+
     const currentStep = ref(0);
     const transitionDirection = ref('fade-in-down');
 
@@ -321,6 +325,12 @@ export default {
 
     const handleRevealStepsClicked = async () => {
       didRevealSteps.value = true;
+      // smooth scroll down to steps element on initial dropdown click
+      smoothScroll({
+        scrollTo: scrollEl.value,
+        duration: 700,
+        offset: -70,
+      });
       const token1 = await getRecaptchaToken(
         recaptchaLoaded,
         executeRecaptcha,
@@ -486,6 +496,7 @@ export default {
       recaptchaLoaded,
       executeRecaptcha,
       nanoOriginAddressMap,
+      scrollEl,
     };
   },
 };

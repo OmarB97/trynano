@@ -6,10 +6,12 @@ import VueMq from "vue3-mq";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import { createI18n } from 'vue-i18n'
+import VueSmoothScroll from 'vue3-smooth-scroll'
 import NanoApp from "./NanoApp.vue";
 import installElementPlus from "./plugins/element";
 import "../node_modules/hover.css";
 import translations from "./translations";
+
 
 const app = createApp(NanoApp);
 installElementPlus(app);
@@ -50,4 +52,8 @@ app
   .use(VueMq, vueMqConfig)
   .use(VueReCaptcha, { siteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY })
   .use(i18n)
+  .use(VueSmoothScroll, {
+    duration: 400,
+    updateHistory: false,
+  })
   .mount("#app");
