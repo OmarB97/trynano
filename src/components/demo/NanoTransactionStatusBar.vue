@@ -3,10 +3,9 @@
     :width="1000"
     :percentage="currentPercent"
     :status="status"
-    :show-text="didStartTransaction"
-    :indeterminate="true"
-    :duration="1"
-    :text-inside="$mq === 'phone'"
+    :show-text="false"
+    :indeterminate="isTransactionInProgress"
+    :speed="3"
     :stroke-width="$mq === 'phone' ? 16 : 6"
   ></el-progress>
 </template>
@@ -19,29 +18,22 @@ export default {
   props: {
     status: String,
   },
-  setup(props) {
+  setup() {
     const { emitter } = getCurrentInstance().appContext.config.globalProperties;
     const currentPercent = ref(0);
-    const didStartTransaction = ref(false);
+    const isTransactionInProgress = ref(false);
 
     emitter.on('transaction-started', () => {
-      didStartTransaction.value = true;
-      currentPercent.value = 0;
-      const interval = setInterval(() => {
-        if (currentPercent.value < 99) {
-          currentPercent.value += 1;
-        }
-        if (props.status !== null) {
-          clearInterval(interval);
-        }
-      }, 100);
+      isTransactionInProgress.value = true;
+      currentPercent.value = 50;
     });
 
     emitter.on('transaction-finished', () => {
       currentPercent.value = 100;
+      isTransactionInProgress.value = false;
     });
 
-    return { didStartTransaction, currentPercent };
+    return { currentPercent, isTransactionInProgress };
   },
 };
 </script>
