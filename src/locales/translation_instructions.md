@@ -1,6 +1,6 @@
 # Steps for Non-Coders:
 
- - **Step 1:** <a href="https://github.com/OmarB97/trynano/files/6413066/en.txt">Click here</a> to download the template txt file. Change the filename to the appropriate language code (e.g. en.txt, pt-BR.txt).
+ - **Step 1:** <a href="https://github.com/OmarB97/trynano/files/6683127/en.txt">Click here</a> to download the template txt file. Change the filename to the appropriate language code (e.g. en.txt, pt-BR.txt).
  - **Step 2:** Open up a text editor such as Notepad, or whatever your preferred editor is that allows you to edit the file.
  - **Step 3:** Translate each sentence in the file. Only modify the sentences, do not touch any words to the left of the ':' or anything contained inside curly braces (e.g. '{faucetBalance}' ) or the translation might not work properly!
  - **Step 4:** When you are done, save the file.
