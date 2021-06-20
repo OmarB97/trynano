@@ -5,8 +5,13 @@
       <div class="content-vertical-align">
         <div>
           <el-alert
-            :title="t('nanoApp.networkAlert.backOnline')"
-            type="success"
+            v-if="showStatus"
+            :title="
+              status === 'warning'
+                ? t('nanoApp.networkAlert.warning')
+                : t('nanoApp.networkAlert.backOnline')
+            "
+            :type="status"
             effect="dark"
             center
             show-icon
@@ -254,6 +259,9 @@ export default {
     const { generateWallets, getFaucetInfo, receiveNano } = serverAPI();
     const { firstSampleWallet, secondSampleWallet } = sampleWalletData();
 
+    const showStatus = process.env.VUE_APP_SHOW_STATUS === 'true';
+    const status = process.env.VUE_APP_STATUS;
+
     const smoothScroll = inject('smoothScroll');
     const scrollEl = ref(null);
 
@@ -482,6 +490,8 @@ export default {
       locale,
       availableLocales,
       version,
+      showStatus,
+      status,
       currentStep,
       decreaseStep,
       increaseStep,
