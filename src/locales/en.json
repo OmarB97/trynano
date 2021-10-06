@@ -44,7 +44,7 @@
     "dividerText": "OR",
     "firstSentence": {
       "main": "Go to {0} and paste the generated wallet address below.",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0}: If you've received a tip from someone using NanoTipBot and would like to use that instead, use the !withdraw command outlined {1}.)",

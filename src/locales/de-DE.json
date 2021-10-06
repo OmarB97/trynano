@@ -43,7 +43,7 @@
     "dividerText": "ODER",
     "firstSentence": {
       "main": "Gehe zu {0} und füge die unten erzeugte Wallet-Adresse ein.",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0}: Falls Sie ein Trinkgeld von jemandem erhalten haben, der NanoTipBot verwendet, und diesen stattdessen verwenden möchten, verwenden Sie den Befehl !withdraw wie {1} beschrieben.)",

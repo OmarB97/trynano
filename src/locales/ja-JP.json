@@ -43,7 +43,7 @@
     "dividerText": "オア",
     "firstSentence": {
       "main": "{0} を使いたいなら、リンクをアクセスして以下の生成されたウォレットのアドレスを貼り付けてください。",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0}： NanoTipBotで受け取ったチップを代わりに使いたい場合は、{1}で説明している「!withdraw」というコマンドを使ってください。)",

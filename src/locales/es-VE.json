@@ -43,7 +43,7 @@
     "dividerText": "O",
     "firstSentence": {
       "main": "Anda a {0} y pega la direccion de la billetera aqui abajo.",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0}: Si haz recibido propina de alguien usando NanoTipBot y te gustaria usar eso, usa el commando !withdraw puesto aqui {1}.)",

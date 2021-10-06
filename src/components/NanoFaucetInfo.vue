@@ -76,7 +76,7 @@
       ><div>{{ t('nanoFaucetInfo.dividerText') }}</div></el-divider
     >
     <i18n-t keypath="nanoFaucetInfo.firstSentence.main" tag="p" class="maintext">
-      <a href="https://www.nano-faucet.org" target="_blank">{{
+      <a href="https://www.freenanofaucet.com/" target="_blank">{{
         t('nanoFaucetInfo.firstSentence.faucetUrl')
       }}</a>
     </i18n-t>

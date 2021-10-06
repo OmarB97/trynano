@@ -43,7 +43,7 @@
     "dividerText": "OU",
     "firstSentence": {
       "main": "Allez sur {0} et collez l'adresse du portefeuille générée ci-dessous.",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0} : Si vous avez reçu un pourboire de la part d'une personne utilisant NanoTipBot et que vous préférez utiliser ce logiciel, utilisez la commande !withdraw référencée {1}.)",

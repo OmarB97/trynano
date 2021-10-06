@@ -43,7 +43,7 @@
     "dividerText": "LUB",
     "firstSentence": {
       "main": "Przejdź do {0} i wpisz adres wygenerowanego portfela poniżej.",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0}: Jeśli otrzymałeś napiwek od kogoś używającego NanoTipBot i chciałbyś go wykorzystać tutaj, użyj polecenia !withdraw opisanego {1}.)",

@@ -43,7 +43,7 @@
     "dividerText": "OU",
     "firstSentence": {
       "main": "Vá para {0} e cole o endereço da carteira gerado abaixo.",
-      "faucetUrl": "nano-faucet.org"
+      "faucetUrl": "freenanofaucet.com"
     },
     "secondSentence": {
       "main": "({0}: ISe você recebeu um tip de alguém usando o NanoTipBot e gostaria de usar essas Nanos, use o comando !withdraw {1}.)",
