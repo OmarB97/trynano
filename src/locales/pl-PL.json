@@ -34,7 +34,7 @@
     "gettingFaucetInfo": "Pobieranie informacji...",
     "faucetBalance": {
       "main": "Stan portfela: {0}",
-      "balance": "{faucetBalance} Ñ"
+      "balance": "Ӿ{faucetBalance}"
     },
     "faucetPayout": {
       "main": "Wartość wypłaty: {0}",
@@ -66,7 +66,7 @@
     },
     "walletBalance": {
       "main": "Stan portfela:",
-      "amount": "{walletBalance} Ñ"
+      "amount": "Ӿ{walletBalance}"
     }
   },
   "demo": {
@@ -88,7 +88,7 @@
       "addressLabel": "Adres:",
       "walletBalance": {
         "label": "Stan portfela:",
-        "amount": "{nanoBalance} Ñ"
+        "amount": "Ӿ{nanoBalance}"
       }
     },
     "nanoTransactionResults": {

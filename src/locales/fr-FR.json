@@ -34,7 +34,7 @@
     "gettingFaucetInfo": "Réception des infos du Robinet...",
     "faucetBalance": {
       "main": "Solde du Robinet : {0}",
-      "balance": "{faucetBalance} Ñ"
+      "balance": "Ӿ{faucetBalance}"
     },
     "faucetPayout": {
       "main": "Taux de distribution du Robinet : {0}",
@@ -66,7 +66,7 @@
     },
     "walletBalance": {
       "main": "Solde :",
-      "amount": "{walletBalance} Ñ"
+      "amount": "Ӿ{walletBalance}"
     }
   },
   "demo": {
@@ -88,7 +88,7 @@
       "addressLabel": "Addresse :",
       "walletBalance": {
         "label": "Solde :",
-        "amount": "{nanoBalance} Ñ"
+        "amount": "Ӿ{nanoBalance}"
       }
     },
     "nanoTransactionResults": {

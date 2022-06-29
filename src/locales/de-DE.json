@@ -34,7 +34,7 @@
     "gettingFaucetInfo": "Erhalte Faucet-Info...",
     "faucetBalance": {
       "main": "Faucet-Saldo: {0}",
-      "balance": "{faucetBalance} Ñ"
+      "balance": "Ӿ{faucetBalance}"
     },
     "faucetPayout": {
       "main": "Faucet-Auszahlung: {0}",
@@ -66,7 +66,7 @@
     },
     "walletBalance": {
       "main": "Saldo:",
-      "amount": "{walletBalance} Ñ"
+      "amount": "Ӿ{walletBalance}"
     }
   },
   "demo": {
@@ -88,7 +88,7 @@
       "addressLabel": "Addresse:",
       "walletBalance": {
         "label": "Saldo:",
-        "amount": "{nanoBalance} Ñ"
+        "amount": "Ӿ{nanoBalance}"
       }
     },
     "nanoTransactionResults": {

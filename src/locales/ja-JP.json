@@ -34,7 +34,7 @@
     "gettingFaucetInfo": "フォーセット情報を取得中...",
     "faucetBalance": {
       "main": "フォーセット残高: {0}",
-      "balance": "{faucetBalance} Ñ"
+      "balance": "Ӿ{faucetBalance}"
     },
     "faucetPayout": {
       "main": "フォーセット払い出し: {0}",
@@ -66,7 +66,7 @@
     },
     "walletBalance": {
       "main": "残高：",
-      "amount": "{walletBalance} Ñ"
+      "amount": "Ӿ{walletBalance}"
     }
   },
   "demo": {
@@ -88,7 +88,7 @@
       "addressLabel": "アドレス：",
       "walletBalance": {
         "label": "残高：",
-        "amount": "{nanoBalance} Ñ"
+        "amount": "Ӿ{nanoBalance}"
       }
     },
     "nanoTransactionResults": {
