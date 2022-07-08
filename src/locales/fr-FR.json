@@ -21,7 +21,7 @@
   "nanoIntro": {
     "firstSentence": "TryNano vous montre à quel point les transactions Nano peuvent être rapides et simples, en vous donnant deux portefeuilles pour pouvoir envoyer des Nanos de l'un à l'autre.",
     "secondSentence": {
-      "main": "{0} Nano (NANO) est une monnaie numérique de pair à pair, conçue pour permettre des transactions instantanées, sans frais et extensibles, tout en étant respectueuses de l'environnement.",
+      "main": "{0} Nano (XNO) est une monnaie numérique de pair à pair, conçue pour permettre des transactions instantanées, sans frais et extensibles, tout en étant respectueuses de l'environnement.",
       "whatIsNano": "Qu'est-ce que Nano ?"
     },
     "revealText": "Cliquez ici pour essayer !"

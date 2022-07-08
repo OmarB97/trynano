@@ -21,7 +21,7 @@
   "nanoIntro": {
     "firstSentence": "TryNano demonstriert, wie schnell und einfach Nano-Transaktionen sind, indem es Dir zwei Wallets zur Verfügung stellt, zwischen denen Du Nano hin und her schicken kannst.",
     "secondSentence": {
-      "main": "{0} Nano (NANO) ist eine digitale Peer-to-Peer-Währung, die sofortige Transaktionen, keine Gebühren und Skalierbarkeit bietet und gleichzeitig umweltfreundlich ist.",
+      "main": "{0} Nano (XNO) ist eine digitale Peer-to-Peer-Währung, die sofortige Transaktionen, keine Gebühren und Skalierbarkeit bietet und gleichzeitig umweltfreundlich ist.",
       "whatIsNano": "Was ist Nano?"
     },
     "revealText": "Klicke hier, um es selbst auszuprobieren!"
